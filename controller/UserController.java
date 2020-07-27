@@ -47,6 +47,7 @@ class UserController {
             User.setPhotoUrl(newUser.getPhotoUrl());
             User.setIsTenant(newUser.getIsTenant());
             User.setIsHost(newUser.getIsHost());
+            User.setIsAdmin(newUser.getIsAdmin());
             return repository.save(newUser);
         });
     }

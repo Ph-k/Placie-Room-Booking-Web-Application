@@ -39,7 +39,7 @@ public class User {
     @Column(nullable = false)
     private Boolean IsHost;
 
-    @Column(nullable = false)
+    @NotNull
     private  Boolean IsAdmin;
 
     public User(){}
