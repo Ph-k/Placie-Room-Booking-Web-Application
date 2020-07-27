@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,13 +15,13 @@ import java.util.Date;
 public class Message {
     private @Id @GeneratedValue Long MessageId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long SenderId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long ReceiverId;
 
-    @NotNull
+    @Column(nullable = false)
     private String Text;
 
 
@@ -28,8 +30,7 @@ public class Message {
 
     public Message(){}
 
-    public Message(Long messageId, Long senderId, Long receiverId, String text,Date date) {
-        MessageId = messageId;
+    public Message(Long senderId, Long receiverId, String text,Date date) {
         SenderId = senderId;
         ReceiverId = receiverId;
         Text = text;

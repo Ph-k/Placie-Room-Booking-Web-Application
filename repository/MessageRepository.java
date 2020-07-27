@@ -13,4 +13,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Query(value = "SELECT * FROM message WHERE receiver_id=?1", nativeQuery = true)
     List<Message> getReceived(Long ReceiverId);
+
+    /*@Query(value = "" ,nativeQuery = true)
+    List<Message> getBetween(Long ReceiverId);*/
 }

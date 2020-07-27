@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,19 +14,19 @@ import java.util.Date;
 public class Reservation {
     private @Id @GeneratedValue Long ReservationId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long UserId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long PlaceId;
 
-    @NotNull
+    @Column(nullable = false)
     private Date StartingDate;
 
-    @NotNull
+    @Column(nullable = false)
     private Date EndingDate;
 
-    @NotNull
+    @Column(nullable = false)
     private Integer NumberOfPeople;
 
     public Reservation() {}

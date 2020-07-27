@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,15 +12,15 @@ import java.util.Date;
 @Data
 @Entity
 public class Availability {
-    private @Id @GeneratedValue Long AvailabilityId;// do we need that?
+    private @Id @GeneratedValue Long AvailabilityId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long PlaceId;
 
-    @NotNull
+    @Column(nullable = false)
     private Date StartingDate;
 
-    @NotNull
+    @Column(nullable = false)
     private Date EndingDate;
 
     public  Availability() {}

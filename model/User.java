@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,36 +13,39 @@ import javax.persistence.Id;
 public class User {
     private @Id @GeneratedValue Long UserId;
 
-    @NotNull
+    @Column(nullable = false)
     private String UserName;
 
-    @NotNull
+    @Column(nullable = false)
     private String Password;
 
-    @NotNull
+    @Column(nullable = false)
     private String FirstName;
 
-    @NotNull
+    @Column(nullable = false)
     private String LastName;
 
-    @NotNull
+    @Column(nullable = false)
     private String EMail;
 
-    @NotNull
-    private Short Telephone;
+    @Column(nullable = false)
+    private Long Telephone;
 
     private String PhotoUrl;
 
-    @NotNull
+    @Column(nullable = false)
     private Boolean IsTenant;
 
-    @NotNull
+    @Column(nullable = false)
     private Boolean IsHost;
+
+    @Column(nullable = false)
+    private  Boolean IsAdmin;
 
     public User(){}
 
     public User(String userName, String password, String firstName, String lastName, String email,
-                Short telephone, String photoUrl, Boolean isTenant, Boolean isHost){
+                Long telephone, String photoUrl, Boolean isTenant, Boolean isHost, Boolean isAdmin){
         UserName = userName;
         Password = password;
         FirstName = firstName;
@@ -50,6 +55,7 @@ public class User {
         PhotoUrl = photoUrl;
         IsTenant = isTenant;
         IsHost = isHost;
+        IsAdmin = isAdmin;
     }
 
 }

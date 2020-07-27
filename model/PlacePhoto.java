@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class PlacePhoto {
-    private @Id @GeneratedValue Long PlacePhotoId;//why?
+    private @Id @GeneratedValue Long PlacePhotoId;
 
     @NotNull
     private Long PlaceId;

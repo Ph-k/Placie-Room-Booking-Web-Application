@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import javax.persistence.Id;
 public class Review {
     private @Id @GeneratedValue Long ReservationId;
 
-    @NotNull
+    @Column(nullable = false)
     private Integer ReviewStars;
 
     private String ReviewText;

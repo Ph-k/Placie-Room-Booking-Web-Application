@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,18 +14,18 @@ import javax.persistence.Id;
 public class Place{
     private @Id @GeneratedValue Long PlaceId;
 
-    @NotNull
+    @Column(nullable = false)
     private Long HostId;
 
     private String MainPhotoUrl;
 
-    @NotNull
+    @Column(nullable = false)
     private String Region;
 
-    @NotNull
+    @Column(nullable = false)
     private String Address;
 
-    @NotNull
+    @Column(nullable = false)
     private String OpenStreetMapUrl;
 
     private String Transportation;
@@ -32,7 +34,7 @@ public class Place{
 
     private String Type;
 
-    @NotNull
+    @Column(nullable = false)
     private Float MinCost;
 
     private Float AdditionalCostPerPerson;
