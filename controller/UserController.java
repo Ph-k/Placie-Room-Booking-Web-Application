@@ -45,8 +45,8 @@ class UserController {
             User.setPassword(newUser.getPassword());
             User.setTelephone(newUser.getTelephone());
             User.setPhotoUrl(newUser.getPhotoUrl());
-            User.setTenant(newUser.getTenant());
-            User.setHost(newUser.getHost());
+            User.setIsTenant(newUser.getIsTenant());
+            User.setIsHost(newUser.getIsHost());
             return repository.save(newUser);
         });
     }

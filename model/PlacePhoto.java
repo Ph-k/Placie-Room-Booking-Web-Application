@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class PlacePhoto {
-    private @Id @GeneratedValue Long PlacePhotoId;
+    private @Id @GeneratedValue Long PlacePhotoId;//why?
 
     @NotNull
     private Long PlaceId;
@@ -22,30 +22,6 @@ public class PlacePhoto {
     public PlacePhoto(Long placePhotoId, Long placeId, String photoUrl) {
         PlacePhotoId = placePhotoId;
         PlaceId = placeId;
-        PhotoUrl = photoUrl;
-    }
-
-    public Long getPlacePhotoId() {
-        return PlacePhotoId;
-    }
-
-    public void setPlacePhotoId(Long placePhotoId) {
-        PlacePhotoId = placePhotoId;
-    }
-
-    public Long getPlaceId() {
-        return PlaceId;
-    }
-
-    public void setPlaceId(Long placeId) {
-        PlaceId = placeId;
-    }
-
-    public String getPhotoUrl() {
-        return PhotoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
         PhotoUrl = photoUrl;
     }
 }

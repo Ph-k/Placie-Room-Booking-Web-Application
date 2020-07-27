@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @Entity
 public class Availability {
-    private @Id @GeneratedValue Long AvailabilityId;
+    private @Id @GeneratedValue Long AvailabilityId;// do we need that?
 
     @NotNull
     private Long PlaceId;
@@ -27,38 +27,6 @@ public class Availability {
         AvailabilityId = availabilityId;
         PlaceId = placeId;
         StartingDate = startingDate;
-        EndingDate = endingDate;
-    }
-
-    public Long getAvailabilityId() {
-        return AvailabilityId;
-    }
-
-    public void setAvailabilityId(Long availabilityId) {
-        AvailabilityId = availabilityId;
-    }
-
-    public Long getPlaceId() {
-        return PlaceId;
-    }
-
-    public void setPlaceId(Long placeId) {
-        PlaceId = placeId;
-    }
-
-    public Date getStartingDate() {
-        return StartingDate;
-    }
-
-    public void setStartingDate(Date startingDate) {
-        StartingDate = startingDate;
-    }
-
-    public Date getEndingDate() {
-        return EndingDate;
-    }
-
-    public void setEndingDate(Date endingDate) {
         EndingDate = endingDate;
     }
 }

@@ -36,44 +36,4 @@ public class Message {
         Date = date;
     }
 
-    public java.util.Date getDate() {
-        return Date;
-    }
-
-    public void setDate(java.util.Date date) {
-        Date = date;
-    }
-
-    public Long getMessageId() {
-        return MessageId;
-    }
-
-    public void setMessageId(Long messageId) {
-        MessageId = messageId;
-    }
-
-    public Long getSenderId() {
-        return SenderId;
-    }
-
-    public void setSenderId(Long senderId) {
-        SenderId = senderId;
-    }
-
-    public Long getReceiverId() {
-        return ReceiverId;
-    }
-
-    public void setReceiverId(Long receiverId) {
-        ReceiverId = receiverId;
-    }
-
-    public String getText() {
-        return Text;
-    }
-
-    public void setText(String text) {
-        Text = text;
-    }
-
 }

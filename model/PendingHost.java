@@ -15,12 +15,4 @@ public class PendingHost {
     public PendingHost(Long userId) {
         UserId = userId;
     }
-
-    public void setUserId(Long userId) {
-        UserId = userId;
-    }
-
-    public Long getUserId() {
-        return UserId;
-    }
 }

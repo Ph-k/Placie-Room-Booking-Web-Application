@@ -18,30 +18,6 @@ public class Review {
 
     public Review() {}
 
-    public Long getReservationId() {
-        return ReservationId;
-    }
-
-    public void setReservationId(Long reservationId) {
-        ReservationId = reservationId;
-    }
-
-    public Integer getReviewStars() {
-        return ReviewStars;
-    }
-
-    public void setReviewStars(Integer reviewStars) {
-        ReviewStars = reviewStars;
-    }
-
-    public String getReviewText() {
-        return ReviewText;
-    }
-
-    public void setReviewText(String reviewText) {
-        ReviewText = reviewText;
-    }
-
     public Review(Long reservationId, Integer reviewStars, String reviewText) {
         ReservationId = reservationId;
         ReviewStars = reviewStars;
