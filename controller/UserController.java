@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +31,13 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Users/{id}")
-    Optional<User> one(@PathVariable Long id ){
-        return repository.findById(id);
+    User one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping("/Users/{id}")
-    Optional<User> replaceUser(@RequestBody User newUser,@PathVariable Long id){
+    User replaceUser(@RequestBody User newUser,@PathVariable Long id){
         return repository.findById(id).map(User -> {
             User.setEMail(newUser.getEMail());
             User.setFirstName(newUser.getFirstName());
@@ -49,7 +50,7 @@ class UserController {
             User.setIsHost(newUser.getIsHost());
             User.setIsAdmin(newUser.getIsAdmin());
             return repository.save(newUser);
-        });
+        }).orElseThrow(() -> new UserNotFoundException(id));
     }
 
 }
