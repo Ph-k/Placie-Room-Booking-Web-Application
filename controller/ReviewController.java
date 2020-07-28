@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ReviewNotFoundException;
 import com.example.demo.model.Review;
 import com.example.demo.repository.ReviewRepository;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ReviewController {
@@ -28,8 +28,8 @@ public class ReviewController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Reviews/{id}")
-    Optional<Review> one(@PathVariable Long id ){
-        return repository.findById(id);
+    Review one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(()-> new ReviewNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
