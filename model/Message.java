@@ -26,7 +26,6 @@ public class Message {
     private String Text;
 
     @Column(nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date Date;
 
 
