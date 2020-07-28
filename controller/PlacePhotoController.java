@@ -1,11 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.PlacePhotoNotFoundException;
 import com.example.demo.model.PlacePhoto;
 import com.example.demo.repository.PlacePhotoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 public class PlacePhotoController {
@@ -29,8 +30,8 @@ public class PlacePhotoController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/PlacePhotos/{id}")
-    Optional<PlacePhoto> one(@PathVariable Long id ){
-        return repository.findById(id);
+    PlacePhoto one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(()->new PlacePhotoNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
