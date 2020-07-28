@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.AvailabilityNotFoundException;
 import com.example.demo.model.Availability;
 import com.example.demo.repository.AvailabilityRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class AvailabilityController {
@@ -29,8 +29,8 @@ public class AvailabilityController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Availabilities/{id}")
-    Optional<Availability> one(@PathVariable Long id ){
-        return repository.findById(id);
+    Availability one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(() -> new AvailabilityNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
