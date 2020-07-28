@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.PlaceNotFoundException;
 import com.example.demo.model.Place;
 import com.example.demo.repository.PlaceRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class PlaceController {
@@ -29,8 +29,8 @@ public class PlaceController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Places/{id}")
-    Optional<Place> one(@PathVariable Long id ){
-        return repository.findById(id);
+    Place one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(()->new PlaceNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
@@ -47,7 +47,7 @@ public class PlaceController {
 
     @CrossOrigin(origins = "*")
     @PutMapping("/Places/{id}")
-    Optional<Place> replacePlace(@RequestBody Place newPlace, @PathVariable Long id) {
+    Place replacePlace(@RequestBody Place newPlace, @PathVariable Long id) {
         return repository.findById(id).map(Place -> {
             Place.setHostId(newPlace.getHostId());
             Place.setMainPhotoUrl(newPlace.getMainPhotoUrl());
@@ -73,6 +73,6 @@ public class PlaceController {
             Place.setPartiesAllowed(newPlace.getPartiesAllowed());
             Place.setSmokingAllowed(newPlace.getSmokingAllowed());
             return repository.save(newPlace);
-        });
+        }).orElseThrow(()-> new PlaceNotFoundException(id));
     }
 }
