@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ReservationNotFoundException;
 import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ReservationController {
@@ -28,8 +28,8 @@ public class ReservationController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Reservations/{id}")
-    Optional<Reservation> one(@PathVariable Long id ){
-        return repository.findById(id);
+    Reservation one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(()->new ReservationNotFoundException(id));
     }
 
 
