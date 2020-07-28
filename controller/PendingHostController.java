@@ -1,39 +1,53 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.PendingHost;
-import com.example.demo.repository.PendingHostRepository;
+import java.util.List;
+
+import com.example.demo.exception.MessageNotFoundException;
+import com.example.demo.model.Message;
+import com.example.demo.repository.MessageRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
-public class PendingHostController {
-    private final PendingHostRepository repository;
+class MessageController {
 
-    PendingHostController(PendingHostRepository repository) {
+    private final MessageRepository repository;
+
+    MessageController(MessageRepository repository) {
         this.repository = repository;
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/PendingHosts")
-    List<PendingHost> all() {
+    @GetMapping("/Messages")
+    List<Message> all() {
         return repository.findAll();
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/PendingHosts")
-    PendingHost newPendingHost(@RequestBody PendingHost newPendingHost) {
-        return repository.save(newPendingHost);
+    @PostMapping("/Messages")
+    Message newMessage(@RequestBody Message newMessage) {
+        return repository.save(newMessage);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/PendingHosts/{id}")
-    Optional<PendingHost> one(@PathVariable Long id ){
-        return repository.findById(id);
+    @GetMapping("/Messages/{id}")
+    Message one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(()->new MessageNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/PendingHosts/{id}")
-    void deletePendingHost(@PathVariable Long id) { repository.deleteById(id); }
+    @DeleteMapping("/Messages/{id}")
+    void deleteMessage(@PathVariable Long id) { repository.deleteById(id); }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/SentMessages/{SenderId}")
+    List<Message> Sent(@PathVariable Long SenderId ){
+        return repository.getSent(SenderId);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/ReceivedMessages/{ReceiverId}")
+    List<Message> Received(@PathVariable Long ReceiverId ){
+        return repository.getReceived(ReceiverId);
+    }
+
 }
