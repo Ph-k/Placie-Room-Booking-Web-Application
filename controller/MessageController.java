@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.List;
-import java.util.Optional;
 
+import com.example.demo.exception.MessageNotFoundException;
 import com.example.demo.model.Message;
 import com.example.demo.repository.MessageRepository;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +30,8 @@ class MessageController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Messages/{id}")
-    Optional<Message> one(@PathVariable Long id ){
-        return repository.findById(id);
+    Message one(@PathVariable Long id ){
+        return repository.findById(id).orElseThrow(()->new MessageNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
