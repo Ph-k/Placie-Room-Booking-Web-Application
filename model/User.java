@@ -29,7 +29,7 @@ public class User {
     private String EMail;
 
     @Column(nullable = false)
-    private Long Telephone;
+    private String Telephone;
 
     private String PhotoUrl;
 
@@ -45,7 +45,7 @@ public class User {
     public User(){}
 
     public User(String userName, String password, String firstName, String lastName, String email,
-                Long telephone, String photoUrl, Boolean isTenant, Boolean isHost, Boolean isAdmin){
+                String telephone, String photoUrl, Boolean isTenant, Boolean isHost, Boolean isAdmin){
         UserName = userName;
         Password = password;
         FirstName = firstName;
