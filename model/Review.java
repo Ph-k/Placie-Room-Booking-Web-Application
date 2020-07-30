@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class Review {
-    private @Id @GeneratedValue Long ReservationId;
+    private @Id @GeneratedValue Long ReviewId;
 
     @Column(nullable = false)
     private Integer ReviewStars;
@@ -20,8 +20,8 @@ public class Review {
 
     public Review() {}
 
-    public Review(Long reservationId, Integer reviewStars, String reviewText) {
-        ReservationId = reservationId;
+    public Review(Long reviewId, Integer reviewStars, String reviewText) {
+        ReviewId = reviewId;
         ReviewStars = reviewStars;
         ReviewText = reviewText;
     }
