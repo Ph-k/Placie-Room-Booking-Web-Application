@@ -2,7 +2,9 @@ export class Place {
   placeId: number;
   hostId: number;
   mainPhotoUrl: string;
-  region: string;
+  country: string;
+  city: string;
+  province: string;
   address: string;
   openStreetMapUrl: string;
   transportation: string;
