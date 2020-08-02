@@ -51,7 +51,9 @@ public class PlaceController {
         return repository.findById(id).map(Place -> {
             Place.setHostId(newPlace.getHostId());
             Place.setMainPhotoUrl(newPlace.getMainPhotoUrl());
-            Place.setRegion(newPlace.getRegion());
+            Place.setCountry(newPlace.getCountry());
+            Place.setCity(newPlace.getCity());
+            Place.setDistrict(newPlace.getDistrict());
             Place.setAddress(newPlace.getAddress());
             Place.setOpenStreetMapUrl(newPlace.getOpenStreetMapUrl());
             Place.setTransportation(newPlace.getTransportation());
