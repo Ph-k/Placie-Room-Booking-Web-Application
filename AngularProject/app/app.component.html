@@ -1,0 +1,19 @@
+<h1>DitBnB</h1>
+
+<div *ngIf="!logged">
+  <label> Username </label>
+  <input type="text">
+  <label> Password </label>
+  <input type="password">
+  <button> Login </button>
+  <button routerLink="/register">Register</button>
+</div>
+
+<div *ngIf="logged">
+  <label> Logged in as: {{username}}</label>
+  <button> My Account </button>
+  <button> Messages </button>
+  <button> Logout </button>
+</div>
+
+<router-outlet></router-outlet>
