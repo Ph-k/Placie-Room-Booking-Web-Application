@@ -14,18 +14,25 @@ import javax.persistence.Id;
 public class Place{
     private @Id @GeneratedValue Long PlaceId;
 
-    @Column(nullable = false)
+    @NotNull
     private Long HostId;
 
     private String MainPhotoUrl;
 
-    @Column(nullable = false)
-    private String Region;
+    @NotNull
+    private String Country;
 
-    @Column(nullable = false)
+    @NotNull
+    private String City;
+
+    @NotNull
+    private String District;
+
+
+    @NotNull
     private String Address;
 
-    @Column(nullable = false)
+    @NotNull
     private String OpenStreetMapUrl;
 
     private String Transportation;
@@ -34,7 +41,7 @@ public class Place{
 
     private String Type;
 
-    @Column(nullable = false)
+    @NotNull
     private Float MinCost;
 
     private Float AdditionalCostPerPerson;
@@ -67,16 +74,19 @@ public class Place{
 
     public Place(){}
 
-    public Place(Long placeId, Long hostId, String mainPhotoUrl, String region, String address,
-                 String openStreetMapUrl, String transportation, String description, String type, Float minCost,
-                 Float additionalCostPerPerson, Integer maxCapacity, Integer numberOfBeds,
-                 Integer numberOfSleepingRooms, Integer minimumRentingDates, Boolean livingRoom, Boolean wiFi,
-                 Boolean airConditioning, Boolean heating, Boolean parking, Boolean elevator, Boolean petsAllowed,
+    public Place(Long placeId, Long hostId, String mainPhotoUrl, String country, String city,
+                 String district, String address, String openStreetMapUrl, String transportation,
+                 String description, String type, Float minCost, Float additionalCostPerPerson,
+                 Integer maxCapacity, Integer numberOfBeds, Integer numberOfSleepingRooms,
+                 Integer minimumRentingDates, Boolean livingRoom, Boolean wiFi, Boolean airConditioning,
+                 Boolean heating, Boolean parking, Boolean elevator, Boolean petsAllowed,
                  Boolean partiesAllowed, Boolean smokingAllowed) {
         PlaceId = placeId;
         HostId = hostId;
         MainPhotoUrl = mainPhotoUrl;
-        Region = region;
+        Country = country;
+        City = city;
+        District = district;
         Address = address;
         OpenStreetMapUrl = openStreetMapUrl;
         Transportation = transportation;
