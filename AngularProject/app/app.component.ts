@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NavigationStart, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,13 @@ export class AppComponent {
   logged = false;
   username = 'KOUROUPETOGLOU';
 
-  GoToRegister(){
-    //window.location.href = '/register.component.html';
+  registration = false;
 
+  constructor(router: Router) {
+    router.events.forEach((event) => {
+      if (event instanceof NavigationStart) {
+        this.registration = event.url === '/register';
+      }
+    });
   }
 }

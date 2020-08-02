@@ -1,6 +1,6 @@
 <h1>DitBnB</h1>
 
-<div *ngIf="!logged">
+<div *ngIf="!logged && !registration">
   <label> Username </label>
   <input type="text">
   <label> Password </label>
@@ -9,7 +9,7 @@
   <button routerLink="/register">Register</button>
 </div>
 
-<div *ngIf="logged">
+<div *ngIf="logged && !registration">
   <label> Logged in as: {{username}}</label>
   <button> My Account </button>
   <button> Messages </button>
