@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 class UserController {
 
     private final UserRepository repository;
-
-    UserController(UserRepository repository) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    UserController(UserRepository repository,BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.repository = repository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @CrossOrigin(origins = "*")
@@ -24,9 +26,13 @@ class UserController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/Users")
-    User newUser(@RequestBody User newUser) {
-        return repository.save(newUser);
+    @PostMapping("/Registration")
+    User newUser(@RequestBody User newUser)
+    {   newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+        if(repository.findByUsername(newUser.getUserName()) != null || repository.findByEmail(newUser.getEMail()) !=null) {
+            return null;
+        }
+        else {return repository.save(newUser);}
     }
 
     @CrossOrigin(origins = "*")
