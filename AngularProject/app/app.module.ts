@@ -17,7 +17,8 @@ import { SearchFormComponent } from './search-form/search-form.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot(SiteRoutes),
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
