@@ -7,6 +7,7 @@ import { SiteRoutes } from './app.routes';
 import {FormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
