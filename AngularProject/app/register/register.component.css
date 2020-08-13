@@ -1,0 +1,26 @@
+#registrationForm{
+  text-align:center;
+}
+
+.registrationSection{
+  background-color: #f2f2f2;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+button{
+  margin: 10px;
+}
+
+input{
+  margin: 5px;
+}
+
+h2{
+  text-align: center;
+}
+
+.warning{
+  color: red;
+}
