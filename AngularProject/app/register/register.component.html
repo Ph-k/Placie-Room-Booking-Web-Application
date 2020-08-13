@@ -1,52 +1,53 @@
 <h2>Registration Page</h2>
 
-<form>
-  <h3>Let's get to know you</h3>
+<div id="registrationForm">
+  <form ngNativeValidate>
 
-  <label>First Name </label>
-  <input type="text" [(ngModel)]="user.firstName" name="firstname"> <br>
-  <div *ngIf="attemptedRegistration"><div *ngIf="user.firstName ==''">This Field Cannot Be Empty!</div></div>
+    <div class="registrationSection">
+      <h3>Let's get to know you</h3>
 
-  <label>Last Name </label>
-  <input type="text" [(ngModel)]="user.lastName" name="lastname"> <br>
-  <div *ngIf="attemptedRegistration"><div *ngIf="user.lastName ==''">This Field Cannot Be Empty!</div></div>
+      <label>First Name </label><br>
+      <input type="text" [(ngModel)]="user.firstName" name="firstname" required> <br>
 
-  <label>Username </label>
-  <input type="text" [(ngModel)]="user.userName" name="username"><br>
-  <div *ngIf="attemptedRegistration"><div *ngIf="user.userName ==''">This Field Cannot Be Empty!</div></div>
+      <label>Last Name </label><br>
+      <input type="text" [(ngModel)]="user.lastName" name="lastname" required> <br>
 
-  <label>Email </label>
-  <input type="text" [(ngModel)]="user.email" name="email"><br>
-  <div *ngIf="attemptedRegistration"><div *ngIf="user.email ==''">This Field Cannot Be Empty!</div></div>
+      <label>Username </label><br>
+      <input type="text" [(ngModel)]="user.userName" name="username" required><br>
 
-  <label>Phone Number </label>
-  <input type="text" [(ngModel)]="user.telephone" name="telephone"> <br>
-  <div *ngIf="attemptedRegistration"><div *ngIf="user.telephone ==''">This Field Cannot Be Empty!</div></div>
+      <label>Email </label><br>
+      <input type="text" [(ngModel)]="user.email" name="email" required><br>
 
-  <button>Upload Photo</button>
+      <label>Phone Number </label><br>
+      <input type="text" [(ngModel)]="user.telephone" name="telephone" required> <br>
 
-  <h3>Chose your secret password</h3>
+      <button type="button">Upload Photo</button>
+    </div>
 
-  <label>Password </label>
-  <input type="password" [(ngModel)]="user.password" name="password"> <br>
-  <div *ngIf="attemptedRegistration"><div *ngIf="user.password ==''">This Field Cannot Be Empty!</div></div>
+    <div class="registrationSection">
+      <h3>Chose your secret password</h3>
 
-  <label>Retype Password </label>
-  <input type="password" [(ngModel)]="passwordVerification" name="password2"> <br>
-  <div *ngIf="attemptedRegistration"><div *ngIf="passwordVerification ==''">This Field Cannot Be Empty!</div></div>
+      <label>Password </label><br>
+      <input type="password" [(ngModel)]="user.password" name="password" required> <br>
 
-  <div *ngIf="attemptedRegistration"><div *ngIf="!passwordMatch()">Passwords Don't Match!</div></div>
+      <label>Retype Password </label><br>
+      <input type="password" [(ngModel)]="passwordVerification" name="password2" required> <br>
 
-  <h3> Chose your role (can be both😉)</h3>
-  <label>Tenant</label><input type="checkbox" [(ngModel)]="user.isTenant" name="tenant">
-  <label> Host</label><input type="checkbox" [(ngModel)]="user.isHost" name="host">
+      <div *ngIf="attemptedRegistration"><div *ngIf="!passwordMatch()">Passwords Don't Match!</div></div>
+    </div>
 
-  <p>*Note, approval from our admins is needed in order to become a Host</p>
+    <div class="registrationSection">
+      <h3> Chose your role (can be both😉)</h3>
+      <label>Tenant</label><input type="checkbox" [(ngModel)]="user.isTenant" name="tenant">
+      <label> Host</label><input type="checkbox" [(ngModel)]="user.isHost" name="host">
 
-  <div *ngIf="usernameExists()"><p>Username Exists!</p></div>
+      <p>*Note, approval from our admins is needed in order to become a Host</p>
+    </div>
 
-  <button (click)="register()" >Register!</button>
+    <div *ngIf="usernameExists()" [className]="'warning'"><p>Username Exists!</p></div>
+    <div *ngIf="successfulRegistration()"><p>Successful Registration</p></div>
 
-</form>
+    <button (click)="register()" >Register!</button>
+  </form>
 
-<div *ngIf="successfulRegistration()"><p>Successful Registration</p></div>
+</div>
