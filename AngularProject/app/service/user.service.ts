@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../../model/User';
+import {PendingHost} from '../../model/PendingHost';
 import {Observable} from 'rxjs';
 
 @Injectable({
