@@ -1,0 +1,41 @@
+<h2>User Details</h2>
+
+<img src="assets/download.jpg">
+<table>
+  <tr>
+    <td>Username</td>
+    <td>{{user.userName}}</td>
+  </tr>
+  <tr>
+    <td>E-Mail</td>
+    <td>{{user.email}}</td>
+  </tr>
+  <tr>
+    <td>First Name</td>
+    <td>{{user.firstName}}</td>
+  </tr>
+  <tr>
+    <td>Last Name</td>
+    <td>{{user.lastName}}</td>
+  </tr>
+  <tr>
+    <td>Telephone</td>
+    <td>{{user.telephone}}</td>
+  </tr>
+  <tr>
+    <td>Is Tenant</td>
+    <td *ngIf="user.isTenant">Yes</td>
+    <td *ngIf="!user.isTenant">No</td>
+  </tr>
+  <tr>
+    <td>Is Host</td>
+    <td *ngIf="user.isHost">Yes</td>
+    <td *ngIf="!user.isHost">No</td>
+  </tr>
+
+</table>
+
+<div class="verification" *ngIf="isPendingHost()">
+  <p>This user wants to be a Host</p>
+  <button (click)="verifyHost()">Verify Host</button>
+</div>
