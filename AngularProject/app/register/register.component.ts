@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
   }
 
   usernameExists(): boolean{
-    if (this.userService.registerResponse == null && this.attemptedRegistration){
+    if (this.userService.registerResponse == null && this.attemptedRegistration && !this.userService.error){
       return true;
     }
     else{

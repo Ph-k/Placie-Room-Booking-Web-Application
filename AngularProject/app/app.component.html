@@ -1,19 +1,23 @@
 <h1>DitBnB</h1>
 
-<div *ngIf="!logged && !registration">
-  <label> Username </label>
-  <input type="text">
-  <label> Password </label>
-  <input type="password">
-  <button> Login </button>
+<div *ngIf="!LoggedIn() && !registration">
+  <form (ngSubmit)="Login($event)">
+    <label> Username </label>
+    <input name="username"  type="text">
+    <label> Password </label>
+    <input name="password" type="password">
+    <button> Login </button>
+  </form>
   <button routerLink="/register">Register</button>
 </div>
 
-<div *ngIf="logged && !registration">
-  <label> Logged in as: {{username}}</label>
+<div *ngIf="LoggedIn() && !registration">
+  <label> Logged in as: {{GetUsername()}} </label>
   <button> My Account </button>
   <button> Messages </button>
-  <button> Logout </button>
+  <form (ngSubmit)="Logout($event)">
+    <button> Logout </button>
+  </form>
 </div>
 
 <router-outlet></router-outlet>

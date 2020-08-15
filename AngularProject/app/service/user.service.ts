@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {User} from '../../model/User';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {User , LoginUser} from '../../model/User';
 import {PendingHost} from '../../model/PendingHost';
 import {Observable} from 'rxjs';
 
@@ -13,6 +13,8 @@ export class UserService {
   private registrationUrl = 'https://localhost:8443/Registration';
   private usersUrl = 'https://localhost:8443/Users';
   private pendingHostsUrl = 'https://localhost:8443/PendingHosts';
+  private LoginUrl = 'https://localhost:8443/login';
+  error = true;
 
   registerResponse: User; // Used to receive the response when registering a new user
 
@@ -20,7 +22,16 @@ export class UserService {
   }
 
   register(user: User, host: boolean): void {
-    this.http.post<User>(this.registrationUrl, user).subscribe(response => {this.registerResponse = response; console.log(this.registerResponse); if (host){this.uploadPendingHost(this.registerResponse.userId); }});
+    this.http.post<User>(this.registrationUrl, user)
+      .subscribe(
+        response => {
+          this.registerResponse = response; console.log(this.registerResponse);
+          this.error = false;
+          if (host){
+              this.uploadPendingHost(this.registerResponse.userId);
+          }
+        }
+      );
   }
 
   getUsers(): Observable<User[]>{
@@ -45,6 +56,20 @@ export class UserService {
 
   deletePendingHost(pendingHost: number): void{
     this.http.delete('https://localhost:8443/PendingHosts/118').subscribe();
+  }
+
+  LoginRequest(userName: string, password: string): Observable<HttpResponse<string>>{
+    const json: LoginUser = { userName, password };
+    return this.http.post<string>(this.LoginUrl, json, { observe: 'response'});
+  }
+
+  Logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+  }
+
+  LoggedIn(): boolean{
+    return localStorage.getItem('token') != null;
   }
 
 }

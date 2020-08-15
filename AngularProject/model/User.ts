@@ -11,3 +11,8 @@ export interface User {
   isHost: boolean;
   isAdmin: boolean;
 }
+
+export class LoginUser {
+  userName: string;
+  password: string;
+}
