@@ -15,5 +15,20 @@ export const SiteRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'administrator',
+    component: AdministratorComponent,
+    children: [
+      {
+        path: 'users',
+        component: UsersComponent,
+      },
+      {
+        path: 'users/:id',
+        component: UserDetailsComponent,
+      }]
+
+
   }
 ];
