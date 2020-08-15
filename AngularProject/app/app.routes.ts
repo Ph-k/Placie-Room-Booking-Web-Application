@@ -1,6 +1,9 @@
 import {Routes} from '@angular/router';
 import {RegisterComponent} from './register/register.component';
 import {SearchFormComponent} from './search-form/search-form.component';
+import {AdministratorComponent} from './administrator/administrator.component';
+import {UsersComponent} from './administrator/users/users.component';
+import {UserDetailsComponent} from './administrator/users/user-details/user-details.component';
 
 export const SiteRoutes: Routes = [
   {
