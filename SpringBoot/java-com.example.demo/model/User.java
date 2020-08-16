@@ -31,7 +31,7 @@ public class User {
     @Column(nullable = false)
     private String Telephone;
 
-    private String PhotoUrl;
+    private Byte[] PhotoBytes;
 
     @Column(nullable = false)
     private Boolean IsTenant;
@@ -45,14 +45,14 @@ public class User {
     public User(){}
 
     public User(String userName, String password, String firstName, String lastName, String email,
-                String telephone, String photoUrl, Boolean isTenant, Boolean isHost, Boolean isAdmin){
+                String telephone, Byte[] photo, Boolean isTenant, Boolean isHost, Boolean isAdmin){
         UserName = userName;
         Password = password;
         FirstName = firstName;
         LastName = lastName;
         EMail = email;
         Telephone = telephone;
-        PhotoUrl = photoUrl;
+        PhotoBytes = photo;
         IsTenant = isTenant;
         IsHost = isHost;
         IsAdmin = isAdmin;

@@ -6,7 +6,9 @@ import java.util.Optional;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 class UserController {
@@ -51,12 +53,20 @@ class UserController {
             User.setUserName(newUser.getUserName());
             User.setPassword(newUser.getPassword());
             User.setTelephone(newUser.getTelephone());
-            User.setPhotoUrl(newUser.getPhotoUrl());
+            User.setPhotoBytes(newUser.getPhotoBytes());
             User.setIsTenant(newUser.getIsTenant());
             User.setIsHost(newUser.getIsHost());
             User.setIsAdmin(newUser.getIsAdmin());
             return repository.save(newUser);
         }).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @PutMapping("/Users/{id}/Image")
+    int PostImage(@RequestBody MultipartFile Image, @PathVariable String id) throws Exception{
+        byte[] ImageBytes = Image.getBytes();
+        System.out.println(ImageBytes);
+        //User.setPhotoBytes(Image.getBytes());
+        return 0;
     }
 
 }

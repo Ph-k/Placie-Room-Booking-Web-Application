@@ -14,6 +14,7 @@ export class UserService {
   private usersUrl = 'https://localhost:8443/Users';
   private pendingHostsUrl = 'https://localhost:8443/PendingHosts';
   private LoginUrl = 'https://localhost:8443/login';
+  private ImageUrl = 'https://localhost:8443/Users/{id}/Image';
   error = true;
 
   registerResponse: User; // Used to receive the response when registering a new user
@@ -72,4 +73,8 @@ export class UserService {
     return localStorage.getItem('token') != null;
   }
 
+  UploadImage(Image: File): number{
+    console.log(this.http.post<File>(this.ImageUrl, Image) );
+    return 0;
+  }
 }

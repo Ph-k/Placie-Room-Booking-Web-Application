@@ -12,7 +12,7 @@
 </div>
 
 <div *ngIf="LoggedIn() && !registration">
-  <label> Logged in as: {{GetUsername()}} </label>
+  <label> Welcome: {{GetUsername()}} !</label>
   <button> My Account </button>
   <button> Messages </button>
   <form (ngSubmit)="Logout($event)">
