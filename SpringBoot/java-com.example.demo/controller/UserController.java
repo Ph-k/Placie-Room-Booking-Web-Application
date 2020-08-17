@@ -34,7 +34,11 @@ class UserController {
         if(repository.findByUsername(newUser.getUserName()) != null || repository.findByEmail(newUser.getEMail()) !=null) {
             return null;
         }
-        else {return repository.save(newUser);}
+        else {
+            if(newUser.getIsHost() == true){
+                newUser.setIsHost(false);
+            }
+            return repository.save(newUser);}
     }
 
     @CrossOrigin(origins = "*")
