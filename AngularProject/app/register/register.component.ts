@@ -41,12 +41,19 @@ export class RegisterComponent implements OnInit {
     this.attemptedRegistration = true;
     if (!this.emptyFields() && this.passwordMatch()) {
       this.userService.register(this.user, this.user.isHost).
-      subscribe(response => { if (response == null)  {this.registerStatus = 1; } else {this.registerStatus = 2; }},
-                error => {this.registerStatus = 3; } );
-      if (this.user.isHost){
-        this.user.isHost = false;
-      }
-    }
+      subscribe(response => {
+          if (response == null) {
+            this.registerStatus = 1;
+          }
+          else {
+            this.registerStatus = 2;
+            if (this.user.isHost){
+              this.userService.uploadPendingHost(response.userId);
+            }
+          }
+        },
+        error => {this.registerStatus = 3; } );
+        }
   }
 
   successfulRegistration(): boolean{
