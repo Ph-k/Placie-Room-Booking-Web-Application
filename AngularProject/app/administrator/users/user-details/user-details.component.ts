@@ -33,8 +33,7 @@ export class UserDetailsComponent implements OnInit {
   verifyHost(): void{
     this.user.isHost = true;
     this.userService.updateUser( this.user , this.user.userId);
-    //this.userService.getPendingHost(this.id).subscribe(pendingHost => this.pendingHost = pendingHost, error => this.pendingHost = null);
-    //this.userService.deletePendingHost(this.user.userId);
+    this.userService.deletePendingHost(this.user.userId);
   }
 
 }
