@@ -3,6 +3,7 @@ import {UserService} from '../service/user.service';
 import {User} from '../../model/User';
 import {PendingHost} from '../../model/PendingHost';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,7 @@ export class RegisterComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {}
 
   user: User;
+  registerStatus = 0;              // Becomes 1 for existing username , 2 for successful registration , 3 for no server response
   passwordVerification = '';       // variable  used for password verification
   attemptedRegistration = false;   // When 'register' button is clicked it becomes true
   imageFile: File;
@@ -37,9 +39,10 @@ export class RegisterComponent implements OnInit {
 
   register(): void{
     this.attemptedRegistration = true;
-
     if (!this.emptyFields() && this.passwordMatch()) {
-      this.userService.register(this.user, this.user.isHost);
+      this.userService.register(this.user, this.user.isHost).
+      subscribe(response => { if (response == null)  {this.registerStatus = 1; } else {this.registerStatus = 2; }},
+                error => {this.registerStatus = 3; } );
       if (this.user.isHost){
         this.user.isHost = false;
       }
@@ -47,7 +50,7 @@ export class RegisterComponent implements OnInit {
   }
 
   successfulRegistration(): boolean{
-    if (this.userService.registerResponse != null  && this.passwordMatch() && !this.emptyFields() && this.attemptedRegistration === true){
+    if (this.registerStatus === 2  && this.passwordMatch() && !this.emptyFields() && this.attemptedRegistration === true){
       if (this.LoggedIn === false) {
         console.log('magic starts' + this.user.userName + this.user.password);
         window.alert('Successful Registration!!, You will be redirected and logged in automagically!');
@@ -68,7 +71,7 @@ export class RegisterComponent implements OnInit {
   }
 
   usernameExists(): boolean{
-    if (this.userService.registerResponse == null && this.attemptedRegistration && !this.userService.error){
+    if (this.registerStatus === 1 && this.attemptedRegistration){
       return true;
     }
     else{
