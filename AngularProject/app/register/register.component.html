@@ -46,7 +46,9 @@
     </div>
 
     <div *ngIf="usernameExists()" [className]="'warning'"><p>Username Exists!</p></div>
-    <div *ngIf="successfulRegistration()"><p>Successful Registration</p></div>
+    <div *ngIf="successfulRegistration()">
+      <b>Successful Registration!!, You will be redirected and logged in automagically!</b>
+    </div>
 
 
 

@@ -52,15 +52,14 @@ export class RegisterComponent implements OnInit {
             }
           }
         },
-        error => {this.registerStatus = 3; } );
-        }
+        error => {this.registerStatus = 3; }
+      );
+    }
   }
 
   successfulRegistration(): boolean{
-    if (this.registerStatus === 2  && this.passwordMatch() && !this.emptyFields() && this.attemptedRegistration === true){
+    if (this.registerStatus === 2  && this.passwordMatch() && !this.emptyFields() && this.attemptedRegistration === true) {
       if (this.LoggedIn === false) {
-        console.log('magic starts' + this.user.userName + this.user.password);
-        window.alert('Successful Registration!!, You will be redirected and logged in automagically!');
         this.userService.LoginRequest(this.user.userName, this.user.password).subscribe(
           response => {
             localStorage.setItem('token', response.headers.get('Authorization'));
