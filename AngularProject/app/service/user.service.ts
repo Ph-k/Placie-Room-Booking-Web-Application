@@ -32,7 +32,7 @@ export class UserService {
   }
 
   updateUser(user: User, id: number): void{
-    this.http.put<any>(this.usersUrl + '/118', user).subscribe();
+    this.http.put<any>(this.usersUrl + '/' + id, user).subscribe();
   }
 
   getPendingHost(id: string): Observable<PendingHost>{
@@ -44,7 +44,7 @@ export class UserService {
   }
 
   deletePendingHost(pendingHost: number): void{
-    this.http.delete('https://localhost:8443/PendingHosts/118').subscribe();
+    this.http.delete(this.pendingHostsUrl + '/' + pendingHost).subscribe();
   }
 
   LoginRequest(userName: string, password: string): Observable<HttpResponse<string>>{
