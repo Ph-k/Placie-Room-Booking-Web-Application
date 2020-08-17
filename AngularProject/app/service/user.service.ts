@@ -15,24 +15,12 @@ export class UserService {
   private pendingHostsUrl = 'https://localhost:8443/PendingHosts';
   private LoginUrl = 'https://localhost:8443/login';
   private ImageUrl = 'https://localhost:8443/Users/{id}/Image';
-  error = true;
-
-  registerResponse: User; // Used to receive the response when registering a new user
 
   constructor(private http: HttpClient) {
   }
 
-  register(user: User, host: boolean): void {
-    this.http.post<User>(this.registrationUrl, user)
-      .subscribe(
-        response => {
-          this.registerResponse = response; console.log(this.registerResponse);
-          this.error = false;
-          if (host){
-              this.uploadPendingHost(this.registerResponse.userId);
-          }
-        }
-      );
+  register(user: User, host: boolean): Observable<User> {
+    return this.http.post<User>(this.registrationUrl, user);
   }
 
   getUsers(): Observable<User[]>{
