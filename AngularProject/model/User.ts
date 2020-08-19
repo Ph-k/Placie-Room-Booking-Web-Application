@@ -6,7 +6,7 @@ export interface User {
   lastName: string;
   email: string;
   telephone: string;
-  photoUrl: string;
+  ProfilePhoto: File;
   isTenant: boolean;
   isHost: boolean;
   isAdmin: boolean;

@@ -21,8 +21,11 @@
       <label>Phone Number </label><br>
       <input type="text" [(ngModel)]="user.telephone" name="telephone" required> <br>
 
-      <input type="file" #imageSelector style="display: none" (change)="uploadPhoto($event)">
+
+      <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector style="display: none" (change)="uploadPhoto($event)">
       <button type="button" (click)="imageSelector.click()">Upload Photo</button>
+      <div *ngIf="InvalidFileType" [className]="'warning'"><p> Please choose an image file such as .png .jpg .jpeg .gif</p></div>
+      <div *ngIf="ImageTooLarge" [className]="'warning'"><p> The file you selected is too large (maximum file size is 10mb)</p></div>
     </div>
 
     <div class="registrationSection">

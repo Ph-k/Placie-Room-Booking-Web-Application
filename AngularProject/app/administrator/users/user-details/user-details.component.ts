@@ -3,6 +3,7 @@ import {UserService} from '../../../service/user.service';
 import {User} from '../../../../model/User';
 import {ActivatedRoute} from '@angular/router';
 import {PendingHost} from '../../../../model/PendingHost';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-user-details',
@@ -19,6 +20,8 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser(this.id).subscribe(user => this.user = user);
     this.userService.getPendingHost(this.id).subscribe(pendingHost => this.pendingHost = pendingHost, error => this.pendingHost = null);
+
+
   }
 
   isPendingHost(): boolean{
@@ -36,4 +39,7 @@ export class UserDetailsComponent implements OnInit {
     this.userService.deletePendingHost(this.user.userId);
   }
 
+  GetImageUrl(): string{
+    return this.userService.GetImageUrl(this.user.userName);
+  }
 }

@@ -29,7 +29,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/Registration","/Users","/Users/{id}","/Users/{id}/Image").permitAll().
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers(
+                "/Registration","/Users","/Users/{id}","/Users/Image/{username}","/UserId/{Username}"
+                ,"/PendingHosts","/PendingHosts/{id}").permitAll().
                 anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
@@ -51,6 +53,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         config.applyPermitDefaultValues();
         config.addExposedHeader("Authorization");
         config.setAllowCredentials(true);
+        config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         return source;
     }

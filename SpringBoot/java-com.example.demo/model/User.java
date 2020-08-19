@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ public class User {
     @Column(nullable = false)
     private String Telephone;
 
-    private Byte[] PhotoBytes;
+    private String PhotoPath;
 
     @Column(nullable = false)
     private Boolean IsTenant;
@@ -45,14 +44,14 @@ public class User {
     public User(){}
 
     public User(String userName, String password, String firstName, String lastName, String email,
-                String telephone, Byte[] photo, Boolean isTenant, Boolean isHost, Boolean isAdmin){
+                String telephone, String photo, Boolean isTenant, Boolean isHost, Boolean isAdmin){
         UserName = userName;
         Password = password;
         FirstName = firstName;
         LastName = lastName;
         EMail = email;
         Telephone = telephone;
-        PhotoBytes = photo;
+        PhotoPath = photo;
         IsTenant = isTenant;
         IsHost = isHost;
         IsAdmin = isAdmin;

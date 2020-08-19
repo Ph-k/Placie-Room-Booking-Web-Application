@@ -14,7 +14,7 @@ export class UserService {
   private usersUrl = 'https://localhost:8443/Users';
   private pendingHostsUrl = 'https://localhost:8443/PendingHosts';
   private LoginUrl = 'https://localhost:8443/login';
-  private ImageUrl = 'https://localhost:8443/Users/{id}/Image';
+  private RootUrl = 'https://localhost:8443';
 
   constructor(private http: HttpClient) {
   }
@@ -29,6 +29,10 @@ export class UserService {
 
   getUser(id: string): Observable<User>{
     return this.http.get<User>(this.usersUrl + '/' + id);
+  }
+
+  getUserId(username: string){
+    return this.http.get<number>(this.usersUrl + '/UserId' + username);
   }
 
   updateUser(user: User, id: number): void{
@@ -61,8 +65,23 @@ export class UserService {
     return localStorage.getItem('token') != null;
   }
 
-  UploadImage(Image: File): number{
-    console.log(this.http.post<File>(this.ImageUrl, Image) );
+  UploadImage(username: string, Image: File): number{
+    console.log(Image);
+    const formdata  = new FormData();
+    formdata.append('file', Image, Image.name);
+
+    // @ts-ignore
+    this.http.post<any>(this.RootUrl + '/Users/Image/' + username, formdata)
+     .subscribe(
+       response => {
+         console.log(response);
+       }
+     );
     return 0;
   }
+
+  GetImageUrl(username: string): string{
+    return this.RootUrl + '/Users/Image/' + username;
+  }
+
 }

@@ -19,6 +19,9 @@ export class RegisterComponent implements OnInit {
   passwordVerification = '';       // variable  used for password verification
   attemptedRegistration = false;   // When 'register' button is clicked it becomes true
   imageFile: File;
+  private ImageFileType: string;
+  InvalidFileType = false;
+  ImageTooLarge = false;
   pendingHost: PendingHost;
   private MainPageUrl: string;
   private LoggedIn = false;
@@ -27,13 +30,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.MainPageUrl = this.route.snapshot.queryParams.MainPageUrl || '/';
-    this.user = {userName: '', password: '', telephone: '', firstName: '', photoUrl: '', email: '', lastName: '',
+    this.user = {userName: '', password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
       isHost: false, isTenant: false, isAdmin: false , userId: null};
 
     this.pendingHost = { userId: 0};
 
     this.LoggedIn = false;
     this.attemptedRegistration = false;
+    this.InvalidFileType = false;
+    this.ImageTooLarge = false;
   }
 
 
@@ -47,6 +52,10 @@ export class RegisterComponent implements OnInit {
           }
           else {
             this.registerStatus = 2;
+
+            if (this.imageFile != null){
+              this.userService.UploadImage(this.user.userName, this.imageFile);
+            }
             if (this.user.isHost){
               this.userService.uploadPendingHost(response.userId);
             }
@@ -55,6 +64,7 @@ export class RegisterComponent implements OnInit {
         error => {this.registerStatus = 3; }
       );
     }
+
   }
 
   successfulRegistration(): boolean{
@@ -100,9 +110,45 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  private CheckImageType(file: File): string{
+    let FileType = '';
+    let Index: number = file.name.length;
+
+    while (file.name.charAt(Index) !== '.' || Index < 0 ){
+      FileType = file.name.charAt(Index) + FileType;
+      Index--;
+    }
+    FileType = file.name.charAt(Index) + FileType; // '.'
+
+    switch (FileType) {
+      case '.png':
+        return '.png';
+      case '.jpg':
+        return '.jpg';
+      case '.jpeg':
+        return '.jpeg';
+      case '.gif':
+        return '.gif';
+      default:
+        return null;
+    }
+  }
+
   uploadPhoto(event): void{
-    this.imageFile = event.target.files[0];
-    this.userService.UploadImage(this.imageFile);
-    console.log(this.imageFile);
+    this.ImageFileType = this.CheckImageType(event.target.files[0]);
+
+    if (event.target.files[0].size > 10000000){
+      this.imageFile = null;
+      this.ImageTooLarge = true;
+      return;
+    }else { this.ImageTooLarge = false; }
+
+    if ( this.ImageFileType !== null){
+      this.imageFile = event.target.files[0];
+      this.InvalidFileType = false;
+    }else{
+      this.imageFile = null;
+      this.InvalidFileType = true;
+    }
   }
 }

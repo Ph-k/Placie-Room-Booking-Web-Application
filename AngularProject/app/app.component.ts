@@ -13,7 +13,7 @@ export class AppComponent {
 
   registration = false;
 
-  constructor(private router: Router, private LoginSer: UserService) {
+  constructor(private router: Router, private UserSer: UserService) {
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
         this.registration = event.url === '/register';
@@ -22,14 +22,14 @@ export class AppComponent {
   }
 
   GetUsername(): string{
-    if (this.LoginSer.LoggedIn()) {
+    if (this.UserSer.LoggedIn()) {
       return localStorage.getItem('username');
     }
     return null;
   }
 
   Login(event: any) {
-    this.LoginSer.LoginRequest(event.target.username.value, event.target.password.value)
+    this.UserSer.LoginRequest(event.target.username.value, event.target.password.value)
       .subscribe(
         response => {
           localStorage.setItem('token', response.headers.get('Authorization'));
@@ -43,10 +43,10 @@ export class AppComponent {
   }
 
   Logout(event: any) {
-    this.LoginSer.Logout();
+    this.UserSer.Logout();
   }
 
   LoggedIn(): boolean{
-    return this.LoginSer.LoggedIn();
+    return this.UserSer.LoggedIn();
   }
 }
