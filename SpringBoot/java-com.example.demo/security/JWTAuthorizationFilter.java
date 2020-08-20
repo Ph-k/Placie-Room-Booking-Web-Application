@@ -2,8 +2,11 @@ package com.example.demo.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.demo.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.demo.security.SecurityConstants.HEADER_STRING;
 import static com.example.demo.security.SecurityConstants.TOKEN_PREFIX;
@@ -20,9 +24,11 @@ import static com.example.demo.security.SecurityConstants.SECRET;
 
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+    UserRepository repository;
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    public JWTAuthorizationFilter(AuthenticationManager authManager, UserRepository repository) {
         super(authManager);
+        this.repository=repository;
     }
 
     @Override
@@ -52,7 +58,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                List<GrantedAuthority> grantedAuths = new ArrayList<>();
+                if(repository.findByUsername(user).getIsAdmin()) {
+                    grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                }
+                return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
             }
             return null;
         }

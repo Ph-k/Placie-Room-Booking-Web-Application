@@ -112,14 +112,19 @@ class UserController {
 
         return ImageType;
     }
+
     @GetMapping(
             value = "/Users/Image/{username}",
-            produces = MediaType.IMAGE_JPEG_VALUE
-    )
+            produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] GetImage(@PathVariable String username) throws IOException {
+
         User TUser = repository.findByUsername(username);
         if( TUser == null ) return null;
 
+        if( TUser.getPhotoPath() == null ) {
+            Path imagePath = Paths.get(System.getProperty("user.dir") + "\\images\\ApplicationImages\\DefaultUserImage.png");
+            return Files.readAllBytes(imagePath);
+        }
 
         Path imagePath = Paths.get(System.getProperty("user.dir") + TUser.getPhotoPath());
         return Files.readAllBytes(imagePath);

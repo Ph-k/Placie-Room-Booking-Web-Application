@@ -66,11 +66,9 @@ export class UserService {
   }
 
   UploadImage(username: string, Image: File): number{
-    console.log(Image);
     const formdata  = new FormData();
     formdata.append('file', Image, Image.name);
 
-    // @ts-ignore
     this.http.post<any>(this.RootUrl + '/Users/Image/' + username, formdata)
      .subscribe(
        response => {

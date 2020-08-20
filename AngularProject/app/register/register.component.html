@@ -32,12 +32,14 @@
       <h3>Chose your secret password</h3>
 
       <label>Password </label><br>
-      <input type="password" [(ngModel)]="user.password" name="password" required minlength="4"> <br>
+      <input type="password" [(ngModel)]="user.password" name="password" required> <br>
 
       <label>Retype Password </label><br>
       <input type="password" [(ngModel)]="passwordVerification" name="password2" required> <br>
 
-      <div *ngIf="attemptedRegistration"><div *ngIf="!passwordMatch()">Passwords Don't Match!</div></div>
+      <div *ngIf="smallPassword()" [className]="'warning'"><p> Password length must be at least 4 characters </p></div>
+
+      <div *ngIf="attemptedRegistration" [className]="'warning'"><div *ngIf="!passwordMatch()">Passwords Don't Match!</div></div>
     </div>
 
     <div class="registrationSection">

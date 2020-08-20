@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
 
   register(): void{
     this.attemptedRegistration = true;
-    if (!this.emptyFields() && this.passwordMatch()) {
+    if (!this.emptyFields() && this.passwordMatch() && !this.smallPassword()) {
       this.userService.register(this.user, this.user.isHost).
       subscribe(response => {
           if (response == null) {
@@ -100,6 +100,10 @@ export class RegisterComponent implements OnInit {
     else {return false; }
   }
 
+  smallPassword(): boolean {
+    return this.attemptedRegistration && this.user.password.length < 4;
+  }
+
   emptyFields(): boolean{
     if (this.user.userName == '' || this.user.password == '' || this.user.telephone == '' || this.user.firstName == '' ||
         this.user.email == '' || this.user.lastName == ''){
@@ -151,4 +155,5 @@ export class RegisterComponent implements OnInit {
       this.InvalidFileType = true;
     }
   }
+
 }
