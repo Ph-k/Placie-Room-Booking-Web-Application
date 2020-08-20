@@ -4,6 +4,8 @@ import {SearchFormComponent} from './search-form/search-form.component';
 import {AdministratorComponent} from './administrator/administrator.component';
 import {UsersComponent} from './administrator/users/users.component';
 import {UserDetailsComponent} from './administrator/users/user-details/user-details.component';
+import {MessagesComponent} from './messages/messages.component';
+import {NewMessageComponent} from './messages/new-message/new-message.component';
 
 export const SiteRoutes: Routes = [
   {
@@ -33,5 +35,14 @@ export const SiteRoutes: Routes = [
       }]
 
 
+  },
+  {
+    path: 'messages',
+    component: MessagesComponent,
+    children: [
+      {
+        path: 'NewMessage',
+        component: NewMessageComponent,
+      }]
   }
 ];

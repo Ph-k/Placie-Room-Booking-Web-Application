@@ -1,0 +1,10 @@
+
+<br>
+
+<br><label> To who are you sending this message? </label>
+<input type="text" [(ngModel)]="this.ReceiverUsername" name="ReceiverUsername" placeholder="Type his username" required><br>
+
+<br><label>Your message: </label>
+<input type="text" [(ngModel)]="message.text" name="MessageText" required><br>
+<br>
+<button (click)="sendMessage()" >Send it!</button>

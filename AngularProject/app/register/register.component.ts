@@ -3,7 +3,6 @@ import {UserService} from '../service/user.service';
 import {User} from '../../model/User';
 import {PendingHost} from '../../model/PendingHost';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-register',

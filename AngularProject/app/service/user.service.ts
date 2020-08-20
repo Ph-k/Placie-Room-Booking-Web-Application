@@ -3,6 +3,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {User , LoginUser} from '../../model/User';
 import {PendingHost} from '../../model/PendingHost';
 import {Observable} from 'rxjs';
+import {compareNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,9 @@ export class UserService {
     return this.http.get<User>(this.usersUrl + '/' + id);
   }
 
-  getUserId(username: string){
-    return this.http.get<number>(this.usersUrl + '/UserId' + username);
+  async getUserId( username: string): Promise<number>{
+    const response = await this.http.get<number>(this.RootUrl + '/UserId/' + username).toPromise();
+    return response;
   }
 
   updateUser(user: User, id: number): void{
