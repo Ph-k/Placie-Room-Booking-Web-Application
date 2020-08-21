@@ -91,6 +91,14 @@ class UserController {
         return User.getUserId();
     }
 
+    /*@CrossOrigin(origins = "*")
+    @GetMapping("/Username/{id}")
+    String GetUsername(@PathVariable Long id){
+        User User= repository.findById(id).orElse(null);//.orElseThrow(() -> new UserNotFoundException(Username));
+        if( User == null ) return null;
+        return User.getUserName();
+    }*/
+
     @CrossOrigin(origins = "*")
     @Transactional
     @RequestMapping(

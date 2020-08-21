@@ -1,4 +1,23 @@
 <br>
 <button (click)="ShowNewMessage()">New Message</button>
 
+<div *ngIf="MessageRoomLoaded === false">
+  <ul>
+    <li *ngFor="let user of ContactedUsers">
+      <a (click)="loadMessageRoom(user)" >{{user}}</a>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="MessageRoomLoaded === true">
+  <button (click)="MessageRoomLoaded = false">Back to all messages</button>
+  <ul>
+    <li *ngFor="let message of Messages">
+      <label> {{senderName(message.senderId)}} wrote: </label> <br>
+      <div [className]="'message_text'"> <label> {{message.text}} </label> </div>
+      <div [className]="'message_date'">  <label> At: {{message.date}} </label> </div>
+    </li>
+  </ul>
+</div>
+
 <router-outlet></router-outlet>

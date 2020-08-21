@@ -1,0 +1,9 @@
+.message_text{
+  padding-left:1em;
+  color: red;
+}
+
+.message_date{
+  padding-left:2em;
+  color: blue;
+}

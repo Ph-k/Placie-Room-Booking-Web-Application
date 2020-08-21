@@ -23,7 +23,7 @@ import { NewMessageComponent } from './messages/new-message/new-message.componen
     UsersComponent,
     UserDetailsComponent,
     MessagesComponent,
-    NewMessageComponent
+    NewMessageComponent,
   ],
   imports: [
     BrowserModule,

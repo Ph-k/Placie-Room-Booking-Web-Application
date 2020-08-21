@@ -57,6 +57,12 @@ class MessageController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/ContactedUsers/{ReceiverId}")
+    List<String> getContactedUsers(@PathVariable Long ReceiverId ){
+        return repository.getContactedUsers(ReceiverId);
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/MessagesBetween/{SenderId}/{ReceiverId}")
     List<Message> getBetween(@PathVariable Long ReceiverId, @PathVariable Long SenderId){
         return repository.getBetween(SenderId,ReceiverId);

@@ -33,7 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/Registration","/Users/Image/{username}"
+                .antMatchers("/Registration","/Users/Image/{username}","/AllMessages/{ReceiverId}"
+                ,"/ContactedUsers/{ReceiverId}","/MessagesBetween/{SenderId}/{ReceiverId}"
                 ,"/Messages").permitAll().
                 anyRequest().authenticated()
                 .and()
