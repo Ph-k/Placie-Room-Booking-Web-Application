@@ -12,16 +12,24 @@ export class NewMessageComponent implements OnInit {
 
   message: Message;
   ReceiverUsername: string;
+  invalidReceiverId: boolean;
 
   constructor(private userService: UserService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.message = { messageId: null, senderId: null, receiverId: null, text: null, date: null};
+    this.invalidReceiverId = false;
   }
 
   async sendMessage() {
 
     this.message.receiverId = await this.userService.getUserId(this.ReceiverUsername);
+    if (this.message.receiverId === -1){
+      this.invalidReceiverId = true;
+      return;
+    }
+    this.invalidReceiverId = false;
+
     this.message.senderId = await this.userService.getUserId(localStorage.getItem('username'));
     this.message.date = new Date();
 

@@ -52,9 +52,6 @@ export class RegisterComponent implements OnInit {
           else {
             this.registerStatus = 2;
 
-            if (this.imageFile != null){
-              this.userService.UploadImage(this.user.userName, this.imageFile);
-            }
             if (this.user.isHost){
               this.userService.uploadPendingHost(response.userId);
             }
@@ -73,6 +70,9 @@ export class RegisterComponent implements OnInit {
           response => {
             localStorage.setItem('token', response.headers.get('Authorization'));
             localStorage.setItem('username', this.user.userName);
+            if (this.imageFile != null){
+              this.userService.UploadImage(this.user.userName, this.imageFile);
+            }
             this.router.navigate([this.MainPageUrl]);
           }
         );
