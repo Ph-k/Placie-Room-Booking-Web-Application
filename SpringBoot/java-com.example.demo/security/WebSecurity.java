@@ -35,9 +35,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/Registration","/Users/{id}","/Users/Image/{username}"
-                ,"/UserId/{Username}","/PendingHosts","/PendingHosts/{id}","/Messages").permitAll().
-                antMatchers("/Users").hasRole("ADMIN").
+                .antMatchers("/Registration","/Users/Image/{username}"
+                ,"/Messages").permitAll().
                 anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
