@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,7 @@ class UserController {
     private final UserRepository repository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     public static String PhotosDirectory = System.getProperty("User.dir") + "/ProfilePhotos";
-    
+
     UserController(UserRepository repository,BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.repository = repository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -30,6 +33,7 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Users")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     List<User> all() {
         return repository.findAll();
     }
@@ -50,13 +54,21 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Users/{id}")
-    User one(@PathVariable Long id ){
+    @PreAuthorize("hasAnyRole('ADMIN','TENANT','HOST')")
+    User one(@PathVariable Long id, Principal principal ){
+        if(!UserHasRights(id,principal)){
+            throw new UserNotFoundException(id);
+        }
         return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping("/Users/{id}")
-    User replaceUser(@RequestBody User newUser,@PathVariable Long id){
+    @PreAuthorize("hasAnyRole('ADMIN','TENANT','HOST')")
+    User replaceUser(@RequestBody User newUser,@PathVariable Long id,Principal principal){
+        if(!UserHasRights(id,principal)){
+            throw new UserNotFoundException(id);
+        }
         return repository.findById(id).map(User -> {
             User.setEMail(newUser.getEMail());
             User.setFirstName(newUser.getFirstName());
@@ -72,23 +84,29 @@ class UserController {
         }).orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/UserId/{Username}")
-    Long GetId(@PathVariable String Username ){
-        User TUser= repository.findByUsername(Username);//.orElseThrow(() -> new UserNotFoundException(Username));
-        if( TUser == null ) return Long.valueOf(-1);
-        return TUser.getUserId();
-
+    @PreAuthorize("hasAnyRole('ADMIN','TENANT','HOST')")
+    Long GetId(@PathVariable String Username , Principal principal){
+        User User= repository.findByUsername(Username);//.orElseThrow(() -> new UserNotFoundException(Username));
+        if( User == null ) return Long.valueOf(-1);
+        return User.getUserId();
     }
 
+    @CrossOrigin(origins = "*")
     @Transactional
     @RequestMapping(
             value = ("/Users/Image/{username}"),
             headers = "content-type=multipart/form-data",
             method = RequestMethod.POST)
-    public int PostImage(@RequestParam("file") MultipartFile Image, @PathVariable String username) throws IOException {
-        User TUser = repository.findByUsername(username);
+    public int PostImage(@RequestParam("file") MultipartFile Image, @PathVariable String username,Principal principal) throws IOException {
+        if(!UserHasRights(repository.findByUsername(username).getUserId(),principal)){
+            throw new IOException();
+        }
 
-        if( TUser == null ) return -1;
+        User user = repository.findByUsername(username);
+
+        if( user == null ) return -1;
         if( Image.isEmpty() ) return -2;
 
         String PhotosDirectory = System.getProperty("user.dir") + "\\images\\";
@@ -116,7 +134,11 @@ class UserController {
     @GetMapping(
             value = "/Users/Image/{username}",
             produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] GetImage(@PathVariable String username) throws IOException {
+    public @ResponseBody byte[] GetImage(@PathVariable String username,Principal principal) throws IOException {
+
+        if(!UserHasRights(repository.findByUsername(username).getUserId(),principal)){
+            throw new IOException();
+        }
 
         User TUser = repository.findByUsername(username);
         if( TUser == null ) return null;
@@ -128,6 +150,25 @@ class UserController {
 
         Path imagePath = Paths.get(System.getProperty("user.dir") + TUser.getPhotoPath());
         return Files.readAllBytes(imagePath);
+    }
+
+    private Boolean UserHasRights(@PathVariable Long id,Principal principal){
+
+        Optional<User> user=repository.findById(id);
+
+        if(user.isEmpty()){return false;}
+
+        String requestedUser = repository.findById(id).get().getUserName();
+        String loggedInUser = principal.getName();
+        Boolean loggedInAdmin = repository.findByUsername(loggedInUser).getIsAdmin();
+
+
+        /*If logged in User is different than the requested User and is not an Admin, then
+        throw UserNotFound exception*/
+        if(loggedInUser.compareTo(requestedUser) !=0 && !loggedInAdmin){
+            return false;
+        }
+        return true;
     }
 
 }
