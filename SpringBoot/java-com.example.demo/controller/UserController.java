@@ -34,9 +34,7 @@ class UserController {
     @CrossOrigin(origins = "*")
     @GetMapping("/Users")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    List<User> all() {
-        return repository.findAll();
-    }
+    List<User> all() {return repository.findAll();}
 
     @CrossOrigin(origins = "*")
     @PostMapping("/Registration")
@@ -136,10 +134,6 @@ class UserController {
             produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] GetImage(@PathVariable String username,Principal principal) throws IOException {
 
-        if(!UserHasRights(repository.findByUsername(username).getUserId(),principal)){
-            throw new IOException();
-        }
-
         User TUser = repository.findByUsername(username);
         if( TUser == null ) return null;
 
@@ -154,9 +148,9 @@ class UserController {
 
     private Boolean UserHasRights(@PathVariable Long id,Principal principal){
 
-        Optional<User> user=repository.findById(id);
+        User user=repository.findById(id).orElse(null);
 
-        if(user.isEmpty()){return false;}
+        if(user==null){return false;}
 
         String requestedUser = repository.findById(id).get().getUserName();
         String loggedInUser = principal.getName();
