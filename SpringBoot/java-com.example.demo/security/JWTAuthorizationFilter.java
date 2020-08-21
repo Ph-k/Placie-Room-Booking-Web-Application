@@ -62,6 +62,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 if(repository.findByUsername(user).getIsAdmin()) {
                     grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 }
+                if(repository.findByUsername(user).getIsHost()) {
+                    grantedAuths.add(new SimpleGrantedAuthority("ROLE_HOST"));
+                }
+                if(repository.findByUsername(user).getIsTenant()) {
+                    grantedAuths.add(new SimpleGrantedAuthority("ROLE_TENANT"));
+                }
                 return new UsernamePasswordAuthenticationToken(user, null, grantedAuths);
             }
             return null;
