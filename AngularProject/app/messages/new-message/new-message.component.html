@@ -1,11 +1,12 @@
+<div class="newMessage">
+  <h3>New Message</h3>
+  <br><label> To who are you sending this message? </label><br>
+  <input type="text" [(ngModel)]="this.ReceiverUsername" name="ReceiverUsername" placeholder="Type their username" required>
+  <div *ngIf="invalidReceiverId" [className]="'warning'"><label> There is no such user!</label></div>
 
-<br>
+  <br><label>Your message</label><br>
+  <textarea id="messageBox" [(ngModel)]="message.text" name="MessageText" required><br></textarea>
+  <br>
+  <button (click)="sendMessage()" >Send it!</button>
 
-<br><label> To who are you sending this message? </label>
-<input type="text" [(ngModel)]="this.ReceiverUsername" name="ReceiverUsername" placeholder="Type their username" required>
-<div *ngIf="invalidReceiverId" [className]="'warning'"><label> There is no such user!</label></div>
-
-<br><label>Your message: </label>
-<input type="text" [(ngModel)]="message.text" name="MessageText" required><br>
-<br>
-<button (click)="sendMessage()" >Send it!</button>
+</div>
