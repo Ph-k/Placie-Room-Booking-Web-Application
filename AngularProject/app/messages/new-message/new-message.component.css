@@ -1,3 +1,33 @@
 .warning{
   color: red;
 }
+
+.newMessage{
+  text-align: center;
+  background-color: #f2f2f2;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#messageBox{
+  height:100px;
+  width:80%
+}
+
+input{
+  margin:20px;
+  max-width: 100%;
+}
+
+textarea{
+  max-width: 80%;
+  margin: 20px;
+  max-width: 100%;
+}
+
+
+
+button{
+  margin: 10px;
+}
