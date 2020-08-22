@@ -13,6 +13,8 @@ import { UsersComponent } from './administrator/users/users.component';
 import { UserDetailsComponent } from './administrator/users/user-details/user-details.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NewMessageComponent } from './messages/new-message/new-message.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { ExportDataComponent } from './administrator/export-data/export-data.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { NewMessageComponent } from './messages/new-message/new-message.componen
     UserDetailsComponent,
     MessagesComponent,
     NewMessageComponent,
-    UserEditComponent
+    UserEditComponent,
+    ExportDataComponent
   ],
   imports: [
     BrowserModule,
@@ -36,4 +39,3 @@ import { NewMessageComponent } from './messages/new-message/new-message.componen
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
