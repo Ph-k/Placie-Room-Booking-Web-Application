@@ -24,6 +24,7 @@ import { NewMessageComponent } from './messages/new-message/new-message.componen
     UserDetailsComponent,
     MessagesComponent,
     NewMessageComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
