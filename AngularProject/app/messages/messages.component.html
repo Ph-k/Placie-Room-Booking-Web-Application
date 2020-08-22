@@ -1,15 +1,15 @@
-<br>
 <button (click)="ShowNewMessage()">New Message</button>
 
-<div *ngIf="MessageRoomLoaded === false">
-  <ul>
-    <li *ngFor="let user of ContactedUsers">
-      <a (click)="loadMessageRoom(user)" >{{user}}</a>
-    </li>
-  </ul>
+<div *ngIf="MessageRoomLoaded === false" class="messageUsers">
+  <h2>Users</h2>
+  <table>
+    <tr *ngFor="let user of ContactedUsers" class="clickable" (click)="loadMessageRoom(user)">
+       <td>{{user}}</td>
+    </tr>
+  </table>
 </div>
 
-<div *ngIf="MessageRoomLoaded === true">
+<div *ngIf="MessageRoomLoaded === true" class="chat">
   <button (click)="MessageRoomLoaded = false">Back to all messages</button>
   <ul>
     <li *ngFor="let message of Messages">
