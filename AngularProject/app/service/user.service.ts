@@ -38,11 +38,11 @@ export class UserService {
     const response = await this.http.get<number>(this.RootUrl + '/UserId/' + username, this.authorizationHeader).toPromise();
     return response;
   }
-  
+
   findUserId( username: string): Observable<number>{
     return this.http.get<number>(this.RootUrl + '/UserId/' + username, this.authorizationHeader);
   }
-  
+
   updateUser(user: User, id: number): void{
     this.http.put<any>(this.usersUrl + '/' + id, user, this.authorizationHeader).subscribe();
   }
@@ -50,8 +50,13 @@ export class UserService {
   updateUserPassword(user: User, id: number): void{
     this.http.put<any>(this.usersUrl + 'NewPassword/' + id, user, this.authorizationHeader).subscribe();
   }
+
   getPendingHost(id: string): Observable<PendingHost>{
     return this.http.get<PendingHost>(this.pendingHostsUrl + '/' + id, this.authorizationHeader);
+  }
+
+  getPendingHosts(): Observable<PendingHost[]>{
+    return this.http.get<PendingHost[]>(this.pendingHostsUrl , this.authorizationHeader);
   }
 
   uploadPendingHost(pendingHost: number): void{
