@@ -5,8 +5,9 @@
     <td><label>Username</label></td>
     <td><label>E-Mail</label></td>
   </tr>
-    <tr *ngFor="let user of users" class="clickable" routerLink="/administrator/users/{{user.userId}}">
-      <td >{{user.userName}}</td>
+    <tr *ngFor="let user of users"  class="clickable" routerLink="/administrator/users/{{user.userId}}">
+      <td *ngIf="isPendingHost(user.userId)" >{{user.userName}} <span class="pendingHost">(Pending Host)</span></td>
+      <td *ngIf="!isPendingHost(user.userId)" >{{user.userName}}</td>
       <td >{{user.email}}</td>
     </tr>
 </table>
