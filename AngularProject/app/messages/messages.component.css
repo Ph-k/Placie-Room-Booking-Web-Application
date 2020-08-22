@@ -7,3 +7,42 @@
   padding-left:2em;
   color: blue;
 }
+
+.messageUsers{
+  text-align: center;
+}
+
+.chat{
+  width: 80%;
+  margin-left: 10%;
+  margin-right:10%;
+  background-color: #f2f2f2;
+}
+
+table{
+  width: 50%;
+  margin-left: 25%;
+  margin-right:25%;
+  background-color: #f2f2f2;
+  table-layout: fixed;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+tr{
+  border: 1px solid black;
+}
+
+.clickable{
+  width:100%;
+  cursor: pointer;
+}
+
+.clickable:hover{
+  background-color:white;
+}
+
+button{
+  margin:10px;
+}
+
