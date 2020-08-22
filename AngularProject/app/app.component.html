@@ -13,7 +13,7 @@
 
 <div *ngIf="LoggedIn() && !registration">
   <label> Welcome: {{GetUsername()}} !</label>
-  <button> My Account </button>
+  <button routerLink="/editAccount"> My Account </button>
   <button routerLink="/messages">Messages</button>
   <form (ngSubmit)="Logout($event)">
     <button> Logout </button>
