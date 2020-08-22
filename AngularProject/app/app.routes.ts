@@ -37,6 +37,10 @@ export const SiteRoutes: Routes = [
 
   },
   {
+    path: 'editAccount',
+    component: UserEditComponent,
+  },
+  {
     path: 'messages',
     component: MessagesComponent,
     children: [
