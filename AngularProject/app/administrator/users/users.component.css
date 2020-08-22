@@ -21,19 +21,20 @@ td{
   overflow-wrap: break-word;
 }
 
-#heading{
-  background-color:white;
-  text-align:center;
+.verification{
+  text-align: center;
 }
 
-label{
-  font-size: 20px;
+img{
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  padding: 10px;
 }
 
-.clickable{
-  cursor: pointer;
-}
-
-.clickable:hover{
-  background-color:white;
+.warning{
+  color: red;
+  text-align: center;
 }
