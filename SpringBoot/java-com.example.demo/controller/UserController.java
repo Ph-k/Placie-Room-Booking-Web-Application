@@ -52,7 +52,6 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Users/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','TENANT','HOST')")
     User one(@PathVariable Long id, Principal principal ){
         if(!UserHasRights(id,principal)){
             throw new UserNotFoundException(id);
@@ -62,11 +61,38 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @PutMapping("/Users/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','TENANT','HOST')")
     User replaceUser(@RequestBody User newUser,@PathVariable Long id,Principal principal){
         if(!UserHasRights(id,principal)){
             throw new UserNotFoundException(id);
         }
+        
+        if(!repository.findByUsername(principal.getName()).getIsAdmin()){
+            newUser.setIsHost(false);
+        }
+        
+        return repository.findById(id).map(User -> {
+            User.setEMail(newUser.getEMail());
+            User.setFirstName(newUser.getFirstName());
+            User.setLastName(newUser.getLastName());
+            User.setUserName(newUser.getUserName());
+            User.setPassword(newUser.getPassword());
+            User.setTelephone(newUser.getTelephone());
+            User.setPhotoPath(newUser.getPhotoPath());
+            User.setIsTenant(newUser.getIsTenant());
+            User.setIsHost(newUser.getIsHost());
+            User.setIsAdmin(newUser.getIsAdmin());
+            return repository.save(newUser);
+        }).orElseThrow(() -> new UserNotFoundException(id));
+    }
+        
+    @CrossOrigin(origins = "*")
+    @PutMapping("/UsersNewPassword/{id}")
+    User NewPassword(@RequestBody User newUser,@PathVariable Long id,Principal principal){
+        if(!UserHasRights(id,principal)){
+            throw new UserNotFoundException(id);
+        }
+
+        newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
         return repository.findById(id).map(User -> {
             User.setEMail(newUser.getEMail());
             User.setFirstName(newUser.getFirstName());
@@ -82,9 +108,9 @@ class UserController {
         }).orElseThrow(() -> new UserNotFoundException(id));
     }
 
+
     @CrossOrigin(origins = "*")
     @GetMapping("/UserId/{Username}")
-    @PreAuthorize("hasAnyRole('ADMIN','TENANT','HOST')")
     Long GetId(@PathVariable String Username , Principal principal){
         User User= repository.findByUsername(Username);//.orElseThrow(() -> new UserNotFoundException(Username));
         if( User == null ) return Long.valueOf(-1);
