@@ -1,0 +1,55 @@
+<h2>Edit Account</h2>
+
+<div class="editSection">
+
+  <h3>Username : {{user.userName}}</h3>
+  <img [attr.src]="GetImageUrl()" />
+
+  <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector style="display: none" (change)="updatePhoto($event)">
+  <button type="button" (click)="imageSelector.click()">Update Photo</button>
+  <div *ngIf="InvalidFileType" [className]="'warning'"><p> Please choose an image file such as .png .jpg .jpeg .gif</p></div>
+  <div *ngIf="ImageTooLarge" [className]="'warning'"><p> The file you selected is too large (maximum file size is 10mb)</p></div>
+
+  <div *ngIf="isPendingHost"><h4>Your requeset to become a host is pending </h4></div>
+
+  <div class="editForm">
+    <form ngNativeValidate>
+      <h3> Edit your Details </h3>
+      <label>First Name </label><br>
+      <input type="text" [(ngModel)]="user.firstName" name="firstname" required> <br>
+
+      <label>Last Name </label><br>
+      <input type="text" [(ngModel)]="user.lastName" name="lastname" required> <br>
+
+      <label>Email </label><br>
+      <input type="text" [(ngModel)]="user.email" name="email" required><br>
+
+      <label>Phone Number </label><br>
+      <input type="tel" [(ngModel)]="user.telephone" name="telephone" required> <br>
+
+
+
+      <h3> Edit Your Roles </h3>
+      <label>Tenant</label><input type="checkbox" [(ngModel)]="user.isTenant" name="tenant">
+      <label> Host</label><input type="checkbox" [(ngModel)]="user.isHost" name="host"> <br>
+
+      <button (click)="changeDetails()">Update Account Details</button>
+
+    </form>
+  </div>
+
+  <div class="editForm">
+    <form ngNativeValidate>
+      <h3> Change your Password </h3>
+      <label>New Password</label><br>
+      <input type="password" [(ngModel)]="password" name="password" required> <br>
+
+      <label>Retype Password</label><br>
+      <input type="password" [(ngModel)]="passwordVerification" name="password2" required> <br>
+
+      <div *ngIf="smallPassword()" [className]="'warning'"><p> Password length must be at least 4 characters </p></div>
+      <div *ngIf="attemptedPasswordChange" [className]="'warning'"><div *ngIf="!passwordMatch()">Passwords Don't Match!</div></div>
+      <button (click)="changePassword()">Update Password</button>
+    </form>
+  </div>
+</div>

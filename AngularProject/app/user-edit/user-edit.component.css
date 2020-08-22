@@ -1,0 +1,41 @@
+.editForm{
+  text-align:center;
+  background-color: #f2f2f2;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 10px;
+}
+
+h2{
+  text-align: center;
+}
+
+h3,h4{
+  text-align: center;
+}
+
+button{
+  margin: 10px;
+}
+
+input{
+  margin: 5px;
+}
+
+.warning{
+  color: red;
+}
+
+img{
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  padding: 10px;
+}
+
+.editSection{
+  text-align: center;
+}
