@@ -34,7 +34,6 @@ export class AppComponent {
         response => {
           localStorage.setItem('token', response.headers.get('Authorization'));
           localStorage.setItem('username', event.target.username.value);
-          this.UserSer.refreshToken();
         }, error => {
           if (error.status === 403) {
             alert('Invalid username and/or password');

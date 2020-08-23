@@ -51,10 +51,7 @@ export class RegisterComponent implements OnInit {
           }
           else {
             this.registerStatus = 2;
-
-            if (this.user.isHost){
-              this.userService.uploadPendingHost(response.userId);
-            }
+            this.user.userId = response.userId;
           }
         },
         error => {this.registerStatus = 3; }
@@ -74,8 +71,10 @@ export class RegisterComponent implements OnInit {
             if (this.imageFile != null){
               this.userService.UploadImage(this.user.userName, this.imageFile);
             }
-            this.userService.refreshToken();
-            window.location.href = '/';
+            if (this.user.isHost){
+              this.userService.uploadPendingHost(this.user.userId);
+            }
+            this.router.navigate([this.MainPageUrl]);
           }
         );
         this.LoggedIn = true;
