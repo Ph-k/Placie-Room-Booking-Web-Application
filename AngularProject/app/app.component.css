@@ -1,0 +1,83 @@
+h1{
+  text-align: center;
+}
+
+ul{
+
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #4d4c4c;
+}
+
+li {
+  float: left;
+  padding: 12px 20px;
+}
+
+.link:hover{
+  background-color: #1c1c1c;
+}
+
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+.right{
+  float: right;
+  padding: 10px 20px;
+}
+
+button{
+  width:100px;
+  margin-right: 5px;
+}
+
+
+label{
+  color: white;
+}
+
+input{
+  width: 20%;
+  margin-right: 5px;
+}
+
+label{
+  width: 5%;
+}
+
+form{
+  display: inline;
+}
+
+#menu{
+  text-align: center;
+}
+
+@media only screen and (max-width: 910px){
+  li{
+    float: none;
+    text-align: center;
+  }
+
+  .right{
+    float: none;
+  }
+
+  form{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  input{
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+}

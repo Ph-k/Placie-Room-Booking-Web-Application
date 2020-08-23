@@ -19,6 +19,11 @@ export class UserService {
   private authorizationHeader: { headers: { Authorization: string } } ;
 
   constructor(private http: HttpClient) {
+    this.refreshToken();
+  }
+
+  refreshToken(): void{
+    console.log('Here is it' + localStorage.getItem('username'));
     this.authorizationHeader = { headers: {Authorization: localStorage.getItem('token') }  };
   }
 
@@ -27,10 +32,14 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]>{
+    console.log('FUCK' + this.authorizationHeader);
     return this.http.get<User[]>(this.usersUrl, this.authorizationHeader);
   }
 
   getUser(id: string): Observable<User>{
+    console.log('this.authorizationHeader');
+    // console.log('Here');
+    // console.log(this.authorizationHeader);
     return this.http.get<User>(this.usersUrl + '/' + id, this.authorizationHeader);
   }
 
@@ -75,6 +84,7 @@ export class UserService {
   Logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    this.refreshToken();
   }
 
   LoggedIn(): boolean{

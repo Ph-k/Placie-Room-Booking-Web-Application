@@ -1,6 +1,9 @@
 <h2>User Details</h2>
 
-<img [attr.src]="GetImageUrl()" alt="Easter egg 🥚" />
+<div *ngIf="!userExists"><h3 class="warning">User Doesn't Exist</h3></div>
+
+<div *ngIf="user">
+<img [attr.src]="GetImageUrl()" />
 <table>
   <tr>
     <td>Username</td>
@@ -38,4 +41,6 @@
 <div class="verification" *ngIf="isPendingHost()">
   <p>This user wants to be a Host</p>
   <button (click)="verifyHost()">Verify Host</button>
+</div>
+
 </div>

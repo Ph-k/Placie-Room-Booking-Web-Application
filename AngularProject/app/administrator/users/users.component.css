@@ -21,20 +21,23 @@ td{
   overflow-wrap: break-word;
 }
 
-.verification{
-  text-align: center;
+#heading{
+  background-color:white;
+  text-align:center;
 }
 
-img{
-  border-radius: 50%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 10%;
-  padding: 10px;
+label{
+  font-size: 20px;
 }
 
-.warning{
-  color: red;
-  text-align: center;
+.clickable{
+  cursor: pointer;
+}
+
+.clickable:hover{
+  background-color:white;
+}
+
+.pendingHost{
+  color: red ;
 }

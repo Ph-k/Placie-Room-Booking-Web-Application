@@ -28,8 +28,8 @@ export class UserEditComponent implements OnInit {
     subscribe(user => {this.user = user; });
                             this.userService.getPendingHost(this.id.toString()).subscribe(pendingHost => this.isPendingHost = true,
           error => this.isPendingHost = false); });
+    }
 
-  }
 
   changeDetails(): void{
     this.attemptedDetailsChange = true;
@@ -97,6 +97,7 @@ export class UserEditComponent implements OnInit {
       this.imageFile = event.target.files[0];
       this.InvalidFileType = false;
       this.userService.UploadImage(this.user.userName, this.imageFile);
+      window.location.reload();
     }else{
       this.imageFile = null;
       this.InvalidFileType = true;

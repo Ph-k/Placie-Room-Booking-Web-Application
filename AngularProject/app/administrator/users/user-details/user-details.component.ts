@@ -14,18 +14,19 @@ export class UserDetailsComponent implements OnInit {
 
   user: User;
   pendingHost: PendingHost;
+  userExists = true;
   private id = this.route.snapshot.paramMap.get('id');
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.userService.getUser(this.id).subscribe(user => this.user = user);
+    this.userService.getUser(this.id).subscribe(user => {this.user = user; if (user == null){this.userExists = false; }});
     this.userService.getPendingHost(this.id).subscribe(pendingHost => this.pendingHost = pendingHost, error => this.pendingHost = null);
 
 
   }
 
   isPendingHost(): boolean{
-    if (this.pendingHost != null){
+    if (this.pendingHost != null && !this.user.isHost){
       return true;
     }
     else {

@@ -1,9 +1,9 @@
-<button (click)="ShowNewMessage()">New Message</button>
+<button (click)="ShowNewMessage()" id="newMessageButton">New Message</button>
 
 <div *ngIf="MessageRoomLoaded === false" class="messageUsers">
-  <h2>Users</h2>
+  <h2>Users In Contact</h2>
   <table>
-    <tr *ngFor="let user of ContactedUsers" class="clickable" (click)="loadMessageRoom(user)">
+    <tr *ngFor="let user of ContactedUsers" class="clickable" (click)="loadMessageRoom(tempUser=user)">
        <td>{{user}}</td>
     </tr>
   </table>
@@ -11,11 +11,13 @@
 
 <div *ngIf="MessageRoomLoaded === true" class="chat">
   <button (click)="MessageRoomLoaded = false">Back to all messages</button>
+  <button (click)="loadMessageRoom(tempUser)">Refresh</button>
   <ul>
     <li *ngFor="let message of Messages">
       <label> {{senderName(message.senderId)}} wrote: </label> <br>
       <div [className]="'message_text'"> <label> {{message.text}} </label> </div>
       <div [className]="'message_date'">  <label> At: {{message.date}} </label> </div>
+      <button (click)="deleteMessage(message.messageId)">Delete Message</button>
     </li>
   </ul>
 </div>

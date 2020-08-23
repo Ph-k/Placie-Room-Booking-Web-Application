@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit {
   successfulRegistration(): boolean{
     if (this.registerStatus === 2  && this.passwordMatch() && !this.emptyFields() && this.attemptedRegistration === true) {
       if (this.LoggedIn === false) {
+        localStorage.clear();
         this.userService.LoginRequest(this.user.userName, this.user.password).subscribe(
           response => {
             localStorage.setItem('token', response.headers.get('Authorization'));
@@ -73,7 +74,8 @@ export class RegisterComponent implements OnInit {
             if (this.imageFile != null){
               this.userService.UploadImage(this.user.userName, this.imageFile);
             }
-            this.router.navigate([this.MainPageUrl]);
+            this.userService.refreshToken();
+            window.location.href = '/';
           }
         );
         this.LoggedIn = true;

@@ -4,7 +4,6 @@ import {MessageService} from '../service/message.service';
 import {UserService} from '../service/user.service';
 import {Observable} from 'rxjs';
 import {Message} from '../../model/Message';
-import setDefaultSpyStrategy = jasmine.setDefaultSpyStrategy;
 
 @Component({
   selector: 'app-messages',
@@ -14,6 +13,7 @@ import setDefaultSpyStrategy = jasmine.setDefaultSpyStrategy;
 export class MessagesComponent implements OnInit {
 
   ContactedUsers: string[];
+  tempUser: string;
   MessageRoomLoaded = false;
   Messages: Message[];
   private senderUsername: string;
@@ -62,5 +62,9 @@ export class MessagesComponent implements OnInit {
     } else {
       return this.senderUsername;
     }
+  }
+
+  deleteMessage(messageId: number): void{
+    this.messageService.deleteMessage(messageId);
   }
 }

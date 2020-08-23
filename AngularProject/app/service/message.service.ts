@@ -21,6 +21,10 @@ export class MessageService {
     return this.http.post<Message>(this.SendMessageUrl, message, this.authorizationHeader);
   }
 
+  deleteMessage(messageId: number): void{
+    this.http.delete<Message>(this.SendMessageUrl + '/' + messageId, this.authorizationHeader).subscribe();
+  }
+
   getContactedUsers(userID: number): Observable<string[]>{
     return this.http.get<string[]>(this.MessagesUrl + '/ContactedUsers/' + userID, this.authorizationHeader);
   }

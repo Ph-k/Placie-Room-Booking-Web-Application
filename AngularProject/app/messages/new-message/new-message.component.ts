@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Message} from '../../../model/Message';
 import {UserService} from '../../service/user.service';
 import {MessageService} from '../../service/message.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-message',
@@ -14,7 +15,7 @@ export class NewMessageComponent implements OnInit {
   ReceiverUsername: string;
   invalidReceiverId: boolean;
 
-  constructor(private userService: UserService, private messageService: MessageService) { }
+  constructor(private userService: UserService, private messageService: MessageService, private router: Router) { }
 
   ngOnInit(): void {
     this.message = { messageId: null, senderId: null, receiverId: null, text: null, date: null};
@@ -39,5 +40,8 @@ export class NewMessageComponent implements OnInit {
     console.log('Date=' + this.message.date);
 
     console.log(await this.messageService.SendMessage(this.message).toPromise());
+
+    await this.router.navigateByUrl('/messages');
+    
   }
 }

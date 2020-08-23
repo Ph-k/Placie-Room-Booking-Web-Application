@@ -21,6 +21,8 @@ button{
 
 input{
   margin: 5px;
+  max-width: 90%;
+  box-sizing: border-box;
 }
 
 .warning{

@@ -26,22 +26,20 @@ export const SiteRoutes: Routes = [
   {
     path: 'administrator',
     component: AdministratorComponent,
-    children: [
-      {
-        path: 'users',
-        component: UsersComponent,
-      },
-      {
-        path: 'exportData',
-        component: ExportDataComponent,
-      },
-      {
-        path: 'users/:id',
-        component: UserDetailsComponent,
-      }]
-
-
   },
+  {
+    path: 'users',
+    component: UsersComponent,
+  },
+  {
+    path: 'exportData',
+    component: ExportDataComponent,
+  },
+  {
+    path: 'users/:id',
+    component: UserDetailsComponent,
+  }
+  ,
   {
     path: 'editAccount',
     component: UserEditComponent,

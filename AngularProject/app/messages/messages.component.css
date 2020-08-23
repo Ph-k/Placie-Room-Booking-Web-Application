@@ -46,3 +46,8 @@ button{
   margin:10px;
 }
 
+#newMessageButton {
+  width: 50%;
+  margin-right: 25%;
+  margin-left: 25%;
+}

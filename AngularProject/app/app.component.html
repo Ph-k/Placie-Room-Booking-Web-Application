@@ -1,23 +1,24 @@
 <h1>DitBnB</h1>
 
-<div *ngIf="!LoggedIn() && !registration">
-  <form (ngSubmit)="Login($event)">
-    <label> Username </label>
-    <input name="username"  type="text">
-    <label> Password </label>
-    <input name="password" type="password">
-    <button> Login </button>
-  </form>
-  <button routerLink="/register">Register</button>
-</div>
-
-<div *ngIf="LoggedIn() && !registration">
-  <label> Welcome: {{GetUsername()}} !</label>
-  <button routerLink="/editAccount"> My Account </button>
-  <button routerLink="/messages">Messages</button>
-  <form (ngSubmit)="Logout($event)">
-    <button> Logout </button>
-  </form>
+<div id="menu" *ngIf="!registration">
+  <ul>
+    <li *ngIf="LoggedIn()" class ="link"><a routerLink="/administrator">Administrator Section</a></li>
+    <li *ngIf="LoggedIn()" class ="link"><a routerLink="/administrator">Host Section</a></li>
+    <li *ngIf="LoggedIn()" class ="link"><a routerLink="/administrator">Tenant Section</a></li>
+    <li *ngIf="LoggedIn()" class ="right"><button (click)="Logout($event)"> Logout </button></li>
+    <li *ngIf="LoggedIn()" class ="right"><button routerLink="/messages">Messages</button></li>
+    <li *ngIf="LoggedIn()" class ="right"><button routerLink="/editAccount"> My Account </button></li>
+    <li *ngIf="!LoggedIn()">
+      <form (ngSubmit)="Login($event)">
+        <label> Username </label>
+        <input name="username"  type="text">
+        <label> Password </label>
+        <input name="password" type="password">
+        <button> Login </button>
+      </form>
+    </li>
+    <li *ngIf="!LoggedIn()" class="right"><button routerLink="/register">Register</button></li>
+  </ul>
 </div>
 
 <router-outlet></router-outlet>
