@@ -8,6 +8,8 @@ import {MessagesComponent} from './messages/messages.component';
 import {NewMessageComponent} from './messages/new-message/new-message.component';
 import {UserEditComponent} from './user-edit/user-edit.component';
 import {ExportDataComponent} from './administrator/export-data/export-data.component';
+import {AdministratorGuardService} from './service/administrator-guard.service';
+import {UserGuardService} from './service/user-guard.service';
 
 export const SiteRoutes: Routes = [
   {
@@ -26,31 +28,39 @@ export const SiteRoutes: Routes = [
   {
     path: 'administrator',
     component: AdministratorComponent,
+    canActivate: [AdministratorGuardService]
   },
   {
     path: 'users',
     component: UsersComponent,
+    canActivate: [AdministratorGuardService]
   },
   {
     path: 'exportData',
     component: ExportDataComponent,
+    canActivate: [AdministratorGuardService]
   },
   {
     path: 'users/:id',
     component: UserDetailsComponent,
+    canActivate: [AdministratorGuardService]
   }
   ,
   {
     path: 'editAccount',
     component: UserEditComponent,
+    canActivate: [UserGuardService]
   },
   {
     path: 'messages',
     component: MessagesComponent,
+    canActivate: [UserGuardService],
     children: [
       {
         path: 'NewMessage',
         component: NewMessageComponent,
+        canActivate: [UserGuardService]
       }]
+
   }
 ];
