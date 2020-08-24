@@ -8,7 +8,7 @@ ul{
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #4d4c4c;
+  background-color: #00B5DE;
 }
 
 li {
@@ -17,7 +17,7 @@ li {
 }
 
 .link:hover{
-  background-color: #1c1c1c;
+  background-color: #3DB992;
 }
 
 
@@ -31,6 +31,12 @@ li a {
 .right{
   float: right;
   padding: 10px 20px;
+}
+
+.username{
+  /*text-align: center;*/
+  position: relative;
+  left: 16%;
 }
 
 button{
@@ -54,6 +60,10 @@ label{
 
 form{
   display: inline;
+}
+
+.logo{
+  text-align: center;
 }
 
 #menu{

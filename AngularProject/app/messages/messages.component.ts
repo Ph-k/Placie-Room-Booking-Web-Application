@@ -12,17 +12,18 @@ import {Message} from '../../model/Message';
 })
 export class MessagesComponent implements OnInit {
 
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private messageService: MessageService,
+              private userService: UserService) {}
+
   ContactedUsers: string[];
   tempUser: string;
   MessageRoomLoaded = false;
   Messages: Message[];
   private senderUsername: string;
   private UsedId: number;
-
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private messageService: MessageService,
-              private userService: UserService) {}
+  chatMessage: Message;
 
   ngOnInit(): void {
     this.userService.getUserId(localStorage.getItem('username')).then(
@@ -32,6 +33,7 @@ export class MessagesComponent implements OnInit {
       }
     );
     this.MessageRoomLoaded = false;
+    this.chatMessage = { messageId: null, senderId: null, receiverId: null, text: null, date: null};
   }
 
   ShowNewMessage() {
@@ -66,5 +68,19 @@ export class MessagesComponent implements OnInit {
 
   deleteMessage(messageId: number): void{
     this.messageService.deleteMessage(messageId);
+    this.loadMessageRoom(this.senderUsername);
+  }
+
+  async sendMessage() {
+
+    this.chatMessage.senderId = await this.userService.getUserId(localStorage.getItem('username'));
+    this.chatMessage.receiverId = await this.userService.getUserId(this.senderUsername);
+    this.chatMessage.date = new Date();
+
+    await this.messageService.SendMessage(this.chatMessage).toPromise();
+
+    this.chatMessage = { messageId: null, senderId: null, receiverId: null, text: null, date: null};
+
+    this.loadMessageRoom(this.tempUser);
   }
 }

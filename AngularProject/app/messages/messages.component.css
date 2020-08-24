@@ -1,11 +1,12 @@
 .message_text{
   padding-left:1em;
-  color: red;
+  /*color: #00B5DE;*/
+  font-weight: bold;
 }
 
 .message_date{
   padding-left:2em;
-  color: blue;
+  color: #00B5DE;
 }
 
 .messageUsers{

@@ -42,6 +42,6 @@ export class NewMessageComponent implements OnInit {
     console.log(await this.messageService.SendMessage(this.message).toPromise());
 
     await this.router.navigateByUrl('/messages');
-    
+
   }
 }

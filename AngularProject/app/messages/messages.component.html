@@ -1,6 +1,6 @@
-<button (click)="ShowNewMessage()" id="newMessageButton">New Message</button>
 
 <div *ngIf="MessageRoomLoaded === false" class="messageUsers">
+  <button (click)="ShowNewMessage()" id="newMessageButton">New Message</button>
   <h2>Users In Contact</h2>
   <table>
     <tr *ngFor="let user of ContactedUsers" class="clickable" (click)="loadMessageRoom(tempUser=user)">
@@ -20,6 +20,13 @@
       <button (click)="deleteMessage(message.messageId)">Delete Message</button>
     </li>
   </ul>
+
+  <div class="newMessage">
+    <label>New message: </label>
+    <input type="text" [(ngModel)]="this.chatMessage.text" required>
+    <button [disabled]="this.chatMessage.text === null" (click)="sendMessage()">Send it!</button>
+  </div>
+
 </div>
 
 <router-outlet></router-outlet>
