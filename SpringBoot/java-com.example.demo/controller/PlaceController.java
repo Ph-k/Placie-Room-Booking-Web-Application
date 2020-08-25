@@ -3,16 +3,21 @@ package com.example.demo.controller;
 import com.example.demo.exception.PlaceNotFoundException;
 import com.example.demo.model.Place;
 import com.example.demo.repository.PlaceRepository;
+import com.example.demo.repository.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 public class PlaceController {
     private final PlaceRepository repository;
+    private final UserRepository userRepository;
 
-    PlaceController(PlaceRepository repository) {
+    PlaceController(PlaceRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     @CrossOrigin(origins = "*")
@@ -23,14 +28,16 @@ public class PlaceController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/Places")
-    Place newPlace(@RequestBody Place newPlace) {
+    @PreAuthorize("hasAnyRole('HOST')")
+    Place newPlace(@RequestBody Place newPlace, Principal principal) {
+        newPlace.setHostId(this.userRepository.findByUsername(principal.getName()).getUserId());
         return repository.save(newPlace);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Places/{id}")
-    Place one(@PathVariable Long id ){
-        return repository.findById(id).orElseThrow(()->new PlaceNotFoundException(id));
+    Place one(@PathVariable Long id) {
+        return repository.findById(id).orElseThrow(() -> new PlaceNotFoundException(id));
     }
 
     @CrossOrigin(origins = "*")
@@ -47,7 +54,21 @@ public class PlaceController {
 
     @CrossOrigin(origins = "*")
     @PutMapping("/Places/{id}")
-    Place replacePlace(@RequestBody Place newPlace, @PathVariable Long id) {
+    @PreAuthorize("hasAnyRole('HOST')")
+    Place replacePlace(@RequestBody Place newPlace, @PathVariable Long id,Principal principal) {
+
+        Place place = repository.findById(id).orElse(null);
+
+
+        if(place == null){
+            throw  new PlaceNotFoundException(id);
+        }
+
+        if( place.getHostId() !=
+                userRepository.findByUsername(principal.getName()).getUserId()){
+            throw new PlaceNotFoundException(id);
+        }
+
         return repository.findById(id).map(Place -> {
             Place.setHostId(newPlace.getHostId());
             Place.setMainPhotoUrl(newPlace.getMainPhotoUrl());
@@ -75,6 +96,23 @@ public class PlaceController {
             Place.setPartiesAllowed(newPlace.getPartiesAllowed());
             Place.setSmokingAllowed(newPlace.getSmokingAllowed());
             return repository.save(newPlace);
-        }).orElseThrow(()-> new PlaceNotFoundException(id));
+        }).orElseThrow(() -> new PlaceNotFoundException(id));
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/Places/{id}")
+    void deleteMessage(@PathVariable Long id , Principal principal) {
+        Place place = repository.findById(id).orElse(null);
+
+        if(place == null){
+            throw  new PlaceNotFoundException(id);
+        }
+
+        if( place.getHostId() !=
+                userRepository.findByUsername(principal.getName()).getUserId()){
+            throw new PlaceNotFoundException(id);
+        }
+
+        repository.deleteById(id);
     }
 }
