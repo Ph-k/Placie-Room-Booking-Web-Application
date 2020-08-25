@@ -40,8 +40,16 @@ li a {
 button{
   width:100px;
   margin-right: 5px;
+  border-radius:28px;
+  cursor: pointer;
+  outline:none
 }
 
+button:hover{
+  background-color:#3DB992;
+  color: white;
+  border-color: white;
+}
 
 label{
   color: white;
@@ -68,7 +76,7 @@ form{
   text-align: center;
 }
 
-@media only screen and (max-width: 910px){
+@media only screen and (max-width: 1100px){
   li{
     float: none;
     text-align: center;
