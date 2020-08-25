@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
               this.userService.uploadPendingHost(this.user.userId);
             }
 
-            this.router.navigate([this.MainPageUrl]);
+            window.location.href = '/searchForm';
           }
         );
         this.LoggedIn = true;
