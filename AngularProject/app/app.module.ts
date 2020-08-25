@@ -15,6 +15,10 @@ import { MessagesComponent } from './messages/messages.component';
 import { NewMessageComponent } from './messages/new-message/new-message.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { ExportDataComponent } from './administrator/export-data/export-data.component';
+import { HostComponent } from './host/host.component';
+import { PlacesComponent } from './host/places/places.component';
+import { PlaceDetailsComponent } from './host/places/place-details/place-details.component';
+import { NewPlaceComponent } from './host/new-place/new-place.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { ExportDataComponent } from './administrator/export-data/export-data.com
     MessagesComponent,
     NewMessageComponent,
     UserEditComponent,
-    ExportDataComponent
+    ExportDataComponent,
+    HostComponent,
+    PlacesComponent,
+    PlaceDetailsComponent,
+    NewPlaceComponent
   ],
   imports: [
     BrowserModule,

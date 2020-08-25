@@ -29,7 +29,12 @@ export class AppComponent {
   GetUser(): void{
     this.UserSer.findUserId(localStorage.getItem('username')).subscribe(response => {
       this.UserSer.getUser(response.toString()).subscribe(user =>
-      {this.user = user; localStorage.setItem('admin', JSON.stringify(user.isAdmin)); });
+      {
+        this.user = user;
+        localStorage.setItem('admin', JSON.stringify(user.isAdmin));
+        localStorage.setItem('host', JSON.stringify(user.isHost));
+        localStorage.setItem('tenant', JSON.stringify(user.isTenant));
+      });
     });
   }
 

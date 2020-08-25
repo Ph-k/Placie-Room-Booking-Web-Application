@@ -5,7 +5,7 @@
 <div id="menu" *ngIf="!registration">
   <ul>
     <li *ngIf="LoggedIn() && user.isAdmin" class ="link"><a routerLink="/administrator">Administrator Section</a></li>
-    <li *ngIf="LoggedIn() && user.isHost" class ="link"><a routerLink="/administrator">Host Section</a></li>
+    <li *ngIf="LoggedIn() && user.isHost" class ="link"><a routerLink="/host">Host Section</a></li>
     <li *ngIf="LoggedIn() && user.isTenant" class ="link"><a routerLink="/administrator">Tenant Section</a></li>
     <li *ngIf="LoggedIn()" class ="right"><button (click)="Logout($event)"> Logout </button></li>
     <li *ngIf="LoggedIn()" class ="right"><button routerLink="/messages">Messages</button></li>

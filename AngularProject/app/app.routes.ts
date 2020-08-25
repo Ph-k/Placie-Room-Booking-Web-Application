@@ -10,6 +10,11 @@ import {UserEditComponent} from './user-edit/user-edit.component';
 import {ExportDataComponent} from './administrator/export-data/export-data.component';
 import {AdministratorGuardService} from './service/administrator-guard.service';
 import {UserGuardService} from './service/user-guard.service';
+import {HostComponent} from './host/host.component';
+import {PlacesComponent} from './host/places/places.component';
+import {NewPlaceComponent} from './host/new-place/new-place.component';
+import {PlaceDetailsComponent} from './host/places/place-details/place-details.component';
+import {HostGuardService} from './service/host-guard.service';
 
 export const SiteRoutes: Routes = [
   {
@@ -44,6 +49,26 @@ export const SiteRoutes: Routes = [
     path: 'users/:id',
     component: UserDetailsComponent,
     canActivate: [AdministratorGuardService]
+  },
+  {
+    path: 'host',
+    component: HostComponent,
+    canActivate: [HostGuardService]
+  },
+  {
+    path: 'myPlaces',
+    component: PlacesComponent,
+    canActivate: [HostGuardService]
+  },
+  {
+    path: 'newPlace',
+    component: NewPlaceComponent,
+    canActivate: [HostGuardService]
+  },
+  {
+    path: 'editPlaces/:id',
+    component: PlaceDetailsComponent,
+    canActivate: [HostGuardService]
   }
   ,
   {

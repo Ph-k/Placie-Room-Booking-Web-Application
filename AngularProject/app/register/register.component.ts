@@ -74,6 +74,7 @@ export class RegisterComponent implements OnInit {
             if (this.user.isHost){
               this.userService.uploadPendingHost(this.user.userId);
             }
+
             this.router.navigate([this.MainPageUrl]);
           }
         );
