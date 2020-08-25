@@ -101,7 +101,8 @@ public class PlaceController {
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/Places/{id}")
-    void deleteMessage(@PathVariable Long id , Principal principal) {
+    @PreAuthorize("hasAnyRole('HOST')")
+    void deletePlace(@PathVariable Long id , Principal principal) {
         Place place = repository.findById(id).orElse(null);
 
         if(place == null){
