@@ -1,1 +1,7 @@
-<p>places works!</p>
+<h2>Places</h2>
+
+<div class="placeContainer">
+  <span *ngFor="let place of places" class="place">
+    {{place.type}} in {{place.district}}
+  </span>
+</div>

@@ -21,6 +21,14 @@ export class PlaceService {
     return this.http.post<Place>(this.placesUrl, place, this.authorizationHeader());
   }
 
+  getPlaces(): Observable<Place[]>{
+    return this.http.get<Place[]>(this.placesUrl, this.authorizationHeader());
+  }
+
+  getPlacesBy(hostId: number): Observable<Place[]>{
+    return this.http.get<Place[]>('https://localhost:8443/PlacesBy/' + hostId.toString(), this.authorizationHeader());
+  }
+
   UploadImage(PlaceId: number, Image: File): number{
     const formdata  = new FormData();
     formdata.append('file', Image, Image.name);

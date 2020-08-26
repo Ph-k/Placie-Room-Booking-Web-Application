@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {PlaceService} from '../../service/place.service';
+import {Place} from '../../../model/Place';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'app-places',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlacesComponent implements OnInit {
 
-  constructor() { }
+  places: Place[];
+  constructor(private placeService: PlaceService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.findUserId(localStorage.getItem('username')).subscribe(id => {
+      this.placeService.getPlacesBy(id).subscribe(places => this.places = places); } );
   }
 
 }

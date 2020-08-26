@@ -24,7 +24,7 @@ export class NewPlaceComponent implements OnInit {
       mainPhotoUrl: null,
       country: '',
       city: '',
-      province: '',
+      district: '',
       address: '',
       openStreetMapUrl: '',
       transportation: '',

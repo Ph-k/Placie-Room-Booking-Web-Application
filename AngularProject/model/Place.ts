@@ -4,7 +4,7 @@ export class Place {
   mainPhotoUrl: string;
   country: string;
   city: string;
-  province: string;
+  district: string;
   address: string;
   openStreetMapUrl: string;
   transportation: string;
