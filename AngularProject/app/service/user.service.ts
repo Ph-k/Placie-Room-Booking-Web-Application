@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {User , LoginUser} from '../../model/User';
 import {PendingHost} from '../../model/PendingHost';
 import {Observable} from 'rxjs';
-import {compareNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 
 @Injectable({
   providedIn: 'root'

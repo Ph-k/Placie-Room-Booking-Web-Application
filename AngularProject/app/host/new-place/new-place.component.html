@@ -1,1 +1,62 @@
-<p>new-place works!</p>
+<h2>New Place's Details</h2>
+
+<div id="newPlaceForm">
+  <form ngNativeValidate>
+
+    <label>Type</label><br>
+    <select [(ngModel)]="place.type" name="type">
+      <option value="Apartment">Apartment</option>
+      <option value="Room">Room</option>
+      <option value="Villa">Villa</option>
+      <option value="Cottage">Cottage</option>
+      <option value="Office">Office</option>
+    </select><br>
+
+    <label>Address</label><br>
+    <input type="text" class="textInput" [(ngModel)]="place.address" name="address" required> <br>
+
+    <label>Description</label><br>
+    <textarea [(ngModel)]="place.description" name="description" required></textarea> <br>
+
+    <label>Transportation</label><br>
+    <textarea [(ngModel)]="place.transportation" name="transportation" required></textarea> <br>
+
+    <label>Area</label><br>
+    <input type="number" [(ngModel)]="place.area" name="area" min="0"  required> <br>
+
+    <label>Minimum Cost</label><br>
+    <input type="number" [(ngModel)]="place.minCost" name="minCost" min="0" step="0.01" required> <br>
+
+    <label>Additional Cost Per Person</label><br>
+    <input type="number" [(ngModel)]="place.additionalCostPerPerson" name="addCostPerPerson" min="0" step="0.01" required> <br>
+
+    <label>Maximum Capacity</label><br>
+    <input type="number" [(ngModel)]="place.maxCapacity" name="maxCapacity" min="1" step="1" required> <br>
+
+    <label>Number of Beds</label><br>
+    <input type="number" [(ngModel)]="place.numberOfBeds" name="numOfBeds" min="0" step="1"  required> <br>
+
+    <label>Number of Sleeping Rooms</label><br>
+    <input type="number" [(ngModel)]="place.numberOfSleepingRooms" name="numOfSleepingRooms" min="0" step="1" required> <br>
+
+    <label>Minimum Renting Days</label><br>
+    <input type="number" [(ngModel)]="place.minimumRentingDates" name="minRentingDates" min="1" step="1" required> <br>
+
+    <div class="checkList">
+      <input type="checkbox" class="checkBox" [(ngModel)]="place.livingRoom" name="livingRoom" > <label>Living Room</label><br>
+      <input type="checkbox" class="checkBox" [(ngModel)]="place.wiFi" name="wiFi"><label>Wi Fi</label><br>
+      <input type="checkbox" class="checkBox" [(ngModel)]="place.airConditioning" name="airConditioning"><label>Air Conditioning</label><br>
+      <input type="checkbox" class="checkBox" [(ngModel)]="place.heating" name="heating"><label>Heating</label><br>
+      <input type="checkbox" class="checkBox" [(ngModel)]="place.parking" name="parking"><label>Parking</label><br>
+      <input type="checkbox" class="checkBox" [(ngModel)]="place.elevator" name="elevator"><label>Elevator</label><br>
+      <input type="checkbox" class="checkBox" [(ngModel)]="place.petsAllowed" name="petsAllowed"><label>Pets Allowed</label><br>
+      <input type="checkbox" class="checkBox"  [(ngModel)]="place.partiesAllowed" name="partiesAllowed"><label>Parties Allowed</label><br>
+      <input type="checkbox" class="checkBox"  [(ngModel)]="place.smokingAllowed" name="smokingAllowed"><label>Smoking Allowed</label><br>
+    </div>
+
+
+
+    <button (click)="uploadPlace()">Upload Place</button>
+  </form>
+
+</div>
