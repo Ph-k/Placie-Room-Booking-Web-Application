@@ -95,6 +95,7 @@ public class PlaceController {
             Place.setPetsAllowed(newPlace.getPetsAllowed());
             Place.setPartiesAllowed(newPlace.getPartiesAllowed());
             Place.setSmokingAllowed(newPlace.getSmokingAllowed());
+            Place.setArea(newPlace.getArea());
             return repository.save(newPlace);
         }).orElseThrow(() -> new PlaceNotFoundException(id));
     }

@@ -10,6 +10,7 @@ export class Place {
   transportation: string;
   description: string;
   type: string;
+  area: number;
   minCost: number;
   additionalCostPerPerson: number;
   maxCapacity: number;

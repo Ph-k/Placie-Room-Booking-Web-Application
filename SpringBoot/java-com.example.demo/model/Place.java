@@ -11,11 +11,15 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Place{
-    private @Id @GeneratedValue Long PlaceId;
+public class Place {
+    private @Id
+    @GeneratedValue
+    Long PlaceId;
 
     @NotNull
     private Long HostId;
+
+    private Float Area;
 
     private String MainPhotoUrl;
 
@@ -72,7 +76,8 @@ public class Place{
 
     private Boolean SmokingAllowed;
 
-    public Place(){}
+    public Place() {
+    }
 
     public Place(Long placeId, Long hostId, String mainPhotoUrl, String country, String city,
                  String district, String address, String openStreetMapUrl, String transportation,
@@ -80,7 +85,7 @@ public class Place{
                  Integer maxCapacity, Integer numberOfBeds, Integer numberOfSleepingRooms,
                  Integer minimumRentingDates, Boolean livingRoom, Boolean wiFi, Boolean airConditioning,
                  Boolean heating, Boolean parking, Boolean elevator, Boolean petsAllowed,
-                 Boolean partiesAllowed, Boolean smokingAllowed) {
+                 Boolean partiesAllowed, Boolean smokingAllowed , Float area) {
         PlaceId = placeId;
         HostId = hostId;
         MainPhotoUrl = mainPhotoUrl;
@@ -107,5 +112,6 @@ public class Place{
         PetsAllowed = petsAllowed;
         PartiesAllowed = partiesAllowed;
         SmokingAllowed = smokingAllowed;
+        Area = area;
     }
 }
