@@ -10,6 +10,10 @@ import {PlaceService} from '../../service/place.service';
 export class NewPlaceComponent implements OnInit {
 
   place: Place;
+  imageFile: File;
+  private ImageFileType: string;
+  InvalidFileType = false;
+  ImageTooLarge = false;
 
   constructor(private placeService: PlaceService) { }
 
@@ -17,7 +21,7 @@ export class NewPlaceComponent implements OnInit {
     this.place = {
       placeId : null ,
       hostId: null ,
-      mainPhotoUrl: '',
+      mainPhotoUrl: null,
       country: '',
       city: '',
       province: '',
@@ -43,10 +47,60 @@ export class NewPlaceComponent implements OnInit {
       partiesAllowed: false,
       smokingAllowed: false
     };
+    this.InvalidFileType = false;
+    this.ImageTooLarge = false;
   }
 
   uploadPlace(): void{
-    this.placeService.post(this.place).subscribe();
+    this.placeService.post(this.place).subscribe(
+      result => {
+        if (this.imageFile != null) {
+          this.placeService.UploadImage(result.placeId, this.imageFile);
+        }
+      }
+    );
+  }
+
+  private CheckImageType(file: File): string{
+    let FileType = '';
+    let Index: number = file.name.length;
+
+    while (file.name.charAt(Index) !== '.' || Index < 0 ){
+      FileType = file.name.charAt(Index) + FileType;
+      Index--;
+    }
+    FileType = file.name.charAt(Index) + FileType; // '.'
+
+    switch (FileType) {
+      case '.png':
+        return '.png';
+      case '.jpg':
+        return '.jpg';
+      case '.jpeg':
+        return '.jpeg';
+      case '.gif':
+        return '.gif';
+      default:
+        return null;
+    }
+  }
+
+  uploadPhoto(event): void{
+    this.ImageFileType = this.CheckImageType(event.target.files[0]);
+
+    if (event.target.files[0].size > 10000000){
+      this.imageFile = null;
+      this.ImageTooLarge = true;
+      return;
+    }else { this.ImageTooLarge = false; }
+
+    if ( this.ImageFileType !== null){
+      this.imageFile = event.target.files[0];
+      this.InvalidFileType = false;
+    }else{
+      this.imageFile = null;
+      this.InvalidFileType = true;
+    }
   }
 
 }

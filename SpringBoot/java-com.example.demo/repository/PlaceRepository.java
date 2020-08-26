@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -12,4 +13,8 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     @Query(value = "SELECT * FROM place WHERE region=?1", nativeQuery = true)
     List<Place> PlacesByRegion(String region);
+
+    @Modifying
+    @Query(value = "UPDATE place SET main_photo_url = ?1 WHERE place_id = ?2", nativeQuery = true)
+    int setMainPhotoUrl(String path, Long username);
 }

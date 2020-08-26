@@ -35,7 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/Registration","/Users/Image/{username}","/AllMessages/{ReceiverId}"
                 ,"/ContactedUsers/{ReceiverId}","/MessagesBetween/{SenderId}/{ReceiverId}"
-                ,"/Messages").permitAll().
+                ,"/Messages","/Places/Image/{placeId}").permitAll().
                 anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))

@@ -21,4 +21,17 @@ export class PlaceService {
     return this.http.post<Place>(this.placesUrl, place, this.authorizationHeader());
   }
 
+  UploadImage(PlaceId: number, Image: File): number{
+    const formdata  = new FormData();
+    formdata.append('file', Image, Image.name);
+
+    this.http.post<any>(this.placesUrl + '/Image/' + PlaceId, formdata, this.authorizationHeader())
+      .subscribe(
+        response => {
+          console.log('image uploaed' + response);
+        }
+      );
+    return 0;
+  }
+
 }

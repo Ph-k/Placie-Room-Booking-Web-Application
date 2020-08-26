@@ -2,11 +2,20 @@ package com.example.demo.controller;
 
 import com.example.demo.exception.PlaceNotFoundException;
 import com.example.demo.model.Place;
+import com.example.demo.model.User;
 import com.example.demo.repository.PlaceRepository;
 import com.example.demo.repository.UserRepository;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -116,5 +125,63 @@ public class PlaceController {
         }
 
         repository.deleteById(id);
+    }
+
+    @CrossOrigin(origins = "*")
+    @Transactional
+    @RequestMapping(
+            value = ("/Places/Image/{placeId}"),
+            headers = "content-type=multipart/form-data",
+            method = RequestMethod.POST)
+    public int PostImage(@RequestParam("file") MultipartFile Image, @PathVariable Long placeId) throws IOException {
+        /*if (!UserHasRights(repository.findByUsername(username).getUserId(), principal)) {
+            throw new IOException();
+        }*/
+
+        Place place = repository.findById(placeId).orElse(null);
+
+        if (place == null) return -1;
+        if (Image.isEmpty()) return -2;
+
+        String PhotosDirectory = System.getProperty("user.dir") + "\\images\\Places\\";
+        String PhotoName = placeId.toString() + GetImageType(Image);
+
+        Files.deleteIfExists(Paths.get(PhotoName));
+        Image.transferTo(new File(PhotosDirectory + PhotoName));
+
+        repository.setMainPhotoUrl("\\images\\Places\\" + PhotoName, placeId);
+
+        return 0;
+    }
+
+    private String GetImageType(MultipartFile Image) {
+        String ImageType = "";
+        int Index = Image.getOriginalFilename().length() - 1;
+
+        while (Image.getOriginalFilename().charAt(Index) != '.' || Index < 0) {
+            ImageType = Image.getOriginalFilename().charAt(Index) + ImageType;
+            Index--;
+        }
+        ImageType = Image.getOriginalFilename().charAt(Index) + ImageType; // '.'
+
+        return ImageType;
+    }
+
+    @GetMapping(
+            value = "/Places/Image/{placeId}",
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody
+    byte[] GetImage(@PathVariable Long placeId) throws IOException {
+
+        Place place = repository.findById(placeId).orElse(null);
+        if (place == null) return null;
+
+        if (place.getMainPhotoUrl() == null) {
+            Path imagePath = Paths.get(System.getProperty("user.dir") + "\\images\\ApplicationImages\\DefaultPlaceImage.png");
+            return Files.readAllBytes(imagePath);
+        }
+
+        Path imagePath = Paths.get(System.getProperty("user.dir") + place.getMainPhotoUrl());
+        return Files.readAllBytes(imagePath);
     }
 }
