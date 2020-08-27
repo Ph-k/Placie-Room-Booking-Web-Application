@@ -85,7 +85,8 @@ public class PlaceController {
             Place.setCity(newPlace.getCity());
             Place.setDistrict(newPlace.getDistrict());
             Place.setAddress(newPlace.getAddress());
-            Place.setOpenStreetMapUrl(newPlace.getOpenStreetMapUrl());
+            Place.setXCoordinate(newPlace.getXCoordinate());
+            Place.setYCoordinate(newPlace.getYCoordinate());
             Place.setTransportation(newPlace.getTransportation());
             Place.setDescription(newPlace.getDescription());
             Place.setType(newPlace.getType());
