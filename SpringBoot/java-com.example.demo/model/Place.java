@@ -36,8 +36,10 @@ public class Place {
     @NotNull
     private String Address;
 
-    @NotNull
-    private String OpenStreetMapUrl;
+
+    private Float XCoordinate;
+
+    private Float YCoordinate;
 
     private String Transportation;
 
@@ -79,21 +81,23 @@ public class Place {
     public Place() {
     }
 
-    public Place(Long placeId, Long hostId, String mainPhotoUrl, String country, String city,
-                 String district, String address, String openStreetMapUrl, String transportation,
-                 String description, String type, Float minCost, Float additionalCostPerPerson,
-                 Integer maxCapacity, Integer numberOfBeds, Integer numberOfSleepingRooms,
-                 Integer minimumRentingDates, Boolean livingRoom, Boolean wiFi, Boolean airConditioning,
-                 Boolean heating, Boolean parking, Boolean elevator, Boolean petsAllowed,
-                 Boolean partiesAllowed, Boolean smokingAllowed , Float area) {
+    public Place(Long placeId, Long hostId, Float area, String mainPhotoUrl, String country,
+                 String city, String district, String address, Float xCoordinate, Float yCoordinate,
+                 String transportation, String description, String type, Float minCost,
+                 Float additionalCostPerPerson, Integer maxCapacity, Integer numberOfBeds,
+                 Integer numberOfSleepingRooms, Integer minimumRentingDates, Boolean livingRoom,
+                 Boolean wiFi, Boolean airConditioning, Boolean heating, Boolean parking,
+                 Boolean elevator, Boolean petsAllowed, Boolean partiesAllowed, Boolean smokingAllowed) {
         PlaceId = placeId;
         HostId = hostId;
+        Area = area;
         MainPhotoUrl = mainPhotoUrl;
         Country = country;
         City = city;
         District = district;
         Address = address;
-        OpenStreetMapUrl = openStreetMapUrl;
+        XCoordinate = xCoordinate;
+        YCoordinate = yCoordinate;
         Transportation = transportation;
         Description = description;
         Type = type;
@@ -112,6 +116,5 @@ public class Place {
         PetsAllowed = petsAllowed;
         PartiesAllowed = partiesAllowed;
         SmokingAllowed = smokingAllowed;
-        Area = area;
     }
 }
