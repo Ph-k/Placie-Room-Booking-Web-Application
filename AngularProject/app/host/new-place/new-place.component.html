@@ -1,6 +1,4 @@
 <h2>New Place's Details</h2>
-
-<div id="map" class="map"></div>
 <div id="newPlaceForm">
   <form ngNativeValidate>
 
@@ -24,6 +22,9 @@
 
     <label>Country</label><br>
     <input type="text" class="textInput" [(ngModel)]="place.country" name="country" required> <br>
+
+    <label>Map Location</label><br>
+    <div id="map" class="map" (click)="getCoordinates($event)"></div>
 
     <br>
     <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector style="display: none" (change)="uploadPhoto($event)">
@@ -72,7 +73,7 @@
     </div>
 
 
-
+    <div *ngIf="!locationPicked() && attemptedUpload"><p class="warning">Please Choose A Location in the Map Above</p></div>
     <button (click)="uploadPlace()">Upload Place</button>
   </form>
 

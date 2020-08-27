@@ -6,7 +6,8 @@ export class Place {
   city: string;
   district: string;
   address: string;
-  openStreetMapUrl: string;
+  xcoordinate: number;
+  ycoordinate: number;
   transportation: string;
   description: string;
   type: string;

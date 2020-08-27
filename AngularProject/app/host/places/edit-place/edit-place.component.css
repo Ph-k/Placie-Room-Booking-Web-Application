@@ -56,3 +56,10 @@ select{
     margin-right: 10%;
   }
 }
+
+#map{
+  width:80%;
+  margin-left:10%;
+  height: 250px;
+  margin-top: 10px;
+}

@@ -9,3 +9,7 @@ button{
 #administratorPanel{
   margin-top: 100px;
 }
+
+.warning{
+  color:red
+}

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Place} from '../../../model/Place';
 import {PlaceService} from '../../service/place.service';
 
+declare var ol: any;
+
 @Component({
   selector: 'app-new-place',
   templateUrl: './new-place.component.html',
@@ -10,14 +12,46 @@ import {PlaceService} from '../../service/place.service';
 export class NewPlaceComponent implements OnInit {
 
   place: Place;
+
+  attemptedUpload = false;
   imageFile: File;
-  private ImageFileType: string;
+  ImageFileType: string;
   InvalidFileType = false;
   ImageTooLarge = false;
+
+  coordinate: any;
+  map: any;
+  feature: any;
+  layer: any;
+  style: any;
 
   constructor(private placeService: PlaceService) { }
 
   ngOnInit(): void {
+
+    this.layer = new ol.layer.Vector({
+      source: new ol.source.Vector({
+        features: [
+          new ol.Feature()
+        ]
+      })
+    });
+
+    this.map = new ol.Map({
+      target: 'map',
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([ 23.726110, 37.970833]),
+        zoom: 1
+      })
+    });
+
+
+
     this.place = {
       placeId : null ,
       hostId: null ,
@@ -26,7 +60,8 @@ export class NewPlaceComponent implements OnInit {
       city: '',
       district: '',
       address: '',
-      openStreetMapUrl: '',
+      xcoordinate: null,
+      ycoordinate: null,
       transportation: '',
       description: '',
       type: '',
@@ -49,10 +84,46 @@ export class NewPlaceComponent implements OnInit {
     };
     this.InvalidFileType = false;
     this.ImageTooLarge = false;
+
+
+  }
+
+  getCoordinates(event: any): void{
+    this.coordinate = this.map.getEventCoordinate(event);
+    console.log(ol.proj.transform(this.coordinate , 'EPSG:3857', 'EPSG:4326'));
+    this.layer.getSource().clear();
+
+    this.feature = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.fromLonLat(ol.proj.transform(this.coordinate , 'EPSG:3857', 'EPSG:4326')))
+    });
+
+    this.style = new ol.style.Style({
+      image: new ol.style.Icon({
+        scale: 0.02,
+        src: '../assets/point.png'
+      })
+    });
+
+    this.feature.setStyle(this.style);
+
+    this.layer = new ol.layer.Vector({
+      source: new ol.source.Vector({
+        features: [
+          this.feature
+        ],
+        style: this.style
+      })
+    });
+
+    this.map.addLayer(this.layer);
+    this.place.xcoordinate = ol.proj.transform(this.coordinate, 'EPSG:3857', 'EPSG:4326')[0];
+    this.place.ycoordinate = ol.proj.transform(this.coordinate, 'EPSG:3857', 'EPSG:4326')[1];
+
   }
 
   uploadPlace(): void{
-    if (this.validInputs()){
+    this.attemptedUpload = true;
+    if (this.validInputs() && this.locationPicked()){
       this.placeService.post(this.place).subscribe(
         result => {
           window.location.href = '/myPlaces';
@@ -67,6 +138,10 @@ export class NewPlaceComponent implements OnInit {
   validInputs(): boolean{
     return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson > 0
             && this.place.maxCapacity > 0 && this.place.numberOfBeds > 0 && this.place.numberOfSleepingRooms > 0);
+  }
+
+  locationPicked(): boolean{
+    return (this.place.xcoordinate != null);
   }
 
   private CheckImageType(file: File): string{

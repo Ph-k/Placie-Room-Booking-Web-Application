@@ -44,6 +44,17 @@ select{
 
 }
 
+#map{
+  width:80%;
+  height: 300px;
+  margin-left: 10%;
+  margin-top: 10px;
+}
+
+#map:hover{
+  cursor: crosshair;
+}
+
 @media only screen and (max-width: 900px) {
   .checkList{
     text-align: center;
