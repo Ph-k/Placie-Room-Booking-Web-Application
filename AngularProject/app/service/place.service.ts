@@ -21,9 +21,17 @@ export class PlaceService {
     return this.http.post<Place>(this.placesUrl, place, this.authorizationHeader());
   }
 
+  updatePlace(place: Place, placeId: string): Observable<Place>{
+    return this.http.put<Place>(this.placesUrl + '/' + placeId, place, this.authorizationHeader());
+  }
   getPlaces(): Observable<Place[]>{
     return this.http.get<Place[]>(this.placesUrl, this.authorizationHeader());
   }
+
+  getPlace(placeId: string): Observable<Place>{
+    return this.http.get<Place>(this.placesUrl + '/' + placeId, this.authorizationHeader());
+  }
+
 
   getPlacesBy(hostId: number): Observable<Place[]>{
     return this.http.get<Place[]>('https://localhost:8443/PlacesBy/' + hostId.toString(), this.authorizationHeader());
@@ -36,10 +44,12 @@ export class PlaceService {
     this.http.post<any>(this.placesUrl + '/Image/' + PlaceId, formdata, this.authorizationHeader())
       .subscribe(
         response => {
-          console.log('image uploaed' + response);
+          console.log('image upload' + response);
         }
       );
     return 0;
   }
+
+
 
 }

@@ -1,0 +1,58 @@
+h2,h3,h4{
+  text-align: center;
+}
+
+.editSection{
+  text-align: center;
+}
+
+.editForm{
+  text-align: center;
+  background-color: #f2f2f2;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.textInput ,textarea{
+  width: 50%;
+  max-width: 50%;
+  min-width: 50%;
+  margin: 5px;
+}
+
+input{
+  margin:5px;
+  max-width: 80%;
+}
+
+
+select{
+  width: 25%;
+  margin: 5px;
+}
+
+.checkList{
+  padding: 10px;
+  text-align: left;
+  width:15%;
+  margin-left: 42.5%;
+}
+
+.checkList > label{
+
+}
+
+.checkList > input{
+
+
+}
+
+@media only screen and (max-width: 900px) {
+  .checkList{
+    text-align: center;
+    width:80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}

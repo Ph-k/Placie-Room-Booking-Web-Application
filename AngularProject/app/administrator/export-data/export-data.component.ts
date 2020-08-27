@@ -8,6 +8,8 @@ import {PendingHost} from '../../../model/PendingHost';
 import {Review} from '../../../model/Review';
 import {Message} from '../../../model/Message';
 import {PlacePhoto} from '../../../model/PlacePhoto';
+import {PlaceService} from '../../service/place.service';
+import {MessageService} from '../../service/message.service';
 
 @Component({
   selector: 'app-export-data',
@@ -16,7 +18,8 @@ import {PlacePhoto} from '../../../model/PlacePhoto';
 })
 export class ExportDataComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private placeService: PlaceService,
+              private messageService: MessageService ) { }
 
   users: User[];
   pendingHosts: PendingHost[];
@@ -29,6 +32,9 @@ export class ExportDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe(users => this.users = users);
+    this.placeService.getPlaces().subscribe(places => this.places = places);
+    this.messageService.getMessages().subscribe(messages => this.messages = messages);
+    this.userService.getPendingHosts().subscribe(pendingHosts => this.pendingHosts = pendingHosts);
   }
 
   exportUsers(): void{
@@ -49,7 +55,7 @@ export class ExportDataComponent implements OnInit {
 
   exportPlaces(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+    const file = new Blob([JSON.stringify(this.places)], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
     a.download = 'Places.json';
     a.click();
@@ -81,7 +87,7 @@ export class ExportDataComponent implements OnInit {
 
   exportMessages(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+    const file = new Blob([JSON.stringify(this.messages)], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
     a.download = 'Messages.json';
     a.click();

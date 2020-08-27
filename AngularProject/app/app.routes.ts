@@ -13,7 +13,7 @@ import {UserGuardService} from './service/user-guard.service';
 import {HostComponent} from './host/host.component';
 import {PlacesComponent} from './host/places/places.component';
 import {NewPlaceComponent} from './host/new-place/new-place.component';
-import {PlaceDetailsComponent} from './host/places/place-details/place-details.component';
+import {EditPlaceComponent} from './host/places/edit-place/edit-place.component';
 import {HostGuardService} from './service/host-guard.service';
 
 export const SiteRoutes: Routes = [
@@ -67,7 +67,7 @@ export const SiteRoutes: Routes = [
   },
   {
     path: 'editPlaces/:id',
-    component: PlaceDetailsComponent,
+    component: EditPlaceComponent,
     canActivate: [HostGuardService]
   }
   ,

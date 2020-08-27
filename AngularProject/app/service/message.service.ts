@@ -17,6 +17,11 @@ export class MessageService {
     this.authorizationHeader = { headers: {Authorization: localStorage.getItem('token') }  };
   }
 
+  getMessages(): Observable<Message[]>{
+    return this.http.get<Message[]>(this.SendMessageUrl, this.authorizationHeader);
+  }
+
+
   SendMessage(message: Message): Observable<Message> {
     return this.http.post<Message>(this.SendMessageUrl, message, this.authorizationHeader);
   }

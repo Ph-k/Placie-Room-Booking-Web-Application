@@ -17,7 +17,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { ExportDataComponent } from './administrator/export-data/export-data.component';
 import { HostComponent } from './host/host.component';
 import { PlacesComponent } from './host/places/places.component';
-import { PlaceDetailsComponent } from './host/places/place-details/place-details.component';
+import { EditPlaceComponent } from './host/places/edit-place/edit-place.component';
 import { NewPlaceComponent } from './host/new-place/new-place.component';
 
 @NgModule({
@@ -34,7 +34,7 @@ import { NewPlaceComponent } from './host/new-place/new-place.component';
     ExportDataComponent,
     HostComponent,
     PlacesComponent,
-    PlaceDetailsComponent,
+    EditPlaceComponent,
     NewPlaceComponent
   ],
   imports: [

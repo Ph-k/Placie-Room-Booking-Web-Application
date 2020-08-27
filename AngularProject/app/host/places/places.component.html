@@ -1,7 +1,17 @@
 <h2>Places</h2>
 
-<div class="placeContainer">
-  <span *ngFor="let place of places" class="place">
-    {{place.type}} in {{place.district}}
-  </span>
-</div>
+<h3 *ngIf="places.length == 0">You Haven't Uploaded Any Places Yet</h3>
+
+<table *ngIf="places.length!= 0">
+  <tr id="heading">
+    <td><label>Place</label></td>
+    <td><label>Action</label></td>
+  </tr>
+  <tr *ngFor="let place of places" >
+    <td>{{place.type}} In {{place.address}} (ID: {{place.placeId}})</td>
+    <td class="actions">
+      <button routerLink="/editPlaces/{{place.placeId}}">Edit Place</button>
+      <button>View Place</button>
+    </td>
+  </tr>
+</table>

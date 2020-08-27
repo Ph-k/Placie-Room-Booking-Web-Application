@@ -1,0 +1,67 @@
+<h2>Edit Place Details</h2>
+
+<div *ngIf="placeNotFound"><h2>No Such Place Belongs to You</h2></div>
+
+<div class="editSection" *ngIf="!placeNotFound">
+
+  <h3>{{place.type}} In {{place.district}} </h3>
+  <h4>{{place.address}} / {{place.city}} / {{place.country}}</h4>
+  <h4>Place ID : {{place.placeId}}</h4>
+
+
+
+  <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector style="display: none" (change)="updatePhoto($event)">
+  <button type="button" (click)="imageSelector.click()">Update Photo</button>
+  <div *ngIf="InvalidFileType" [className]="'warning'"><p> Please choose an image file such as .png .jpg .jpeg .gif</p></div>
+  <div *ngIf="ImageTooLarge" [className]="'warning'"><p> The file you selected is too large (maximum file size is 10mb)</p></div>
+
+
+  <div class="editForm">
+    <form ngNativeValidate>
+      <h3> Edit your Details </h3>
+
+      <label>Description</label><br>
+      <textarea [(ngModel)]="place.description" name="description" required></textarea> <br>
+
+      <label>Transportation</label><br>
+      <textarea [(ngModel)]="place.transportation" name="transportation" required></textarea> <br>
+
+      <label>Area</label><br>
+      <input type="number" [(ngModel)]="place.area" name="area" min="0"  required> <br>
+
+      <label>Minimum Cost</label><br>
+      <input type="number" [(ngModel)]="place.minCost" name="minCost" min="0" step="0.01" required> <br>
+
+      <label>Additional Cost Per Person</label><br>
+      <input type="number" [(ngModel)]="place.additionalCostPerPerson" name="addCostPerPerson" min="0" step="0.01" required> <br>
+
+      <label>Maximum Capacity</label><br>
+      <input type="number" [(ngModel)]="place.maxCapacity" name="maxCapacity" min="1" step="1" required> <br>
+
+      <label>Number of Beds</label><br>
+      <input type="number" [(ngModel)]="place.numberOfBeds" name="numOfBeds" min="0" step="1"  required> <br>
+
+      <label>Number of Sleeping Rooms</label><br>
+      <input type="number" [(ngModel)]="place.numberOfSleepingRooms" name="numOfSleepingRooms" min="0" step="1" required> <br>
+
+      <label>Minimum Renting Days</label><br>
+      <input type="number" [(ngModel)]="place.minimumRentingDates" name="minRentingDates" min="1" step="1" required> <br>
+
+      <div class="checkList">
+        <input type="checkbox" class="checkBox" [(ngModel)]="place.livingRoom" name="livingRoom" > <label>Living Room</label><br>
+        <input type="checkbox" class="checkBox" [(ngModel)]="place.wiFi" name="wiFi"><label>Wi Fi</label><br>
+        <input type="checkbox" class="checkBox" [(ngModel)]="place.airConditioning" name="airConditioning"><label>Air Conditioning</label><br>
+        <input type="checkbox" class="checkBox" [(ngModel)]="place.heating" name="heating"><label>Heating</label><br>
+        <input type="checkbox" class="checkBox" [(ngModel)]="place.parking" name="parking"><label>Parking</label><br>
+        <input type="checkbox" class="checkBox" [(ngModel)]="place.elevator" name="elevator"><label>Elevator</label><br>
+        <input type="checkbox" class="checkBox" [(ngModel)]="place.petsAllowed" name="petsAllowed"><label>Pets Allowed</label><br>
+        <input type="checkbox" class="checkBox"  [(ngModel)]="place.partiesAllowed" name="partiesAllowed"><label>Parties Allowed</label><br>
+        <input type="checkbox" class="checkBox"  [(ngModel)]="place.smokingAllowed" name="smokingAllowed"><label>Smoking Allowed</label><br>
+      </div>
+      <button (click)="updatePlace()">Update Place Details</button>
+
+      <p *ngIf="attemptedUpdate && successfulUpdate">Successful Update</p>
+
+    </form>
+  </div>
+

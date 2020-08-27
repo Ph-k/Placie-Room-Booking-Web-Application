@@ -16,6 +16,15 @@
     <label>Address</label><br>
     <input type="text" class="textInput" [(ngModel)]="place.address" name="address" required> <br>
 
+    <label>District</label><br>
+    <input type="text" class="textInput" [(ngModel)]="place.district" name="district" required> <br>
+
+    <label>City</label><br>
+    <input type="text" class="textInput" [(ngModel)]="place.city" name="city" required> <br>
+
+    <label>Country</label><br>
+    <input type="text" class="textInput" [(ngModel)]="place.country" name="country" required> <br>
+
     <br>
     <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector style="display: none" (change)="uploadPhoto($event)">
     <button type="button" (click)="imageSelector.click()">Upload Photo</button>

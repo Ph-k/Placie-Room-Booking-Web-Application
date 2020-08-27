@@ -52,13 +52,21 @@ export class NewPlaceComponent implements OnInit {
   }
 
   uploadPlace(): void{
-    this.placeService.post(this.place).subscribe(
-      result => {
-        if (this.imageFile != null) {
-          this.placeService.UploadImage(result.placeId, this.imageFile);
+    if (this.validInputs()){
+      this.placeService.post(this.place).subscribe(
+        result => {
+          window.location.href = '/myPlaces';
+          if (this.imageFile != null) {
+            this.placeService.UploadImage(result.placeId, this.imageFile);
+          }
         }
-      }
-    );
+      );
+    }
+  }
+
+  validInputs(): boolean{
+    return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson > 0
+            && this.place.maxCapacity > 0 && this.place.numberOfBeds > 0 && this.place.numberOfSleepingRooms > 0);
   }
 
   private CheckImageType(file: File): string{
