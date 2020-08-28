@@ -148,7 +148,7 @@ class UserController {
         if (Image.isEmpty()) return -2;
 
         String PhotosDirectory = System.getProperty("user.dir") + "\\images\\";
-        String PhotoPath = username + GetImageType(Image);
+        String PhotoPath = username + PlacePhotoController.GetImageType(Image);
 
         Files.deleteIfExists(Paths.get(PhotoPath));
         Image.transferTo(new File(PhotosDirectory + PhotoPath));
@@ -156,19 +156,6 @@ class UserController {
         repository.setPhotoPath("\\images\\" + PhotoPath, username);
 
         return 0;
-    }
-
-    private String GetImageType(MultipartFile Image) {
-        String ImageType = "";
-        int Index = Image.getOriginalFilename().length() - 1;
-
-        while (Image.getOriginalFilename().charAt(Index) != '.' || Index < 0) {
-            ImageType = Image.getOriginalFilename().charAt(Index) + ImageType;
-            Index--;
-        }
-        ImageType = Image.getOriginalFilename().charAt(Index) + ImageType; // '.'
-
-        return ImageType;
     }
 
     @GetMapping(
