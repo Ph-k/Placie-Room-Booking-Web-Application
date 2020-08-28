@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, forwardRef, Host, Inject, OnInit} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {User} from '../../model/User';
 import {PendingHost} from '../../model/PendingHost';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {}
+
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute,
+              @Inject(forwardRef(() => AppComponent)) private parent: AppComponent) {}
 
   user: User;
   registerStatus = 0;              // Becomes 1 for existing username , 2 for successful registration , 3 for no server response
@@ -74,7 +77,7 @@ export class RegisterComponent implements OnInit {
             if (this.user.isHost){
               this.userService.uploadPendingHost(this.user.userId);
             }
-
+            this.parent.GetUser();
             this.router.navigateByUrl('/searchForm');
           }
         );

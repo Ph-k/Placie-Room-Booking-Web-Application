@@ -26,6 +26,7 @@ export class AppComponent {
     this.GetUser();
   }
 
+
   GetUser(): void{
     this.UserSer.findUserId(localStorage.getItem('username')).subscribe(response => {
       this.UserSer.getUser(response.toString()).subscribe(user =>
