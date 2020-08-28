@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/Registration","/Users/Image/{username}","/AllMessages/{ReceiverId}"
                 ,"/ContactedUsers/{ReceiverId}","/MessagesBetween/{SenderId}/{ReceiverId}"
-                ,"/Messages","/Places/Image/{placeId}").permitAll().
+                ,"/Messages","/Places/Image/{placeId}").permitAll().antMatchers(HttpMethod.GET,"/Availabilities","AvailabilitiesFor/{AvailabilityId}").permitAll().
                 anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
