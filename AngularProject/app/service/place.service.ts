@@ -74,16 +74,12 @@ export class PlaceService {
   }
 
 
-  async UploadImage(PlaceId: number, imageFile: File): Promise<void> {
+  UploadImage(PlaceId: number, imageFile: File): Observable<any> {
     const formdata  = new FormData();
     formdata.append('file', imageFile, imageFile.name);
 
-    this.http.post<any>(this.placesUrl + '/Images/' + PlaceId, formdata, this.authorizationHeader())
-      .subscribe(
-        response => {
-          console.log('image upload' + response);
-        }
-      );
+    return this.http.post<any>(this.placesUrl + '/Images/' + PlaceId, formdata, this.authorizationHeader());
+
   }
 
   GetPlacesPhotosIds(placeId: number): Observable<number[]>{
