@@ -128,7 +128,7 @@ export class NewPlaceComponent implements OnInit {
         result => {
           window.location.href = '/myPlaces';
           if (this.imageFile != null) {
-            this.placeService.UploadImage(result.placeId, this.imageFile);
+            this.placeService.UploadMainImage(result.placeId, this.imageFile);
           }
         }
       );
