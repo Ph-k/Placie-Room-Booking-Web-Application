@@ -35,6 +35,7 @@ export class ExportDataComponent implements OnInit {
     this.placeService.getPlaces().subscribe(places => this.places = places);
     this.messageService.getMessages().subscribe(messages => this.messages = messages);
     this.userService.getPendingHosts().subscribe(pendingHosts => this.pendingHosts = pendingHosts);
+    this.placeService.getAvailabilities().subscribe(availabilities => this.availabilities = availabilities);
   }
 
   exportUsers(): void{
@@ -47,7 +48,7 @@ export class ExportDataComponent implements OnInit {
 
   exportPendingHosts(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+    const file = new Blob([JSON.stringify(this.pendingHosts)], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
     a.download = 'PendingHosts.json';
     a.click();
@@ -71,7 +72,7 @@ export class ExportDataComponent implements OnInit {
 
   exportAvailabilities(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+    const file = new Blob([JSON.stringify(this.availabilities)], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
     a.download = 'Availabilities.json';
     a.click();

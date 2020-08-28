@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Place} from '../../model/Place';
+import {Availability} from '../../model/Availability';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import {Place} from '../../model/Place';
 export class PlaceService {
 
   private placesUrl = 'https://localhost:8443/Places';
+  private availabilityUrl = 'https://localhost:8443/Availabilities' ;
 
   constructor(private http: HttpClient) { }
 
@@ -35,6 +37,24 @@ export class PlaceService {
 
   getPlacesBy(hostId: number): Observable<Place[]>{
     return this.http.get<Place[]>('https://localhost:8443/PlacesBy/' + hostId.toString(), this.authorizationHeader());
+  }
+
+  getAvailabilities(): Observable<Availability[]>
+  {
+    return this.http.get<Availability[]>(this.availabilityUrl , this.authorizationHeader()) ;
+  }
+
+  getAvailabilitiesFor(placeId: string): Observable<Availability[]>
+  {
+    return this.http.get<Availability[]>(this.availabilityUrl + 'For/' + placeId , this.authorizationHeader()) ;
+  }
+
+  uploadAvailability(availability: Availability): Observable<Availability>{
+    return this.http.post<Availability>(this.availabilityUrl, availability, this.authorizationHeader());
+  }
+
+  deleteAvailability(availabilityId: string): Observable<Availability>{
+    return this.http.delete<Availability>(this.availabilityUrl + '/' + availabilityId, this.authorizationHeader());
   }
 
   UploadImage(PlaceId: number, Image: File): number{

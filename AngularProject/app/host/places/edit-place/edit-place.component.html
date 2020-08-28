@@ -64,3 +64,26 @@
     </form>
   </div>
 
+  <div id="newAvailability">
+    <h2>New Availability</h2>
+    <form ngNativeValidate>
+      <label>Starting Date</label><br>
+      <input type="date" [(ngModel)]='availability.startingDate' name="startingDate" required><br>
+
+      <label>Ending Date</label><br>
+      <input type="date" [(ngModel)]='availability.endingDate' name="endingDate" required><br>
+
+      <br>
+      <button (click)="uploadAvailability()">Upload Availability</button>
+    </form>
+  </div>
+
+  <div id="existingAvailabilities">
+    <h2>Existing Availabilities</h2>
+    <div *ngFor="let availability of availabilities ">
+      <p>Starting Date: {{availability.startingDate}} | Ending Date: {{availability.startingDate}}</p>
+      <button (click)="deleteAvailability(availability.availabilityId)">Delete Availability</button>
+      <hr>
+    </div>
+  </div>
+

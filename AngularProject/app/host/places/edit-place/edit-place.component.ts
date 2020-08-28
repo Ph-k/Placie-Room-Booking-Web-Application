@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PlaceService} from '../../../service/place.service';
 import {Place} from '../../../../model/Place';
 import {ActivatedRoute} from '@angular/router';
+import {Availability} from '../../../../model/Availability';
 
 declare var ol: any;
 @Component({
@@ -12,6 +13,8 @@ declare var ol: any;
 export class EditPlaceComponent implements OnInit {
 
   place: Place;
+  availability: Availability;
+  availabilities: Availability[];
   private id: string;
   placeNotFound = false;
   imageFile: File;
@@ -30,6 +33,7 @@ export class EditPlaceComponent implements OnInit {
   constructor(private placeService: PlaceService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.availability = new Availability();
     this.id = this.route.snapshot.paramMap.get('id');
     this.placeService.getPlace(this.id).subscribe(place => {
       this.place = place;
@@ -70,7 +74,7 @@ export class EditPlaceComponent implements OnInit {
       });
 
       this.map.addLayer(this.layer);
-      console.log(place.xcoordinate);
+      this.refreshAvailabilities();
     } , error => this.placeNotFound = true);
   }
 
@@ -82,6 +86,23 @@ export class EditPlaceComponent implements OnInit {
         window.location.href = '/myPlaces';
       });
     }
+  }
+
+  uploadAvailability(): void{
+
+    this.availability.placeId = this.place.placeId;
+    if (this.availability.startingDate < this.availability.endingDate) {
+      this.placeService.uploadAvailability(this.availability).subscribe(response => this.refreshAvailabilities());
+    }
+  }
+
+  deleteAvailability(id: number): void{
+    this.placeService.deleteAvailability(id.toString()).subscribe();
+    this.refreshAvailabilities();
+  }
+
+  refreshAvailabilities(): void{
+    this.placeService.getAvailabilitiesFor(this.place.placeId.toString()).subscribe(response => this.availabilities = response);
   }
 
   validInputs(): boolean{
