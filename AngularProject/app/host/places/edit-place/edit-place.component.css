@@ -2,6 +2,27 @@ h2,h3,h4{
   text-align: center;
 }
 
+.MainPhoto{
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 10%;
+  padding: 10px;
+}
+
+.row {
+  display: flex;
+  padding: 0 -8px;
+  border: 1px solid black;
+}
+.row img {
+  max-height: 100px;
+  width: auto;
+  cursor: pointer;
+  padding: 5px;
+}
+
 .editSection{
   text-align: center;
 }

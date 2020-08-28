@@ -56,12 +56,11 @@ export class PlaceService {
   deleteAvailability(availabilityId: string): Observable<Availability>{
     return this.http.delete<Availability>(this.availabilityUrl + '/' + availabilityId, this.authorizationHeader());
   }
-
-  UploadImage(PlaceId: number, Image: File): number{
+  UploadMainImage(PlaceId: number, Image: File): number{
     const formdata  = new FormData();
     formdata.append('file', Image, Image.name);
 
-    this.http.post<any>(this.placesUrl + '/Image/' + PlaceId, formdata, this.authorizationHeader())
+    this.http.post<any>(this.placesUrl + '/MainImage/' + PlaceId, formdata, this.authorizationHeader())
       .subscribe(
         response => {
           console.log('image upload' + response);
@@ -70,6 +69,29 @@ export class PlaceService {
     return 0;
   }
 
+  GetImageUrl(placeiId: string): string{
+    return this.placesUrl + '/MainImage/' + placeiId;
+  }
 
+
+  async UploadImage(PlaceId: number, imageFile: File): Promise<void> {
+    const formdata  = new FormData();
+    formdata.append('file', imageFile, imageFile.name);
+
+    this.http.post<any>(this.placesUrl + '/Images/' + PlaceId, formdata, this.authorizationHeader())
+      .subscribe(
+        response => {
+          console.log('image upload' + response);
+        }
+      );
+  }
+
+  GetPlacesPhotosIds(placeId: number): Observable<number[]>{
+    return this.http.get<number[]>(this.placesUrl + '/PhotoRange/' + placeId, this.authorizationHeader());
+  }
+
+  GetPlacePhotoUrl(photoId: number): string{
+    return this.placesUrl + '/Images/' + photoId;
+  }
 
 }
