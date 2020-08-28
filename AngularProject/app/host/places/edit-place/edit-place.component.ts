@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PlaceService} from '../../../service/place.service';
 import {Place} from '../../../../model/Place';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Availability} from '../../../../model/Availability';
 
 declare var ol: any;
@@ -23,19 +23,20 @@ export class EditPlaceComponent implements OnInit {
   ImageTooLarge = false;
   successfulUpdate = false;
   attemptedUpdate = false;
+  PlacePhotosIds: number[];
 
   coordinate: any;
   map: any;
   feature: any;
   layer: any;
   style: any;
-
-  constructor(private placeService: PlaceService, private route: ActivatedRoute) { }
+  
+  constructor(private placeService: PlaceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.availability = new Availability();
+	this.availability = new Availability();
     this.id = this.route.snapshot.paramMap.get('id');
-    this.placeService.getPlace(this.id).subscribe(place => {
+        this.placeService.getPlace(this.id).subscribe(place => {
       this.place = place;
 
       this.map = new ol.Map({
@@ -76,6 +77,10 @@ export class EditPlaceComponent implements OnInit {
       this.map.addLayer(this.layer);
       this.refreshAvailabilities();
     } , error => this.placeNotFound = true);
+
+    this.placeService.GetPlacesPhotosIds(Number(this.id)).subscribe(
+      Ids => this.PlacePhotosIds = Ids
+        );
   }
 
   updatePlace(): void {
@@ -87,9 +92,8 @@ export class EditPlaceComponent implements OnInit {
       });
     }
   }
-
+	
   uploadAvailability(): void{
-
     this.availability.placeId = this.place.placeId;
     if (this.availability.startingDate < this.availability.endingDate) {
       this.placeService.uploadAvailability(this.availability).subscribe(response => this.refreshAvailabilities());
@@ -104,7 +108,7 @@ export class EditPlaceComponent implements OnInit {
   refreshAvailabilities(): void{
     this.placeService.getAvailabilitiesFor(this.place.placeId.toString()).subscribe(response => this.availabilities = response);
   }
-
+  
   validInputs(): boolean{
     return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson > 0
       && this.place.maxCapacity > 0 && this.place.numberOfBeds > 0 && this.place.numberOfSleepingRooms > 0);
@@ -134,24 +138,46 @@ export class EditPlaceComponent implements OnInit {
     }
   }
 
-  updatePhoto(event): void{
-    this.ImageFileType = this.CheckImageType(event.target.files[0]);
+  private CheckPhoto(file: File): boolean{
+    this.ImageFileType = this.CheckImageType(file);
 
-    if (event.target.files[0].size > 10000000){
+    if (file.size > 10000000){
       this.imageFile = null;
       this.ImageTooLarge = true;
-      return;
+      return false;
     }else { this.ImageTooLarge = false; }
 
-    if ( this.ImageFileType !== null){
-      this.imageFile = event.target.files[0];
-      this.InvalidFileType = false;
-      // this.userService.UploadImage(this.user.userName, this.imageFile);
-      window.location.reload();
-    }else{
+    if ( this.ImageFileType === null){
       this.imageFile = null;
       this.InvalidFileType = true;
+      return false;
+    }else{
+      this.imageFile = file;
+      this.InvalidFileType = false;
+      return true;
     }
   }
 
+  updateMainPhoto(event): void{
+    if (this.CheckPhoto(event.target.files[0])){
+      this.placeService.UploadMainImage( Number(this.id), this.imageFile);
+      window.location.reload();
+    }
+  }
+
+  GetImageUrl(): string{
+    return this.placeService.GetImageUrl(this.id);
+  }
+
+  async uploadPlacePhoto(event): Promise<void> {
+    if (this.CheckPhoto(event.target.files[0])){
+      await this.placeService.UploadImage(Number(this.id), this.imageFile).then(
+        end => this.router.navigateByUrl('/editPlaces/' + this.id)
+      );
+    }
+  }
+
+  FullsizeImage(PlacePhotosId: number): void {
+    window.open(this.placeService.GetPlacePhotoUrl(PlacePhotosId));
+  }
 }
