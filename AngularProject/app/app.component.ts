@@ -70,4 +70,8 @@ export class AppComponent {
   LoggedIn(): boolean{
     return this.UserSer.LoggedIn();
   }
+
+  GoToHomePage(): void {
+    this.router.navigateByUrl('/searchForm');
+  }
 }

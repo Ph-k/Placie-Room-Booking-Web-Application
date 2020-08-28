@@ -72,6 +72,10 @@ form{
   text-align: center;
 }
 
+#icon{
+  cursor:pointer;
+}
+
 #menu{
   text-align: center;
 }

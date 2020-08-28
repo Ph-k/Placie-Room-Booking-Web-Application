@@ -9,15 +9,30 @@
   <h4>Place ID : {{place.placeId}}</h4>
 
 
+  <img [attr.src]="GetImageUrl()" class="MainPhoto" />
+  <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector1 style="display: none" (change)="updateMainPhoto($event)">
+  <button type="button" (click)="imageSelector1.click()">Update main photo</button>
 
-  <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector style="display: none" (change)="updatePhoto($event)">
-  <button type="button" (click)="imageSelector.click()">Update Photo</button>
+  <br><br>
+
+  <div>
+    <div class="row">
+     <tr *ngFor="let PlacePhotosId of PlacePhotosIds">
+       <img [attr.src]="this.placeService.GetPlacePhotoUrl(PlacePhotosId)" (click)="FullsizeImage(PlacePhotosId)"/>
+      </tr>
+    </div>
+    <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector2 style="display: none" (change)="uploadPlacePhoto($event)">
+    <button type="button" (click)="imageSelector2.click()">Upload another photo</button>
+  </div>
+
   <div *ngIf="InvalidFileType" [className]="'warning'"><p> Please choose an image file such as .png .jpg .jpeg .gif</p></div>
   <div *ngIf="ImageTooLarge" [className]="'warning'"><p> The file you selected is too large (maximum file size is 10mb)</p></div>
 
+  
   <div id="map" class="map"></div>
   <div class="editForm">
     <form ngNativeValidate>
+      <h3> Edit your Details </h3>
 
       <label>Description</label><br>
       <textarea [(ngModel)]="place.description" name="description" required></textarea> <br>
@@ -63,6 +78,7 @@
 
     </form>
   </div>
+
 
   <div id="newAvailability">
     <h2>New Availability</h2>
