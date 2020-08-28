@@ -10,16 +10,16 @@
 
 
   <img [attr.src]="GetImageUrl()" class="MainPhoto" />
-  <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector1  (change)="updateMainPhoto($event)">
+  <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector1 style="display: none"  (change)="updateMainPhoto($event)">
   <button type="button" (click)="imageSelector1.click()">Update main photo</button>
 
   <br><br>
 
   <div>
     <div class="row">
-     <tr *ngFor="let PlacePhotosId of PlacePhotosIds">
+     <div *ngFor="let PlacePhotosId of PlacePhotosIds">
        <img [attr.src]="this.placeService.GetPlacePhotoUrl(PlacePhotosId)" (click)="FullsizeImage(PlacePhotosId)"/>
-      </tr>
+      </div>
     </div>
 
     <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector2 style="display: none" (change)="uploadPlacePhoto($event)">

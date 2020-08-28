@@ -56,17 +56,11 @@ export class PlaceService {
   deleteAvailability(availabilityId: string): Observable<Availability>{
     return this.http.delete<Availability>(this.availabilityUrl + '/' + availabilityId, this.authorizationHeader());
   }
-  UploadMainImage(PlaceId: number, Image: File): number{
+  UploadMainImage(PlaceId: number, Image: File): Observable<any>{
     const formdata  = new FormData();
     formdata.append('file', Image, Image.name);
 
-    this.http.post<any>(this.placesUrl + '/MainImage/' + PlaceId, formdata, this.authorizationHeader())
-      .subscribe(
-        response => {
-          console.log('image upload' + response);
-        }
-      );
-    return 0;
+    return this.http.post<any>(this.placesUrl + '/MainImage/' + PlaceId, formdata, this.authorizationHeader());
   }
 
   GetImageUrl(placeiId: string): string{

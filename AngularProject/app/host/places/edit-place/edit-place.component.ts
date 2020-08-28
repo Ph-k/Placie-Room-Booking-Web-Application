@@ -78,10 +78,10 @@ export class EditPlaceComponent implements OnInit {
       this.refreshAvailabilities();
     } , error => this.placeNotFound = true);
 
-    this.getPlacePhotosIds();
+    this.setPlacePhotosIds();
   }
 
-  getPlacePhotosIds(): void{
+  setPlacePhotosIds(): void{
     this.placeService.GetPlacesPhotosIds(Number(this.id)).subscribe(
       Ids => this.PlacePhotosIds = Ids
     );
@@ -165,8 +165,9 @@ export class EditPlaceComponent implements OnInit {
 
   updateMainPhoto(event): void{
     if (this.CheckPhoto(event.target.files[0])){
-      this.placeService.UploadMainImage( Number(this.id), this.imageFile);
-      window.location.reload();
+      this.placeService.UploadMainImage( Number(this.id), this.imageFile).subscribe(
+        r => window.location.reload()
+      );
     }
   }
 
@@ -178,7 +179,7 @@ export class EditPlaceComponent implements OnInit {
     console.log('Hello');
     if (this.CheckPhoto(event.target.files[0])){
       this.placeService.UploadImage(Number(this.id), this.imageFile).subscribe(
-        end => {this.getPlacePhotosIds(); console.log(this.PlacePhotosIds); }
+        end => {this.setPlacePhotosIds(); console.log(this.PlacePhotosIds); }
       );
     }
   }
