@@ -128,13 +128,13 @@ public class PlaceController {
         repository.deleteById(id);
     }
 
-    @CrossOrigin(origins = "*")
+     @CrossOrigin(origins = "*")
     @Transactional
     @RequestMapping(
-            value = ("/Places/Image/{placeId}"),
+            value = ("/Places/MainImage/{placeId}"),
             headers = "content-type=multipart/form-data",
             method = RequestMethod.POST)
-    public int PostImage(@RequestParam("file") MultipartFile Image, @PathVariable Long placeId) throws IOException {
+    public int PostMainImage(@RequestParam("file") MultipartFile Image, @PathVariable Long placeId) throws IOException {
         /*if (!UserHasRights(repository.findByUsername(username).getUserId(), principal)) {
             throw new IOException();
         }*/
@@ -145,7 +145,7 @@ public class PlaceController {
         if (Image.isEmpty()) return -2;
 
         String PhotosDirectory = System.getProperty("user.dir") + "\\images\\Places\\";
-        String PhotoName = placeId.toString() + GetImageType(Image);
+        String PhotoName = placeId.toString() + PlacePhotoController.GetImageType(Image);
 
         Files.deleteIfExists(Paths.get(PhotoName));
         Image.transferTo(new File(PhotosDirectory + PhotoName));
@@ -155,24 +155,11 @@ public class PlaceController {
         return 0;
     }
 
-    private String GetImageType(MultipartFile Image) {
-        String ImageType = "";
-        int Index = Image.getOriginalFilename().length() - 1;
-
-        while (Image.getOriginalFilename().charAt(Index) != '.' || Index < 0) {
-            ImageType = Image.getOriginalFilename().charAt(Index) + ImageType;
-            Index--;
-        }
-        ImageType = Image.getOriginalFilename().charAt(Index) + ImageType; // '.'
-
-        return ImageType;
-    }
-
     @GetMapping(
-            value = "/Places/Image/{placeId}",
+            value = "/Places/MainImage/{placeId}",
             produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody
-    byte[] GetImage(@PathVariable Long placeId) throws IOException {
+    byte[] GetMainImage(@PathVariable Long placeId) throws IOException {
 
         Place place = repository.findById(placeId).orElse(null);
         if (place == null) return null;
@@ -185,4 +172,5 @@ public class PlaceController {
         Path imagePath = Paths.get(System.getProperty("user.dir") + place.getMainPhotoUrl());
         return Files.readAllBytes(imagePath);
     }
+
 }
