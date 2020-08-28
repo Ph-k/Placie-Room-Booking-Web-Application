@@ -30,13 +30,13 @@ export class EditPlaceComponent implements OnInit {
   feature: any;
   layer: any;
   style: any;
-  
+
   constructor(private placeService: PlaceService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-	this.availability = new Availability();
+    this.availability = new Availability();
     this.id = this.route.snapshot.paramMap.get('id');
-        this.placeService.getPlace(this.id).subscribe(place => {
+    this.placeService.getPlace(this.id).subscribe(place => {
       this.place = place;
 
       this.map = new ol.Map({
@@ -47,7 +47,7 @@ export class EditPlaceComponent implements OnInit {
           })
         ],
         view: new ol.View({
-            center: ol.proj.fromLonLat([ this.place.xcoordinate, this.place.ycoordinate]),
+          center: ol.proj.fromLonLat([ this.place.xcoordinate, this.place.ycoordinate]),
           zoom: 15
         })
       });
@@ -78,10 +78,15 @@ export class EditPlaceComponent implements OnInit {
       this.refreshAvailabilities();
     } , error => this.placeNotFound = true);
 
+    this.getPlacePhotosIds();
+  }
+
+  getPlacePhotosIds(): void{
     this.placeService.GetPlacesPhotosIds(Number(this.id)).subscribe(
       Ids => this.PlacePhotosIds = Ids
-        );
+    );
   }
+
 
   updatePlace(): void {
     this.attemptedUpdate = true;
@@ -92,7 +97,7 @@ export class EditPlaceComponent implements OnInit {
       });
     }
   }
-	
+
   uploadAvailability(): void{
     this.availability.placeId = this.place.placeId;
     if (this.availability.startingDate < this.availability.endingDate) {
@@ -108,7 +113,7 @@ export class EditPlaceComponent implements OnInit {
   refreshAvailabilities(): void{
     this.placeService.getAvailabilitiesFor(this.place.placeId.toString()).subscribe(response => this.availabilities = response);
   }
-  
+
   validInputs(): boolean{
     return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson > 0
       && this.place.maxCapacity > 0 && this.place.numberOfBeds > 0 && this.place.numberOfSleepingRooms > 0);
@@ -172,7 +177,7 @@ export class EditPlaceComponent implements OnInit {
   async uploadPlacePhoto(event): Promise<void> {
     if (this.CheckPhoto(event.target.files[0])){
       await this.placeService.UploadImage(Number(this.id), this.imageFile).then(
-        end => this.router.navigateByUrl('/editPlaces/' + this.id)
+        end => this.getPlacePhotosIds()
       );
     }
   }
