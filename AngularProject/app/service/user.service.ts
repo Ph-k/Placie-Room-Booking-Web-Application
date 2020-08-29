@@ -33,6 +33,7 @@ export class UserService {
   getUser(id: string): Observable<User>{
     // console.log('Here');
     // console.log(this.authorizationHeader);
+    if(localStorage.getItem('token') == null){return this.http.get<User>(this.usersUrl + '/' + id) ; }
     return this.http.get<User>(this.usersUrl + '/' + id, this.authorizationHeader());
   }
 

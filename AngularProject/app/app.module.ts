@@ -19,6 +19,8 @@ import { HostComponent } from './host/host.component';
 import { PlacesComponent } from './host/places/places.component';
 import { EditPlaceComponent } from './host/places/edit-place/edit-place.component';
 import { NewPlaceComponent } from './host/new-place/new-place.component';
+import { AllPlacesComponent } from './all-places/all-places.component';
+import { PlaceDetailsComponent } from './all-places/place-details/place-details.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { NewPlaceComponent } from './host/new-place/new-place.component';
     HostComponent,
     PlacesComponent,
     EditPlaceComponent,
-    NewPlaceComponent
+    NewPlaceComponent,
+    AllPlacesComponent,
+    PlaceDetailsComponent
   ],
   imports: [
     BrowserModule,

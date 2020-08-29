@@ -38,7 +38,7 @@
 
 </table>
 
-<div class="verification" *ngIf="isPendingHost()">
+<div class="verification" *ngIf="isPendingHost() && adminLoggedIn()">
   <p>This user wants to be a Host</p>
   <button (click)="verifyHost()">Verify Host</button>
 </div>

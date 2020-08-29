@@ -15,6 +15,8 @@ import {PlacesComponent} from './host/places/places.component';
 import {NewPlaceComponent} from './host/new-place/new-place.component';
 import {EditPlaceComponent} from './host/places/edit-place/edit-place.component';
 import {HostGuardService} from './service/host-guard.service';
+import {AllPlacesComponent} from './all-places/all-places.component';
+import {PlaceDetailsComponent} from './all-places/place-details/place-details.component';
 
 export const SiteRoutes: Routes = [
   {
@@ -47,8 +49,7 @@ export const SiteRoutes: Routes = [
   },
   {
     path: 'users/:id',
-    component: UserDetailsComponent,
-    canActivate: [AdministratorGuardService]
+    component: UserDetailsComponent
   },
   {
     path: 'host',
@@ -87,5 +88,14 @@ export const SiteRoutes: Routes = [
         canActivate: [UserGuardService]
       }]
 
+  },
+  {
+    path: 'places',
+    component: AllPlacesComponent
+  }
+  ,
+  {
+    path: 'places/:id',
+    component: PlaceDetailsComponent
   }
 ];

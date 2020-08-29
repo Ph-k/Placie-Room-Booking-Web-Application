@@ -27,11 +27,11 @@ export class PlaceService {
     return this.http.put<Place>(this.placesUrl + '/' + placeId, place, this.authorizationHeader());
   }
   getPlaces(): Observable<Place[]>{
-    return this.http.get<Place[]>(this.placesUrl, this.authorizationHeader());
+    return this.http.get<Place[]>(this.placesUrl);
   }
 
   getPlace(placeId: string): Observable<Place>{
-    return this.http.get<Place>(this.placesUrl + '/' + placeId, this.authorizationHeader());
+    return this.http.get<Place>(this.placesUrl + '/' + placeId);
   }
 
 
@@ -77,6 +77,7 @@ export class PlaceService {
   }
 
   GetPlacesPhotosIds(placeId: number): Observable<number[]>{
+    if (localStorage.getItem('token') == null)return this.http.get<number[]>(this.placesUrl + '/PhotoRange/' + placeId);
     return this.http.get<number[]>(this.placesUrl + '/PhotoRange/' + placeId, this.authorizationHeader());
   }
 

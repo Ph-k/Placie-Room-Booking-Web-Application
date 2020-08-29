@@ -1,0 +1,88 @@
+<h2>Place Details</h2>
+
+<div *ngIf="placeNotFound"><h2>No Such Place Belongs to You</h2></div>
+
+<div class="placeSection" *ngIf="!placeNotFound">
+
+  <h3>{{place.type}} In {{place.district}} </h3>
+  <h4>{{place.address}} / {{place.city}} / {{place.country}}</h4>
+  <h4>Place ID : {{place.placeId}}</h4>
+
+  <img [attr.src]="GetImageUrl()" class="MainPhoto" />
+  <br>
+
+  <button routerLink="/users/{{place.hostId}}">View Host's Profile</button>
+  <h3>Gallery</h3>
+  <div class="row">
+    <div *ngFor="let PlacePhotosId of PlacePhotosIds">
+      <img [attr.src]="this.placeService.GetPlacePhotoUrl(PlacePhotosId)" (click)="FullsizeImage(PlacePhotosId)"/>
+    </div>
+  </div>
+
+  <h3>Location</h3>
+  <div id="map" class="map"></div>
+
+  <h3>Information</h3>
+
+  <div class="detailsSection">
+
+    <label>Description</label><br>
+    <p>{{place.description}}</p><hr>
+
+    <label>Transportation</label><br>
+    <p>{{place.transportation}}</p><hr>
+
+    <label>Area</label><br>
+    <p>{{place.area}} m<sup>2</sup></p><hr>
+
+    <label>Minimum Cost</label><br>
+    <p>{{place.minCost}} &euro;</p><hr>
+
+    <label>Additional Cost Per Person</label><br>
+    <p>{{place.additionalCostPerPerson}} &euro;</p><hr>
+
+    <label>Maximum Capacity</label><br>
+    <p>{{place.maxCapacity}}</p><hr>
+
+    <label>Number of Beds</label><br>
+    <p>{{place.numberOfBeds}}</p><hr>
+
+    <label>Number of Sleeping Rooms</label><br>
+    <p>{{place.numberOfSleepingRooms}}</p><hr>
+
+    <label>Minimum Renting Days</label><br>
+    <p>{{place.minimumRentingDates}}</p><hr>
+
+    <div *ngIf="place.livingRoom"><p>Living Room: Yes</p></div>
+    <div *ngIf="!place.livingRoom"><p>Living Room: No</p></div>
+
+    <div *ngIf="place.wiFi"><p>Wi-Fi: Yes</p></div>
+    <div *ngIf="!place.wiFi"><p>Wi-Fi: No</p></div>
+
+    <div *ngIf="place.airConditioning"><p>Air Conditioning: Yes</p></div>
+    <div *ngIf="place.airConditioning"><p>Air Conditioning: No</p></div>
+
+    <div *ngIf="place.heating"><p>Heating: Yes</p></div>
+    <div *ngIf="!place.heating"><p>Heating: No</p></div>
+
+    <div *ngIf="place.parking"><p>Parking: Yes</p></div>
+    <div *ngIf="!place.parking"><p>Parking: No</p></div>
+
+    <div *ngIf="place.elevator"><p>Elevator: Yes</p></div>
+    <div *ngIf="!place.elevator"><p>Elevator: No</p></div>
+
+    <div *ngIf="place.petsAllowed"><p>Pets Allowed: Yes</p></div>
+    <div *ngIf="!place.petsAllowed"><p>Pets Allowed: No</p></div>
+
+    <div *ngIf="place.partiesAllowed"><p>Parties Allowed: Yes</p></div>
+    <div *ngIf="!place.partiesAllowed"><p>Parties Allowed: No</p></div>
+
+    <div *ngIf="place.smokingAllowed"><p>Smoking Allowed: Yes</p></div>
+    <div *ngIf="!place.smokingAllowed"><p>Smoking Allowed: No</p></div>
+
+  </div>
+</div>
+
+
+
+

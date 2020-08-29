@@ -34,6 +34,10 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  adminLoggedIn(): boolean{
+    return (localStorage.getItem('admin') === 'true');
+  }
+
   verifyHost(): void{
     this.user.isHost = true;
     this.userService.updateUser( this.user , this.user.userId);
