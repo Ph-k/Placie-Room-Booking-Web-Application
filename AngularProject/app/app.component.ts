@@ -17,6 +17,8 @@ export class AppComponent {
 
 
   constructor(private router: Router, private UserSer: UserService) {
+    this.user = {userName: '', password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
+      isHost: false, isTenant: false, isAdmin: false , userId: null};
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
         this.registration = event.url === '/register';

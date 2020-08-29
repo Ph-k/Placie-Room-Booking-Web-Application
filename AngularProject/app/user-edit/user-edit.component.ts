@@ -23,6 +23,8 @@ export class UserEditComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.user = {userName: null, password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
+      isHost: false, isTenant: false, isAdmin: false , userId: null};
     this.userService.findUserId(localStorage.getItem('username')).
     subscribe(response => { this.id =  response; this.userService.getUser(response.toString()).
     subscribe(user => {this.user = user; });
@@ -57,6 +59,7 @@ export class UserEditComponent implements OnInit {
   }
 
   GetImageUrl(): string{
+    if (this.user.userName == null) { return null; }
     return this.userService.GetImageUrl(this.user.userName);
   }
 
