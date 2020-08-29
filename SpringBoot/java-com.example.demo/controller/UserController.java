@@ -55,7 +55,6 @@ class UserController {
     @CrossOrigin(origins = "*")
     @GetMapping("/Users/{id}")
     User getUser(@PathVariable Long id, Principal principal) {
-
         if (principal == null || !UserHasRights(id, principal)) {
             User user = repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
             user.setPassword(null);
