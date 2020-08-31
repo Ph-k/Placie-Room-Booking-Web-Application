@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -171,6 +172,16 @@ public class PlaceController {
 
         Path imagePath = Paths.get(System.getProperty("user.dir") + place.getMainPhotoUrl());
         return Files.readAllBytes(imagePath);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/PlacesSearch/{checkIn}/{checkOut}/{country}/{city}/{district}/{persons}")
+    List<Place> Search(@PathVariable Date checkIn, @PathVariable Date checkOut, @PathVariable String country, @PathVariable String city, @PathVariable String district, @PathVariable Long persons) {
+        if(country.equals("null") ) country = "%";
+        if(city.equals("null") ) city = "%";
+        if(district.equals("null") ) district = "%";
+
+        return repository.Search(checkIn,checkOut,country,city,district,persons);
     }
 
 }

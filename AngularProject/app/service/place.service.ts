@@ -10,6 +10,7 @@ import {Availability} from '../../model/Availability';
 export class PlaceService {
 
   private placesUrl = 'https://localhost:8443/Places';
+  private searchUrl = 'https://localhost:8443/PlacesSearch';
   private availabilityUrl = 'https://localhost:8443/Availabilities' ;
 
   constructor(private http: HttpClient) { }
@@ -26,8 +27,14 @@ export class PlaceService {
   updatePlace(place: Place, placeId: string): Observable<Place>{
     return this.http.put<Place>(this.placesUrl + '/' + placeId, place, this.authorizationHeader());
   }
+
   getPlaces(): Observable<Place[]>{
     return this.http.get<Place[]>(this.placesUrl);
+  }
+
+  searchPlaces(checkIn: string, checkOut: string, country: string, city: string, district: string, persons: string): Observable<Place[]>{
+    return this.http.get<Place[]>(this.searchUrl
+      + '/' + checkIn  + '/' + checkOut  + '/' + country  + '/' + city  + '/' + district + '/' + persons);
   }
 
   getPlace(placeId: string): Observable<Place>{

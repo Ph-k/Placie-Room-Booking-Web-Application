@@ -98,7 +98,7 @@
   <div id="existingAvailabilities">
     <h2>Existing Availabilities</h2>
     <div *ngFor="let availability of availabilities ">
-      <p>Starting Date: {{availability.startingDate}} | Ending Date: {{availability.startingDate}}</p>
+      <p>Starting Date: {{availability.startingDate}} | Ending Date: {{availability.endingDate}}</p>
       <button (click)="deleteAvailability(availability.availabilityId)">Delete Availability</button>
       <hr>
     </div>

@@ -90,7 +90,7 @@ export const SiteRoutes: Routes = [
 
   },
   {
-    path: 'places',
+    path: 'places/:checkIn/:checkOut/:Country/:City/:District/:maxCapacity',
     component: AllPlacesComponent
   }
   ,

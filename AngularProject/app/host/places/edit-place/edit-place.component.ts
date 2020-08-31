@@ -99,6 +99,7 @@ export class EditPlaceComponent implements OnInit {
   }
 
   uploadAvailability(): void{
+    console.log(this.availability.endingDate);
     this.availability.placeId = this.place.placeId;
     if (this.availability.startingDate < this.availability.endingDate) {
       this.placeService.uploadAvailability(this.availability).subscribe(response => this.refreshAvailabilities());

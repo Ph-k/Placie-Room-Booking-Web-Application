@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PlaceService} from '../service/place.service';
 import {Place} from '../../model/Place';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-all-places',
@@ -18,10 +19,17 @@ export class AllPlacesComponent implements OnInit {
   minPrice = null;
   maxPrice = null;
 
-  constructor(private placeService: PlaceService) { }
+  constructor(private placeService: PlaceService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.placeService.getPlaces().subscribe(places => {
+    this.placeService.searchPlaces(
+      this.route.snapshot.paramMap.get('checkIn'),
+      this.route.snapshot.paramMap.get('checkOut'),
+      this.route.snapshot.paramMap.get('Country'),
+      this.route.snapshot.paramMap.get('City'),
+      this.route.snapshot.paramMap.get('District'),
+      this.route.snapshot.paramMap.get('maxCapacity')
+    ).subscribe(places => {
       this.places = places;
       this.filteredPlaces = this.places.slice();
       this.numOfPlaces = this.places.length;
@@ -33,7 +41,8 @@ export class AllPlacesComponent implements OnInit {
 
   getFilteredPlaces(): void{
     this.filteredPlaces = [];
-    for (var i = 0;  i < this.places.length; i++) {
+    const length = this.places.length;
+    for (let i = 0; i < length; i++) {
       if (this.places[i].minCost >= this.minPrice && this.places[i].minCost <= this.maxPrice){
         this.filteredPlaces.push(this.places[i]);
       }

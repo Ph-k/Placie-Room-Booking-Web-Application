@@ -4,6 +4,8 @@ import com.example.demo.exception.ReservationNotFoundException;
 import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -22,8 +24,16 @@ public class ReservationController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/Reservations")
-    Reservation newReservation(@RequestBody Reservation newReservation) {
-        return repository.save(newReservation);
+    boolean newReservation(@RequestBody Reservation newReservation) {
+        Date CheckIn = newReservation.getStartingDate(),CheckOut=newReservation.getEndingDate();
+        Long placeId = newReservation.getPlaceId();
+
+        if( repository.CheckAvailability(CheckIn,CheckOut,placeId) == 0 ) {
+            return false;
+        }
+
+        repository.save(newReservation);
+        return true;
     }
 
     @CrossOrigin(origins = "*")
@@ -32,5 +42,10 @@ public class ReservationController {
         return repository.findById(id).orElseThrow(()->new ReservationNotFoundException(id));
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping("/Reservations/Search/{placeId}/checkIn}/{checkOut}")//1= not available
+    Reservation[] CheckReservation(@PathVariable Date checkIn,@PathVariable Date checkOut,@PathVariable Long placeId ){
+        return null;
+    }
 
 }
