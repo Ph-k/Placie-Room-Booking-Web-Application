@@ -1,0 +1,64 @@
+h2,h3,h4,h5,h6{
+  text-align: center;
+}
+
+
+.panelButton{
+  width: 80%;
+  height: 100px;
+  margin-left: 10%;
+  marin-right: 10%;
+  margin-bottom: 100px;
+  border-radius: 25px;
+  background: none;
+  border-color: #00B5DE;
+  outline:none;
+}
+
+.panelButton:hover{
+  font-size: 110%;
+  cursor: pointer;
+}
+
+.panelLabel{
+  color: #00B5DE;
+  font-size: 150%;
+  cursor: pointer;
+}
+
+.tableHeadingRow{
+  text-align: center;
+  color: white;
+  background-color: #00B5DE;
+  font-size: 140%;
+  font-weight: 500 ;
+}
+
+.mainTable{
+  width: 70%;
+  margin-left: 15%;
+  margin-right:15%;
+  table-layout: fixed;
+}
+
+.mainTable  tr:nth-child(even){background-color: #f2f2f2;}
+
+.mainTable td{
+  padding: 5px;
+  max-width: 50%;
+  min-width: 50%;
+  overflow-wrap: break-word;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+
+.clickableRow{
+  cursor: pointer;
+}
+
+.clickableRow:hover td{
+  border: 1px solid #00B5DE;
+}
+
