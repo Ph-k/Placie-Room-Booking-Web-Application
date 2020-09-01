@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Date;
+import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
@@ -35,5 +36,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             " AND a.starting_date <= ?1 AND a.ending_date >= ?2", nativeQuery = true)
     int placeAvailable(Date check_in, Date check_out, Long place_id);
 
+
+    @Query(value = "SELECT * FROM reservation WHERE user_id = ?1", nativeQuery = true)
+    List<Reservation> MyReservations(Long UserId);
 
 }
