@@ -4,6 +4,7 @@
 
 <div class="placeSection" *ngIf="!placeNotFound">
 
+
   <h3>{{place.type}} In {{place.district}} </h3>
   <h4>{{place.address}} / {{place.city}} / {{place.country}}</h4>
   <h4>Place ID : {{place.placeId}}</h4>
@@ -11,7 +12,9 @@
   <img [attr.src]="GetImageUrl()" class="MainPhoto" />
   <br>
 
+  <button *ngIf="forReservation()" (click)="reserve()">Reserve Place</button>
   <button routerLink="/users/{{place.hostId}}">View Host's Profile</button>
+  <div *ngIf="invalidReservation" class="warning">Place Not Available for this Reservation</div>
   <h3>Gallery</h3>
   <div class="row">
     <div *ngFor="let PlacePhotosId of PlacePhotosIds">

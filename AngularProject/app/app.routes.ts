@@ -17,6 +17,7 @@ import {EditPlaceComponent} from './host/places/edit-place/edit-place.component'
 import {HostGuardService} from './service/host-guard.service';
 import {AllPlacesComponent} from './all-places/all-places.component';
 import {PlaceDetailsComponent} from './all-places/place-details/place-details.component';
+import {TenantComponent} from './tenant/tenant.component';
 
 export const SiteRoutes: Routes = [
   {
@@ -97,5 +98,9 @@ export const SiteRoutes: Routes = [
   {
     path: 'places/:id',
     component: PlaceDetailsComponent
+  },
+  {
+    path: 'reservations',
+    component: TenantComponent
   }
 ];

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Place} from '../../model/Place';
 import {Availability} from '../../model/Availability';
+import {Reservation} from '../../model/Reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class PlaceService {
   private placesUrl = 'https://localhost:8443/Places';
   private searchUrl = 'https://localhost:8443/PlacesSearch';
   private availabilityUrl = 'https://localhost:8443/Availabilities' ;
+  private reservationUrl = 'https://localhost:8443/Reservations';
 
   constructor(private http: HttpClient) { }
 
@@ -84,12 +86,21 @@ export class PlaceService {
   }
 
   GetPlacesPhotosIds(placeId: number): Observable<number[]>{
-    if (localStorage.getItem('token') == null)return this.http.get<number[]>(this.placesUrl + '/PhotoRange/' + placeId);
+    if (localStorage.getItem('token') == null) {return this.http.get<number[]>(this.placesUrl + '/PhotoRange/' + placeId); }
     return this.http.get<number[]>(this.placesUrl + '/PhotoRange/' + placeId, this.authorizationHeader());
   }
 
   GetPlacePhotoUrl(photoId: number): string{
     return this.placesUrl + '/Images/' + photoId;
+  }
+
+  makeReservation(reservation: Reservation): Observable<Boolean>{
+    console.log(reservation);
+    return this.http.post<Boolean>(this.reservationUrl, reservation , this.authorizationHeader());
+  }
+
+  myReservations(): Observable<Reservation[]>{
+    return this.http.get<Reservation[]>('https://localhost:8443/MyReservations', this.authorizationHeader());
   }
 
 }

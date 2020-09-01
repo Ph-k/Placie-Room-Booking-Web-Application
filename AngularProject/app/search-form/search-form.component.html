@@ -1,27 +1,32 @@
-<h3>Which is your next location</h3>
+<h2>Search Form</h2>
 
-<label> Country </label>
-<input [(ngModel)]="country" type="text" name="country">
+<div id="searchForm">
+  <form ngNativeValidate>
+    <h3>Which Is Your Next Location?</h3>
 
-<label> City </label>
-<input [(ngModel)]="city" type="text" name="city">
+    <label> Country </label><br class="mobileOnly">
+    <input [(ngModel)]="country" type="text" name="country"><br class="mobileOnly">
 
-<label> District </label>
-<input [(ngModel)]="district" type="text" name="district"> <br>
+    <label> City </label><br class="mobileOnly">
+    <input [(ngModel)]="city" type="text" name="city"><br class="mobileOnly">
+
+    <label> District </label><br class="mobileOnly">
+    <input [(ngModel)]="district" type="text" name="district"> <br>
 
 
-<h3>How many persons</h3>
-<input [(ngModel)]="persons" type="number" name="persons" min="0" step="1"> <br>
+    <h3>How Many People?</h3><br>
+    <input [(ngModel)]="persons" type="number" name="persons" min="0" step="1"> <br>
 
-<form ngNativeValidate>
 
-  <h3>When is your next trip</h3>
-  <label> Check In </label>
-  <input type="date" [(ngModel)]='checkIn' name="checkIn" required><br>
-  <label> Check Out </label>
-  <input type="date" [(ngModel)]='checkOut' name="checkOut" required><br>
-  <div *ngIf="InvalidDate"> <label class="warning"> Check-In date must be before the Check-Out date </label> <br> </div>
 
-  <button (click)="ShowApartments()">Show me available places!</button>
+    <h3>When Is Your Next Reservation?</h3>
+    <label> Check In </label>
+    <input type="date" [(ngModel)]='checkIn' name="checkIn" required><br class="mobileOnly">
+    <label> Check Out </label>
+    <input type="date" [(ngModel)]='checkOut' name="checkOut" required><br>
+    <div *ngIf="InvalidDate"> <label class="warning"> Check-In date must be before the Check-Out date </label> <br> </div>
 
-</form>
+    <button (click)="ShowApartments()">Show me available places!</button>
+
+  </form>
+</div>

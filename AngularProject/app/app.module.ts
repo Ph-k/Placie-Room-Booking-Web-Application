@@ -21,6 +21,7 @@ import { EditPlaceComponent } from './host/places/edit-place/edit-place.componen
 import { NewPlaceComponent } from './host/new-place/new-place.component';
 import { AllPlacesComponent } from './all-places/all-places.component';
 import { PlaceDetailsComponent } from './all-places/place-details/place-details.component';
+import { TenantComponent } from './tenant/tenant.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PlaceDetailsComponent } from './all-places/place-details/place-details.
     EditPlaceComponent,
     NewPlaceComponent,
     AllPlacesComponent,
-    PlaceDetailsComponent
+    PlaceDetailsComponent,
+    TenantComponent
   ],
   imports: [
     BrowserModule,

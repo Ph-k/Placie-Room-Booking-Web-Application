@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Place} from '../../../model/Place';
 import {Availability} from '../../../model/Availability';
 import {PlaceService} from '../../service/place.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../../service/user.service';
+import {User} from '../../../model/User';
+import {Reservation} from '../../../model/Reservation';
 
 declare var ol: any;
 @Component({
@@ -13,19 +16,27 @@ declare var ol: any;
 export class PlaceDetailsComponent implements OnInit {
 
   place: Place;
+  user: User;
+  reservation: Reservation;
   private id: string;
-  availabilities: Availability[];
   PlacePhotosIds: number[];
   placeNotFound = false;
+  invalidReservation = false;
 
   map: any;
   feature: any;
   layer: any;
   style: any;
 
-  constructor(private placeService: PlaceService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private placeService: PlaceService, private userService: UserService,
+              private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.user = {userName: '', password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
+      isHost: false, isTenant: false, isAdmin: false , userId: null};
+    this.userService.findUserId(localStorage.getItem('username')).subscribe(response => {
+      this.userService.getUser(response.toString()).subscribe(user => this.user = user);
+    });
     this.id = this.route.snapshot.paramMap.get('id');
     this.placeService.getPlace(this.id).subscribe(place => {
       this.place = place;
@@ -71,6 +82,39 @@ export class PlaceDetailsComponent implements OnInit {
       Ids => this.PlacePhotosIds = Ids
     );
     this.setPlacePhotosIds();
+  }
+
+  reserve(): void {
+    let checkIn: Date;
+    checkIn = new Date(localStorage.getItem('startingDate'));
+
+    let checkOut: Date;
+    checkOut = new Date(localStorage.getItem('endingDate'));
+
+    let people: number;
+    people = Number(localStorage.getItem('numOfPersons'));
+
+
+    this.reservation = {
+      reservationId: null,
+      userId: this.user.userId,
+      placeId: this.place.placeId,
+      startingDate: checkIn,
+      endingDate: checkOut,
+      numberOfPeople: people
+    };
+
+    this.placeService.makeReservation(this.reservation).subscribe(response => {
+      if ( response === false ) { this.invalidReservation = true; }
+      else { this.router.navigateByUrl('/searchForm'); }
+      localStorage.removeItem('startingDate') ;
+      localStorage.removeItem('endingDate') ;
+      localStorage.removeItem('numOfPersons') ;
+    });
+  }
+
+  forReservation(): boolean{
+    return (this.user.isTenant && (localStorage.getItem('startingDate') != null));
   }
 
   setPlacePhotosIds(): void{

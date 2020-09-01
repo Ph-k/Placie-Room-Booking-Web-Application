@@ -116,8 +116,8 @@ export class EditPlaceComponent implements OnInit {
   }
 
   validInputs(): boolean{
-    return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson > 0
-      && this.place.maxCapacity > 0 && this.place.numberOfBeds > 0 && this.place.numberOfSleepingRooms > 0);
+    return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson >= 0
+      && this.place.maxCapacity > 0 && this.place.numberOfBeds >= 0 && this.place.numberOfSleepingRooms >= 0);
   }
 
   private CheckImageType(file: File): string{

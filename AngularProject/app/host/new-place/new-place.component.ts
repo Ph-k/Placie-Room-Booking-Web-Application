@@ -136,8 +136,8 @@ export class NewPlaceComponent implements OnInit {
   }
 
   validInputs(): boolean{
-    return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson > 0
-            && this.place.maxCapacity > 0 && this.place.numberOfBeds > 0 && this.place.numberOfSleepingRooms > 0);
+    return ( this.place.area > 0 && this.place.minCost > 0 && this.place.additionalCostPerPerson >= 0
+            && this.place.maxCapacity > 0 && this.place.numberOfBeds >= 0 && this.place.numberOfSleepingRooms >= 0);
   }
 
   locationPicked(): boolean{
