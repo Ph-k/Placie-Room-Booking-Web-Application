@@ -39,7 +39,7 @@ public class PendingHostController {
         PendingHost pendingHost = repository.findById(id).orElse(null);
 
         if(pendingHost == null ||
-                pendingHost.getUserId() != userRepository.findByUsername(principal.getName()).getUserId()
+                pendingHost.getUserId().compareTo(userRepository.findByUsername(principal.getName()).getUserId()) !=0
                 && !userRepository.findByUsername(principal.getName()).getIsAdmin()){
             throw new PendingHostNotFoundException(id);
         }

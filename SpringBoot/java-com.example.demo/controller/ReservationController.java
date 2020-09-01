@@ -3,17 +3,22 @@ package com.example.demo.controller;
 import com.example.demo.exception.ReservationNotFoundException;
 import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
+import com.example.demo.repository.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
+import java.security.Principal;
 import java.sql.Date;
 import java.util.List;
 
 @RestController
 public class ReservationController {
     private final ReservationRepository repository;
+    private final UserRepository userRepository;
 
-    ReservationController(ReservationRepository repository) {
+
+    ReservationController(ReservationRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     @CrossOrigin(origins = "*")
@@ -23,8 +28,13 @@ public class ReservationController {
     }
 
     @CrossOrigin(origins = "*")
+    @PreAuthorize("hasAnyRole('TENANT')")
     @PostMapping("/Reservations")
-    boolean newReservation(@RequestBody Reservation newReservation) {
+    boolean newReservation(@RequestBody Reservation newReservation, Principal principal) {
+
+        if(newReservation.getUserId().compareTo(userRepository.findByUsername(principal.getName()).getUserId()) !=0){
+            return false;
+        }
         Date CheckIn = newReservation.getStartingDate(),CheckOut=newReservation.getEndingDate();
         Long placeId = newReservation.getPlaceId();
 
@@ -35,6 +45,14 @@ public class ReservationController {
         repository.save(newReservation);
         return true;
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/MyReservations")
+    List<Reservation> MyReservations(Principal principal) {
+        Long Id=  userRepository.findByUsername(principal.getName()).getUserId();
+        return repository.MyReservations(Id);
+    }
+
 
     @CrossOrigin(origins = "*")
     @GetMapping("/Reservations/{id}")
