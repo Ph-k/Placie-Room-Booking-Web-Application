@@ -44,4 +44,8 @@ export class NewMessageComponent implements OnInit {
     await this.router.navigateByUrl('/messages');
 
   }
+
+  CloseComponent(): void{
+    this.router.navigateByUrl('/messages');
+  }
 }

@@ -3,15 +3,28 @@
   width:70%;
   margin-left: 15%;
   background-color: #f2f2f2;
-  background-image: url("https://cdn.pixabay.com/photo/2015/07/05/13/44/beach-832346_960_720.jpg");
-  background-position: center;
+  background-image: url("https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2016%2F01%2FDUBAI-559148539-ABOVE0116.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   border-radius: 50px;
   min-height: 150px;
 
 }
 
+h3{
+  color:black;
+  text-shadow: 0px 0px 5px #ffffff;
+  -webkit-text-stroke: 0.1px white;
+  font-weight: bold;
+}
+
+
 label{
   color:white;
+  text-shadow: 0px 0px 5px black;
+  font-weight: bold;
+  -webkit-text-stroke: 0.2px black;
 }
 
 input{
