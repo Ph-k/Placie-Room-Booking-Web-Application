@@ -47,6 +47,14 @@ public class ReservationController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/MyReservations")
+    List<Reservation> MyReservations(Principal principal) {
+        Long Id=  userRepository.findByUsername(principal.getName()).getUserId();
+        return repository.MyReservations(Id);
+    }
+
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/Reservations/{id}")
     Reservation one(@PathVariable Long id ){
         return repository.findById(id).orElseThrow(()->new ReservationNotFoundException(id));
