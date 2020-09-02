@@ -5,37 +5,48 @@ import com.example.demo.model.Place;
 import com.example.demo.model.PlacePhoto;
 import com.example.demo.repository.PlacePhotoRepository;
 import com.example.demo.repository.PlaceRepository;
+import com.example.demo.repository.UserRepository;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.ZonedDateTime;
+import java.security.Principal;
 import java.util.List;
-
 
 @RestController
 public class PlacePhotoController {
-    private final PlacePhotoRepository repository;
 
-    PlacePhotoController(PlacePhotoRepository repository) {
+    private final PlacePhotoRepository repository;
+    private final UserRepository userRepository;
+    private final PlaceRepository placeRepository;
+
+    PlacePhotoController(PlacePhotoRepository repository,UserRepository userRepository,PlaceRepository placeRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
+        this.placeRepository = placeRepository;
     }
 
+    //returns all place photos
     @CrossOrigin(origins = "*")
     @GetMapping("/PlacePhotos")
     List<PlacePhoto> all() {
         return repository.findAll();
     }
 
+    //post place photo(not used,more advanced function below)
     @CrossOrigin(origins = "*")
     @PostMapping("/PlacePhotos")
-    PlacePhoto newPlacePhoto(@RequestBody PlacePhoto newPlacePhoto) {
+    PlacePhoto newPlacePhoto(@RequestBody PlacePhoto newPlacePhoto, Principal principal) {
+
+        //only the owner of a place can post a photo for this place(see ValidUser function below)
+        if(!ValidUser(principal,newPlacePhoto.getPlaceId())){
+            return null;
+        }
         return repository.save(newPlacePhoto);
     }
 
@@ -45,11 +56,20 @@ public class PlacePhotoController {
         return repository.findById(id).orElseThrow(()->new PlacePhotoNotFoundException(id));
     }
 
+    //delete place photo by id
     @CrossOrigin(origins = "*")
     @DeleteMapping("/PlacePhotos/{id}")
-    void deletePlacePhoto(@PathVariable Long id) { repository.deleteById(id); }
 
+    void deletePlacePhoto(@PathVariable Long id,Principal principal) {
 
+        //only the owner of a place can delete a photo of this(see ValidUser function below)
+        if(!ValidUser(principal,id)){
+            return;
+        }
+        repository.deleteById(id);
+    }
+
+    //Comment Needed***************************************************************************************************
     public static String GetImageType(MultipartFile Image) {
         String ImageType = "";
         int Index = Image.getOriginalFilename().length() - 1;
@@ -63,6 +83,7 @@ public class PlacePhotoController {
         return ImageType;
     }
 
+    //Comment Needed*************************************************************************************************************
     private boolean CheckCreateDirectory(Path path) throws IOException {
         if (Files.exists(path)==false) {
             try {
@@ -75,16 +96,18 @@ public class PlacePhotoController {
         return false;
     }
 
+    //post place photo
     @CrossOrigin(origins = "*")
     @Transactional
     @RequestMapping(
             value = ("/Places/Images/{placeId}"),
             headers = "content-type=multipart/form-data",
             method = RequestMethod.POST)
-    public int PostImage(@RequestParam("file") MultipartFile Image, @PathVariable Long placeId) throws IOException {
-        /*if (!UserHasRights(repository.findByUsername(username).getUserId(), principal)) {
-            throw new IOException();
-        }*/
+    public int PostImage(@RequestParam("file") MultipartFile Image, @PathVariable Long placeId,Principal principal) throws IOException {
+        //only the owner of a place can post a photo for this place(see ValidUser function below)
+        if(!ValidUser(principal,placeId)){
+            return -1;
+        }
 
         //Place place = PlaceRepository.findById(placeId).orElse(null);
 
@@ -112,6 +135,7 @@ public class PlacePhotoController {
         return 0;
     }
 
+    //Comment Needed***********************************************************************************************************************
     @CrossOrigin(origins = "*")
     @GetMapping("/Places/PhotoRange/{placeId}")
     int[] getPhotosIds(@PathVariable Long placeId) {
@@ -135,5 +159,23 @@ public class PlacePhotoController {
 
         Path imagePath = Paths.get(System.getProperty("user.dir") + placephoto.getPhotoUrl());
         return Files.readAllBytes(imagePath);
+    }
+
+    //Used to examine if the logged in user owns the place they want to upload/delete photos for
+    boolean ValidUser(Principal principal,@PathVariable Long id){
+
+        Place place=placeRepository.findById(id).orElse(null);
+
+        if(place == null){
+            return false;
+        }
+
+        if(userRepository.findByUsername(principal.getName()).getUserId().
+                compareTo(place.getHostId())!=0){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }
