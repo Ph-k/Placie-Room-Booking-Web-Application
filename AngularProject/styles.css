@@ -5,7 +5,6 @@ h2,h3,h4,h5,h6{
   text-align: center;
 }
 
-
 .panelButton{
   width: 80%;
   height: 100px;
@@ -56,6 +55,18 @@ h2,h3,h4,h5,h6{
   border: 1px solid white;
 }
 
+.tableActions{
+  text-align: center;
+}
+
+.tableActions button{
+  margin: 10px;
+  border-radius: 25px;
+  background: none;
+  border-color: #00B5DE;
+  outline:none;
+  cursor: pointer;
+}
 
 .clickableRow{
   cursor: pointer;

@@ -1,8 +1,43 @@
+<div id="placesBackground">
 <div id="filterSection">
   <form ngNativeValidate>
-    <label class="filterLabel">Minimum Cost</label><input type="number" [(ngModel)]="minPrice" name="minPrice" >
-    <label class="filterLabel">Maximum Cost</label><input type="number" [(ngModel)]="maxPrice" name="maxPrice" >
+    <label class="filterLabel">Minimum Cost</label><br class="mediaOnly">
+    <input type="number" [(ngModel)]="minPrice" name="minPrice" ><br class="mediaOnly">
+    <label class="filterLabel">Maximum Cost</label><br class="mediaOnly">
+    <input type="number" [(ngModel)]="maxPrice" name="maxPrice" ><br class="mediaOnly">
+    <button *ngIf="!filtersShown" (click)="showFilters()">Show More Filters</button><br class="mediaOnly">
+    <button *ngIf=" filtersShown"(click)="hideFilters()">Hide Filters</button><br class="mediaOnly">
     <button (click)="getFilteredPlaces()">Submit Filters</button>
+    <div *ngIf="filtersShown">
+      <label class="filterLabel">Maximum Additional Cost Per Person</label><br class="mediaOnly">
+      <input type="number" [(ngModel)]="additionalCostPerPerson" name="additionalCostPerPerson" ><br>
+      <label class="filterLabel">Type</label><br class="mediaOnly">
+      <select [(ngModel)]="type" name="type">
+        <option value="null">All</option>
+        <option value="Apartment">Apartment</option>
+        <option value="Room">Room</option>
+        <option value="Villa">Villa</option>
+        <option value="Cottage">Cottage</option>
+        <option value="Office">Office</option>
+      </select><br class="mediaOnly"><br>
+      <label class="filterLabel">Minimum Area</label><br class="mediaOnly">
+      <input type="number" [(ngModel)]="minArea" name="minArea" ><br>
+      <label class="filterLabel">Minimum Number Of Beds</label><br class="mediaOnly">
+      <input type="number" [(ngModel)]="minNumOfBeds" name="minNumOfBeds" ><br>
+      <label class="filterLabel">Minimum Number of Sleeping Rooms</label><br class="mediaOnly">
+      <input type="number" [(ngModel)]="minNumOfSleepingRooms" name="minNumOfSleepingRooms" ><br class="mediaOnly">
+      <div class="checkList">
+        <input type="checkbox" class="checkBox" [(ngModel)]="livingRoom" name="livingRoom" > <label>Living Room</label><br class="mediaOnly">
+        <input type="checkbox" class="checkBox" [(ngModel)]="wiFi" name="wiFi"><label>Wi Fi</label><br class="mediaOnly">
+        <input type="checkbox" class="checkBox" [(ngModel)]="airConditioning" name="airConditioning"><label>Air Conditioning</label><br class="mediaOnly">
+        <input type="checkbox" class="checkBox" [(ngModel)]="heating" name="heating"><label>Heating</label><br class="mediaOnly">
+        <input type="checkbox" class="checkBox" [(ngModel)]="parking" name="parking"><label>Parking</label><br class="mediaOnly">
+        <input type="checkbox" class="checkBox" [(ngModel)]="elevator" name="elevator"><label>Elevator</label><br class="mediaOnly"><br class="wideOnly">
+        <input type="checkbox" class="checkBox" [(ngModel)]="petsAllowed" name="petsAllowed"><label>Pets Allowed</label><br class="mediaOnly">
+        <input type="checkbox" class="checkBox"  [(ngModel)]="partiesAllowed" name="partiesAllowed"><label>Parties Allowed</label><br class="mediaOnly">
+        <input type="checkbox" class="checkBox"  [(ngModel)]="smokingAllowed" name="smokingAllowed"><label>Smoking Allowed</label><br class="mediaOnly">
+      </div>
+    </div>
   </form>
 </div>
 
@@ -23,4 +58,5 @@
   </span>
 </div>
 <button id="nextPage" (click)="nextPage()">Next Page</button>
+</div>
 </div>

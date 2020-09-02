@@ -2,14 +2,14 @@
 
 <h3 *ngIf="reservations.length == 0">No Reservations Yet</h3>
 
-<table *ngIf="reservations.length!= 0">
-  <tr id="heading">
-    <td><label>Reservation</label></td>
-    <td><label>Action</label></td>
+<table *ngIf="reservations.length!= 0" class="mainTable">
+  <tr class="tableHeadingRow">
+    <td class="tableHeadingData"><label>Reservation</label></td>
+    <td class="tableHeadingData"><label>Action</label></td>
   </tr>
   <tr *ngFor="let reservation of reservations" >
     <td>Dates: <span class="field">{{reservation.startingDate}}</span> - <span class="field">{{reservation.endingDate}}</span> <br>People: <span class="field">{{reservation.numberOfPeople}} </span> </td>
-    <td class="actions">
+    <td class="tableActions">
       <button routerLink="/places/{{reservation.placeId}}">View Reserved Place</button>
       <button>Review Reserved Place</button>
     </td>

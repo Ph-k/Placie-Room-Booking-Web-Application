@@ -5,11 +5,25 @@
   background-color: #f2f2f2;
   margin-bottom: 10px;
   margin-top: 10px;
+  line-height: 30px;
 }
 
+
 .filterLabel{
+  margin-right: 10px;
+}
+
+input{
+  margin-right: 20px;
+}
+
+button{
   margin-right: 5px;
-  padding: 5px;
+}
+
+
+.mediaOnly{
+  display: none;
 }
 
 .placeBox{
@@ -83,18 +97,42 @@
 }
 
 .currentPage{
-  color: red;
   background-color: #00B5DE;
   color: white;
   border: none;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1100px) {
+
+  #filterSection{
+    text-align: center;
+    line-height: normal;
+  }
+
+  input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 0px;
+  }
+
+  button{
+    margin-top: 10px;
+    margin-right: 0px;
+  }
+
+  .mediaOnly{
+    display: inline-block;
+  }
+
   .placeBox{
     display: block;
-    width:50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    width:70%;
+    margin-left: 15%;
+    margin-right: 15%;
     margin-top: 10px;
+  }
+
+  .wideOnly{
+    display: none;
   }
 }
