@@ -40,4 +40,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query(value = "SELECT * FROM reservation WHERE user_id = ?1", nativeQuery = true)
     List<Reservation> MyReservations(Long UserId);
 
+    @Query(value = "SELECT p.host_id FROM place p,reservation r where p.place_id=r.place_id AND r.reservation_id=?1", nativeQuery = true)
+    Long ReservationHost(Long ReservationId);
+
+    @Query(value = "SELECT * FROM reservation WHERE place_id=?1", nativeQuery = true)
+    Reservation[] ReservationsFor(Long PlaceId);
+
 }

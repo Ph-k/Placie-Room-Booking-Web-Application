@@ -6,7 +6,6 @@ import com.example.demo.repository.PendingHostRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
 import java.util.List;
 
@@ -20,12 +19,14 @@ public class PendingHostController {
         this.userRepository = userRepository;
     }
 
+    //only admin can see all pending hosts
     @CrossOrigin(origins = "*")
     @GetMapping("/PendingHosts")
     @PreAuthorize("hasAnyRole('ADMIN')")
     List<PendingHost> all() {
         return repository.findAll();
     }
+
 
     @CrossOrigin(origins = "*")
     @PostMapping("/PendingHosts")
@@ -38,6 +39,7 @@ public class PendingHostController {
     PendingHost one(@PathVariable Long id , Principal principal) {
         PendingHost pendingHost = repository.findById(id).orElse(null);
 
+        //only a user can see if themselves are a pending host
         if(pendingHost == null ||
                 pendingHost.getUserId().compareTo(userRepository.findByUsername(principal.getName()).getUserId()) !=0
                 && !userRepository.findByUsername(principal.getName()).getIsAdmin()){
@@ -46,6 +48,7 @@ public class PendingHostController {
         return repository.findById(id).orElseThrow(() -> new PendingHostNotFoundException(id));
     }
 
+    //only admin can delete a pending host when he/she verifies them
     @CrossOrigin(origins = "*")
     @DeleteMapping("/PendingHosts/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
