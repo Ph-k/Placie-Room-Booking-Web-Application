@@ -103,4 +103,8 @@ export class PlaceService {
     return this.http.get<Reservation[]>('https://localhost:8443/MyReservations', this.authorizationHeader());
   }
 
+  ReservationsFor(placeId: string): Observable<Reservation[]>{
+    return this.http.get<Reservation[]>('https://localhost:8443/ReservationsFor/' + placeId, this.authorizationHeader());
+  }
+
 }

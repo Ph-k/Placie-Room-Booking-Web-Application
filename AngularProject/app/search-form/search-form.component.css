@@ -1,14 +1,16 @@
 #searchForm{
   text-align: center;
-  width:70%;
-  margin-left: 15%;
-  background-color: #f2f2f2;
-  background-image: url("https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2016%2F01%2FDUBAI-559148539-ABOVE0116.jpg");
-  background-size: cover;
+  width:100%;
+  margin-left: 0%;
+
+  background-image: url("https://cdn.pixabay.com/photo/2019/04/10/11/56/watercolour-4116932_960_720.png");
+  background-size: 50%;
+  background-width: 100%;
   background-repeat: no-repeat;
-  background-position: center center;
-  border-radius: 50px;
-  min-height: 150px;
+  background-position:  center;
+  border: none;
+
+  min-height: 430px;
 
 }
 

@@ -3,6 +3,7 @@ import {PlaceService} from '../../../service/place.service';
 import {Place} from '../../../../model/Place';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Availability} from '../../../../model/Availability';
+import {Reservation} from '../../../../model/Reservation';
 
 declare var ol: any;
 @Component({
@@ -15,6 +16,7 @@ export class EditPlaceComponent implements OnInit {
   place: Place;
   availability: Availability;
   availabilities: Availability[];
+  reservations: Reservation[];
   private id: string;
   placeNotFound = false;
   imageFile: File;
@@ -36,6 +38,7 @@ export class EditPlaceComponent implements OnInit {
   ngOnInit(): void {
     this.availability = new Availability();
     this.id = this.route.snapshot.paramMap.get('id');
+    this.placeService.ReservationsFor(this.id).subscribe(reservations => this.reservations = reservations);
     this.placeService.getPlace(this.id).subscribe(place => {
       this.place = place;
 

@@ -31,7 +31,7 @@
 
 
   <div id="map" class="map"></div>
-  <div class="editForm">
+  <div class="frame">
     <form ngNativeValidate>
       <h3> Edit Place's Details </h3>
 
@@ -81,7 +81,7 @@
   </div>
 
 
-  <div id="newAvailability">
+  <div class="frame">
     <h2>New Availability</h2>
     <form ngNativeValidate>
       <label>Starting Date</label><br>
@@ -95,7 +95,7 @@
     </form>
   </div>
 
-  <div id="existingAvailabilities">
+  <div class="frame">
     <h2>Existing Availabilities</h2>
     <div *ngFor="let availability of availabilities ">
       <p>Starting Date: {{availability.startingDate}} | Ending Date: {{availability.endingDate}}</p>
@@ -104,3 +104,12 @@
     </div>
   </div>
 
+  <div class="frame">
+    <h2>Reservations</h2>
+    <div *ngFor="let reservation of reservations ">
+      <p>Starting Date: {{reservation.startingDate}} | Ending Date: {{reservation.endingDate}}</p><br>
+      <p>Number of People: {{reservation.numberOfPeople}}</p><br>
+      <button routerLink="/users/{{reservation.userId}}">See Tenant's Profile</button>
+      <hr>
+    </div>
+  </div>

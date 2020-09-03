@@ -1,7 +1,3 @@
-h2,h3,h4{
-  text-align: center;
-}
-
 .MainPhoto{
   border-radius: 50%;
   display: block;
@@ -39,13 +35,6 @@ h2,h3,h4{
   text-align: center;
 }
 
-.editForm{
-  text-align: center;
-  background-color: #f2f2f2;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-}
 
 .textInput ,textarea{
   width: 50%;
@@ -72,15 +61,6 @@ select{
   margin-left: 42.5%;
 }
 
-.checkList > label{
-
-}
-
-.checkList > input{
-
-
-}
-
 @media only screen and (max-width: 900px) {
   .MainPhoto{
     width:50%;
@@ -102,15 +82,7 @@ select{
   margin-top: 10px;
 }
 
-#newAvailability{
-  text-align: center;
-  background-color: #f2f2f2;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
-#existingAvailabilities{
+.frame{
   text-align: center;
   background-color: #f2f2f2;
   width: 80%;

@@ -19,6 +19,7 @@ export class UserEditComponent implements OnInit {
   private ImageFileType: string;
   InvalidFileType = false;
   ImageTooLarge = false;
+  alreadyHost = false;
 
   constructor(private userService: UserService) { }
 
@@ -27,7 +28,7 @@ export class UserEditComponent implements OnInit {
       isHost: false, isTenant: false, isAdmin: false , userId: null};
     this.userService.findUserId(localStorage.getItem('username')).
     subscribe(response => { this.id =  response; this.userService.getUser(response.toString()).
-    subscribe(user => {this.user = user; });
+    subscribe(user => {this.user = user; this.alreadyHost = user.isHost; });
                             this.userService.getPendingHost(this.id.toString()).subscribe(pendingHost => this.isPendingHost = true,
           error => this.isPendingHost = false); });
     }
@@ -35,7 +36,7 @@ export class UserEditComponent implements OnInit {
 
   changeDetails(): void{
     this.attemptedDetailsChange = true;
-    if (this.user.isHost){
+    if (this.user.isHost && !this.alreadyHost){
       this.userService.uploadPendingHost(this.id);
     }
     this.userService.updateUser(this.user, this.id );
