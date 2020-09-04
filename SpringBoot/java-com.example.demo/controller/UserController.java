@@ -7,8 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
-
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
@@ -31,6 +29,7 @@ class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    //only admin can see all users
     @CrossOrigin(origins = "*")
     @GetMapping("/Users")
     @PreAuthorize("hasAnyRole('ADMIN')")
@@ -42,9 +41,11 @@ class UserController {
     @PostMapping("/Registration")
     User newUser(@RequestBody User newUser) {
         newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+        //if username already exists
         if (repository.findByUsername(newUser.getUserName()) != null) {
             return null;
         } else {
+            //new user needs to be verified first to be a host
             if (newUser.getIsHost() == true) {
                 newUser.setIsHost(false);
             }
@@ -55,6 +56,7 @@ class UserController {
     @CrossOrigin(origins = "*")
     @GetMapping("/Users/{id}")
     User getUser(@PathVariable Long id, Principal principal) {
+        //if someone else asks for a user,they are returned but will null password
         if (principal == null || !UserHasRights(id, principal)) {
             User user = repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
             user.setPassword(null);
@@ -66,11 +68,13 @@ class UserController {
     @CrossOrigin(origins = "*")
     @PutMapping("/Users/{id}")
     User replaceUser(@RequestBody User newUser, @PathVariable Long id, Principal principal) {
+        //if someone else wants to edit a users account, user not found exception is thrown
         if (!UserHasRights(id, principal)) {
             throw new UserNotFoundException(id);
         }
 
 
+        //if user has asked to become a host, they need to be verified by admin first
         if (!repository.findByUsername(principal.getName()).getIsAdmin() &&
             !repository.findByUsername(principal.getName()).getIsHost()) {
             newUser.setIsHost(false);
@@ -91,6 +95,7 @@ class UserController {
         }).orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    //used when user wants to change their password
     @CrossOrigin(origins = "*")
     @PutMapping("/UsersNewPassword/{id}")
     User NewPassword(@RequestBody User newUser, @PathVariable Long id, Principal principal) {
@@ -115,6 +120,7 @@ class UserController {
     }
 
 
+    //returns id given username
     @CrossOrigin(origins = "*")
     @GetMapping("/UserId/{Username}")
     Long GetId(@PathVariable String Username, Principal principal) {
@@ -176,6 +182,7 @@ class UserController {
         return Files.readAllBytes(imagePath);
     }
 
+    //used to examine if the logged in user is the one with the given id
     private Boolean UserHasRights(@PathVariable Long id, Principal principal) {
 
         User user = repository.findById(id).orElse(null);
