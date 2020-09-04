@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.exception.PlaceNotFoundException;
 import com.example.demo.model.Place;
-import com.example.demo.model.User;
 import com.example.demo.repository.PlaceRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.http.MediaType;
@@ -10,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,38 +28,45 @@ public class PlaceController {
         this.userRepository = userRepository;
     }
 
+    //returns all places
     @CrossOrigin(origins = "*")
     @GetMapping("/Places")
     List<Place> all() {
         return repository.findAll();
     }
 
+    //only a host can post a new place
     @CrossOrigin(origins = "*")
     @PostMapping("/Places")
     @PreAuthorize("hasAnyRole('HOST')")
     Place newPlace(@RequestBody Place newPlace, Principal principal) {
+        //the new place has the host_id of the user who posted it(used to avoid a host posting for another host)
         newPlace.setHostId(this.userRepository.findByUsername(principal.getName()).getUserId());
         return repository.save(newPlace);
     }
 
+    //get a place by id
     @CrossOrigin(origins = "*")
     @GetMapping("/Places/{id}")
     Place one(@PathVariable Long id) {
         return repository.findById(id).orElseThrow(() -> new PlaceNotFoundException(id));
     }
 
+    //get all places of a particular host
     @CrossOrigin(origins = "*")
     @GetMapping("/PlacesBy/{HostId}")
     List<Place> PlacesByHost(@PathVariable Long HostId) {
         return repository.PlacesByHost(HostId);
     }
 
+    //get all places of a particular region(not used)
     @CrossOrigin(origins = "*")
     @GetMapping("/PlacesIn/{region}")
     List<Place> PlacesByRegion(@PathVariable String region) {
         return repository.PlacesByRegion(region);
     }
 
+    //used to edit details of a place(only a host can do it)
     @CrossOrigin(origins = "*")
     @PutMapping("/Places/{id}")
     @PreAuthorize("hasAnyRole('HOST')")
@@ -69,11 +74,11 @@ public class PlaceController {
 
         Place place = repository.findById(id).orElse(null);
 
-
         if(place == null){
             throw  new PlaceNotFoundException(id);
         }
 
+        //only the host of a place can edit it
         if( place.getHostId() !=
                 userRepository.findByUsername(principal.getName()).getUserId()){
             throw new PlaceNotFoundException(id);
@@ -111,6 +116,7 @@ public class PlaceController {
         }).orElseThrow(() -> new PlaceNotFoundException(id));
     }
 
+    //delete a place by id
     @CrossOrigin(origins = "*")
     @DeleteMapping("/Places/{id}")
     @PreAuthorize("hasAnyRole('HOST')")
@@ -129,7 +135,7 @@ public class PlaceController {
         repository.deleteById(id);
     }
 
-     @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*")
     @Transactional
     @RequestMapping(
             value = ("/Places/MainImage/{placeId}"),
