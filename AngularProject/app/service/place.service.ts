@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Place} from '../../model/Place';
 import {Availability} from '../../model/Availability';
 import {Reservation} from '../../model/Reservation';
+import {Review} from '../../model/Review';
 
 @Injectable({
   providedIn: 'root'
@@ -105,6 +106,23 @@ export class PlaceService {
 
   ReservationsFor(placeId: string): Observable<Reservation[]>{
     return this.http.get<Reservation[]>('https://localhost:8443/ReservationsFor/' + placeId, this.authorizationHeader());
+  }
+
+  getReviews(): Observable<Review[]>{
+    return this.http.get<Review[]>('https://localhost:8443/Reviews');
+  }
+
+
+  postReview(newReview: Review): Observable<Review>{
+    return this.http.post<Review>('https://localhost:8443/Reviews', newReview, this.authorizationHeader());
+  }
+
+  getReviewsForPlace(placeId: number): Observable<Review[]>{
+    return this.http.get<Review[]>('https://localhost:8443/ReviewsFor/' + placeId.toString());
+  }
+
+  getReviewsForReservation(reservationId: number): Observable<Review[]>{
+    return this.http.get<Review[]>('https://localhost:8443/ReviewsForReservation/' + reservationId.toString());
   }
 
 }

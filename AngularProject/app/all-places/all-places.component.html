@@ -42,7 +42,7 @@
 </div>
 
 <div id="places">
-  <div class="placeBox" *ngFor="let place of filteredPlaces | slice:(currentPage-1)*9 :(currentPage-1)+9;" routerLink="/places/{{place.placeId}}">
+  <div class="placeBox" *ngFor="let place of filteredPlaces | slice:(currentPage-1)*9 :(currentPage-1)*9+9;" routerLink="/places/{{place.placeId}}">
     <h3 class="title">{{place.type}} in {{place.district}}</h3>
     <img [attr.src]="GetImageUrl(place.placeId)" class="MainPhoto" />
     <p class="minPrice">Starting from <span class="priceNumber">{{place.minCost}} &euro;</span></p>

@@ -11,7 +11,19 @@
     <td>Dates: <span class="field">{{reservation.startingDate}}</span> - <span class="field">{{reservation.endingDate}}</span> <br>People: <span class="field">{{reservation.numberOfPeople}} </span> </td>
     <td class="tableActions">
       <button routerLink="/places/{{reservation.placeId}}">View Reserved Place</button>
-      <button>Review Reserved Place</button>
+      <button (click)="showReview(reservation.reservationId)">Review Reserved Place</button>
     </td>
   </tr>
 </table>
+
+<div *ngIf="reviewFor!=-1" id="reviewBox">
+  <h2>Write A Review For Reservation with ID: {{reviewFor}}</h2>
+  <form>
+    <label>Your Review</label><br>
+    <textarea [(ngModel)]="review.reviewText" name="reviewText"></textarea><br>
+    <label>Review Stars (1-5)</label><br>
+    <input type="number" [(ngModel)]="review.reviewStars" name="reviewStars" step="1" min="0" max="5" required><br>
+    <button type="button" (click)="submitReview()">Submit Review</button>
+  </form>
+  <button (click)="reviewFor=-1">Close Review Section</button>
+</div>

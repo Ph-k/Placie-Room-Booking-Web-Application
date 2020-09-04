@@ -2,3 +2,21 @@
   font-style: italic;
   font-size: 150%;
 }
+
+#reviewBox{
+  margin-top: 20px;
+  width: 70%;
+  margin-left: 15%;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+textarea{
+  max-width: 80%;
+  min-width: 50%;
+}
+
+input,textarea,button{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
