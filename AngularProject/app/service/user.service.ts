@@ -84,17 +84,11 @@ export class UserService {
     return localStorage.getItem('token') != null;
   }
 
-  UploadImage(username: string, Image: File): number{
+  UploadImage(username: string, Image: File): Observable<any>{
     const formdata  = new FormData();
     formdata.append('file', Image, Image.name);
 
-    this.http.post<any>(this.RootUrl + '/Users/Image/' + username, formdata, this.authorizationHeader())
-     .subscribe(
-       response => {
-         console.log(response);
-       }
-     );
-    return 0;
+    return this.http.post<any>(this.RootUrl + '/Users/Image/' + username, formdata, this.authorizationHeader());
   }
 
   GetImageUrl(username: string): string{

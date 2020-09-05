@@ -5,6 +5,7 @@ import {Place} from '../../model/Place';
 import {Availability} from '../../model/Availability';
 import {Reservation} from '../../model/Reservation';
 import {Review} from '../../model/Review';
+import {PlacePhoto} from '../../model/PlacePhoto';
 
 @Injectable({
   providedIn: 'root'
@@ -125,4 +126,12 @@ export class PlaceService {
     return this.http.get<Review[]>('https://localhost:8443/ReviewsForReservation/' + reservationId.toString());
   }
 
+  getPlacePhotos(): Observable<PlacePhoto[]> {
+    return this.http.get<PlacePhoto[]>('https://localhost:8443/PlacePhotos');
+  }
+
+  getAllReviews(): Observable<Review[]>{
+    //                                  Only the admin has permission to request on this link
+    return this.http.get<Review[]>('https://localhost:8443/Reviews', this.authorizationHeader());
+  }
 }

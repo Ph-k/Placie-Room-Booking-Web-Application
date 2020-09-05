@@ -36,6 +36,8 @@ export class ExportDataComponent implements OnInit {
     this.messageService.getMessages().subscribe(messages => this.messages = messages);
     this.userService.getPendingHosts().subscribe(pendingHosts => this.pendingHosts = pendingHosts);
     this.placeService.getAvailabilities().subscribe(availabilities => this.availabilities = availabilities);
+    this.placeService.getAllReviews().subscribe( reviews => this.reviews = reviews);
+    this.placeService.getPlacePhotos().subscribe( photos => this.placePhotos = photos);
   }
 
   exportUsers(): void{
@@ -80,7 +82,7 @@ export class ExportDataComponent implements OnInit {
 
   exportReviews(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+    const file = new Blob([JSON.stringify(this.reviews)], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
     a.download = 'Reviews.json';
     a.click();
@@ -98,7 +100,7 @@ export class ExportDataComponent implements OnInit {
   exportPlacePhotos(): void{
 
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+    const file = new Blob([JSON.stringify(this.placePhotos)], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
     a.download = 'PlacePhotos.json';
     a.click();

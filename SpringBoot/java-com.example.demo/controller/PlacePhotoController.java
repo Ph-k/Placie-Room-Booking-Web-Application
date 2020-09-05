@@ -69,7 +69,7 @@ public class PlacePhotoController {
         repository.deleteById(id);
     }
 
-    //Comment Needed***************************************************************************************************
+    //Given a file the function returns the type of the file, this is needed in order to create a proper name for the file
     public static String GetImageType(MultipartFile Image) {
         String ImageType = "";
         int Index = Image.getOriginalFilename().length() - 1;
@@ -83,7 +83,7 @@ public class PlacePhotoController {
         return ImageType;
     }
 
-    //Comment Needed*************************************************************************************************************
+    //Function which creates a folder in the given directory, if such a folder does not exist
     private boolean CheckCreateDirectory(Path path) throws IOException {
         if (Files.exists(path)==false) {
             try {
@@ -135,7 +135,10 @@ public class PlacePhotoController {
         return 0;
     }
 
-    //Comment Needed***********************************************************************************************************************
+    //When we need all photos of one place we simply request the photos which concern the given place one by one
+    //But to make the necessary requests, the id's of the photos of the place are needed
+    //This function provides an easy way to get all the id's of the photos which concern a place
+    // (Note photos are public information)
     @CrossOrigin(origins = "*")
     @GetMapping("/Places/PhotoRange/{placeId}")
     int[] getPhotosIds(@PathVariable Long placeId) {

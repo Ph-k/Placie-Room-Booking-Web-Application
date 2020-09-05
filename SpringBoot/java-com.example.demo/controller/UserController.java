@@ -156,7 +156,7 @@ class UserController {
         String PhotosDirectory = System.getProperty("user.dir") + "\\images\\";
         String PhotoPath = username + PlacePhotoController.GetImageType(Image);
 
-        Files.deleteIfExists(Paths.get(PhotoPath));
+        Files.deleteIfExists(Paths.get(System.getProperty("user.dir") + user.getPhotoPath()));
         Image.transferTo(new File(PhotosDirectory + PhotoPath));
 
         repository.setPhotoPath("\\images\\" + PhotoPath, username);

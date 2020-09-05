@@ -71,14 +71,15 @@ export class RegisterComponent implements OnInit {
           response => {
             localStorage.setItem('token', response.headers.get('Authorization'));
             localStorage.setItem('username', this.user.userName);
-            if (this.imageFile != null){
-              this.userService.UploadImage(this.user.userName, this.imageFile);
-            }
             if (this.user.isHost){
               this.userService.uploadPendingHost(this.user.userId);
             }
             this.parent.GetUser();
-            this.router.navigateByUrl('/searchForm');
+            if (this.imageFile != null){
+              this.userService.UploadImage(this.user.userName, this.imageFile).subscribe(
+                res => this.router.navigateByUrl('/searchForm')
+              );
+            }
           }
         );
         this.LoggedIn = true;

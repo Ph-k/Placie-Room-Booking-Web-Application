@@ -100,8 +100,9 @@ export class UserEditComponent implements OnInit {
     if ( this.ImageFileType !== null){
       this.imageFile = event.target.files[0];
       this.InvalidFileType = false;
-      this.userService.UploadImage(this.user.userName, this.imageFile);
-      window.location.reload();
+      this.userService.UploadImage(this.user.userName, this.imageFile).subscribe(
+        res => window.location.reload()
+      );
     }else{
       this.imageFile = null;
       this.InvalidFileType = true;
