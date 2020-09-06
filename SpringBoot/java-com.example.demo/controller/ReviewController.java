@@ -66,6 +66,12 @@ public class ReviewController {
     @GetMapping("/ReviewsFor/{id}")
     List<Review> ReviewsForPlace(@PathVariable Long id) { return repository.ReviewsForPlace(id);}
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/AverageStars/{id}")
+    Number AverageStars(@PathVariable Long id){
+        return repository.AverageStars(id).orElse(null);
+    }
+
     //returns a review related to a reservation
     @CrossOrigin(origins = "*")
     @GetMapping("/ReviewForReservation/{id}")
