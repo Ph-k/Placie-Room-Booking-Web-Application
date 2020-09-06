@@ -26,7 +26,7 @@ export class TenantComponent implements OnInit {
   }
 
   submitReview(): void{
-    if (this.review.reviewStars <= 0 || this.review.reviewStars >= 5) {
+    if (this.review.reviewStars < 0 || this.review.reviewStars > 5 || !this.review.reviewStars) {
       return;
     }
     this.review.reservationId = this.reviewFor;

@@ -18,7 +18,7 @@
 
 <div *ngIf="reviewFor!=-1" id="reviewBox">
   <h2>Write A Review For Reservation with ID: {{reviewFor}}</h2>
-  <form>
+  <form ngNativeValidate>
     <label>Your Review</label><br>
     <textarea [(ngModel)]="review.reviewText" name="reviewText"></textarea><br>
     <label>Review Stars (1-5)</label><br>
