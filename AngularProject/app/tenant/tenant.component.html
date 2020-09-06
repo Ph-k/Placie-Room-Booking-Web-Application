@@ -23,7 +23,7 @@
     <textarea [(ngModel)]="review.reviewText" name="reviewText"></textarea><br>
     <label>Review Stars (1-5)</label><br>
     <input type="number" [(ngModel)]="review.reviewStars" name="reviewStars" step="1" min="0" max="5" required><br>
-    <button type="button" (click)="submitReview()">Submit Review</button>
+    <input type="submit" (click)="submitReview()" value="Submit Review">
   </form>
   <button (click)="reviewFor=-1">Close Review Section</button>
 </div>

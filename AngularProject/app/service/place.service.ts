@@ -96,6 +96,10 @@ export class PlaceService {
     return this.placesUrl + '/Images/' + photoId;
   }
 
+  getReservations(): Observable<Reservation[]>{
+    return this.http.get<Reservation[]>(this.reservationUrl, this.authorizationHeader());
+  }
+
   makeReservation(reservation: Reservation): Observable<Boolean>{
     console.log(reservation);
     return this.http.post<Boolean>(this.reservationUrl, reservation , this.authorizationHeader());
@@ -110,7 +114,7 @@ export class PlaceService {
   }
 
   getReviews(): Observable<Review[]>{
-    return this.http.get<Review[]>('https://localhost:8443/Reviews');
+    return this.http.get<Review[]>('https://localhost:8443/Reviews', this.authorizationHeader());
   }
 
 
@@ -118,7 +122,7 @@ export class PlaceService {
     return this.http.post<Review>('https://localhost:8443/Reviews', newReview, this.authorizationHeader());
   }
 
-  getReviewsForPlace(placeId: number): Observable<Review[]>{
+  getReviewsForPlace(placeId: string): Observable<Review[]>{
     return this.http.get<Review[]>('https://localhost:8443/ReviewsFor/' + placeId.toString());
   }
 
@@ -127,11 +131,11 @@ export class PlaceService {
   }
 
   getPlacePhotos(): Observable<PlacePhoto[]> {
-    return this.http.get<PlacePhoto[]>('https://localhost:8443/PlacePhotos');
+    return this.http.get<PlacePhoto[]>('https://localhost:8443/PlacePhotos', this.authorizationHeader());
   }
 
-  getAllReviews(): Observable<Review[]>{
-    //                                  Only the admin has permission to request on this link
-    return this.http.get<Review[]>('https://localhost:8443/Reviews', this.authorizationHeader());
+  getAverageStars(placeId: number): Observable<number>{
+    return this.http.get<number>('https://localhost:8443/AverageStars/' + placeId);
   }
+
 }

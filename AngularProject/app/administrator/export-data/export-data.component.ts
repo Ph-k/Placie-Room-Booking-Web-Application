@@ -33,10 +33,11 @@ export class ExportDataComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe(users => this.users = users);
     this.placeService.getPlaces().subscribe(places => this.places = places);
+    this.placeService.getReservations().subscribe(reservations => this.reservations = reservations);
     this.messageService.getMessages().subscribe(messages => this.messages = messages);
     this.userService.getPendingHosts().subscribe(pendingHosts => this.pendingHosts = pendingHosts);
     this.placeService.getAvailabilities().subscribe(availabilities => this.availabilities = availabilities);
-    this.placeService.getAllReviews().subscribe( reviews => this.reviews = reviews);
+    this.placeService.getReviews().subscribe( reviews => this.reviews = reviews);
     this.placeService.getPlacePhotos().subscribe( photos => this.placePhotos = photos);
   }
 
@@ -66,7 +67,7 @@ export class ExportDataComponent implements OnInit {
 
   exportReservations(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+    const file = new Blob([JSON.stringify(this.reservations)], { type: 'text/plain' });
     a.href = URL.createObjectURL(file);
     a.download = 'Reservations.json';
     a.click();

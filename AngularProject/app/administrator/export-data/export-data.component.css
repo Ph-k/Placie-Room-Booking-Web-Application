@@ -1,19 +1,28 @@
-h2{
-  text-align: center;
-}
-
 #exportPanel{
   text-align: center;
   width: 50%;
   margin-left: 25%;
   margin-right:25%;
-  background-color: #f2f2f2;
 }
 
 button{
-  margin: 10px;
   width: 80%;
-  height: 40px;
+  height:30px;
+  margin-bottom: 20px;
+  border-radius: 25px;
+  background: none;
+  border-color: #00B5DE;
+  outline:none;
+  cursor: pointer;
 }
 
+button:hover label{
+  font-size:20px;
+}
+
+label{
+  color: #00B5DE;
+  font-size: 15px;
+  cursor: pointer;
+}
 

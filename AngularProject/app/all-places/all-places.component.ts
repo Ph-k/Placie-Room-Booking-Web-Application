@@ -12,6 +12,7 @@ export class AllPlacesComponent implements OnInit {
 
   places: Place[];
   filteredPlaces: Place[];
+  averageStars: number[];
   numOfPlaces: number;
   numOfPages: number;
   currentPage: number;
@@ -48,6 +49,7 @@ export class AllPlacesComponent implements OnInit {
       this.places = places;
       this.filteredPlaces = this.places.slice();
       this.numOfPlaces = this.places.length;
+      this.getAverageStars();
       this.setNumOfPages();
       this.currentPage = 1;
       console.log(this.numOfPages);
@@ -168,6 +170,14 @@ export class AllPlacesComponent implements OnInit {
 
   setPage(i: number): void{
     this.currentPage = i;
+  }
+
+  getAverageStars(): void{
+    this.averageStars = [];
+    for (let i = 0; i < this.filteredPlaces.length; i++){
+      this.placeService.getAverageStars(this.filteredPlaces[i].placeId).subscribe(response =>
+        this.averageStars[i] = response);
+    }
   }
 
 }

@@ -86,6 +86,11 @@
   </div>
 </div>
 
-
-
+<div id="reviewSection">
+  <h2>Reviews</h2>
+  <div *ngFor="let review of reviews">
+    <p>{{review.reviewText}}</p><br>
+    <label>Number Of Stars: {{review.reviewStars}}</label><hr>
+  </div>
+</div>
 

@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../service/user.service';
 import {User} from '../../../model/User';
 import {Reservation} from '../../../model/Reservation';
+import {Review} from '../../../model/Review';
 
 declare var ol: any;
 @Component({
@@ -18,6 +19,7 @@ export class PlaceDetailsComponent implements OnInit {
   place: Place;
   user: User;
   reservation: Reservation;
+  reviews: Review[];
   private id: string;
   PlacePhotosIds: number[];
   placeNotFound = false;
@@ -38,6 +40,7 @@ export class PlaceDetailsComponent implements OnInit {
       this.userService.getUser(response.toString()).subscribe(user => this.user = user);
     });
     this.id = this.route.snapshot.paramMap.get('id');
+    this.placeService.getReviewsForPlace(this.id).subscribe(reviews => this.reviews = reviews);
     this.placeService.getPlace(this.id).subscribe(place => {
       this.place = place;
 

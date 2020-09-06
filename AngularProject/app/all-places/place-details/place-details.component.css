@@ -68,3 +68,9 @@ button{
   color: red;
   padding:5px;
 }
+
+#reviewSection{
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+}
