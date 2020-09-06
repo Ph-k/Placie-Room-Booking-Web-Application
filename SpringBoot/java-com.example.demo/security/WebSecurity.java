@@ -37,8 +37,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Registration","/Users/Image/{username}","/AllMessages/{ReceiverId}"
                 ,"/ContactedUsers/{ReceiverId}","/MessagesBetween/{SenderId}/{ReceiverId}"
                 ,"/Messages","/Places/Image/{placeId}","/Places/MainImage/{placeId}","/Places/PhotoRange/{placeId}","/Places/Images/{photoId}"
-                ,"/Reservations/Book","/Reservations","/PlacesSearch/{checkIn}/{checkOut}/{country}/{city}/{district}/{persons}","/PlacePhotos").permitAll().
-                antMatchers(HttpMethod.GET,"/Availabilities","/AvailabilitiesFor/{AvailabilityId}","/Places/{placeId}","/Places","/Users/{userId}").permitAll().
+                ,"/Reservations/Book","/Reservations","/PlacesSearch/{checkIn}/{checkOut}/{country}/{city}/{district}/{persons}").permitAll().
+                antMatchers(HttpMethod.GET,"/Availabilities","/AvailabilitiesFor/{AvailabilityId}","/Places/{placeId}","/Places","/Users/{userId}","/ReviewsFor/{id}").permitAll().
                 anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
