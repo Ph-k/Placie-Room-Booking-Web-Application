@@ -31,7 +31,7 @@ class UserController {
 
     //only admin can see all users
     @CrossOrigin(origins = "*")
-    @GetMapping("/Users")
+    @GetMapping(value="/Users", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     @PreAuthorize("hasAnyRole('ADMIN')")
     List<User> all() {
         return repository.findAll();
