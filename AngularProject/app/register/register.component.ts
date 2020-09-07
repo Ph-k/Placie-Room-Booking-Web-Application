@@ -80,6 +80,9 @@ export class RegisterComponent implements OnInit {
                 res => this.router.navigateByUrl('/searchForm')
               );
             }
+            if (this.imageFile == null){
+              this.router.navigateByUrl('/searchForm') ;
+            }
           }
         );
         this.LoggedIn = true;
