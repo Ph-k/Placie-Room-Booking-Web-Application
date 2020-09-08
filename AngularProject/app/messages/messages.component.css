@@ -1,3 +1,7 @@
+label,td{
+  color:white;
+}
+
 .message_text{
   padding-left:1em;
   /*color: #00B5DE;*/
@@ -15,16 +19,22 @@
 
 .chat{
   width: 80%;
+  margin-top: 10px;
   margin-left: 10%;
   margin-right:10%;
-  background-color: #f2f2f2;
+  background-color: #00B5DE;
+}
+
+.newMessage{
+    background-color: #3DB992;
 }
 
 table{
   width: 50%;
   margin-left: 25%;
   margin-right:25%;
-  background-color: #f2f2f2;
+  margin-top: 10px;
+  background-color: #00B5DE;
   table-layout: fixed;
   border: 1px solid black;
   border-collapse: collapse;
@@ -43,6 +53,9 @@ tr{
   background-color:white;
 }
 
+.clickable:hover td{
+  color: #00B5DE;
+}
 button{
   margin:10px;
 }
@@ -51,4 +64,7 @@ button{
   width: 50%;
   margin-right: 25%;
   margin-left: 25%;
+  color: white;
+  background-color: #00B5DE;
+  cursor: pointer;
 }

@@ -11,23 +11,22 @@ import {AppComponent} from '../app.component';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute,
               @Inject(forwardRef(() => AppComponent)) private parent: AppComponent) {}
 
-  user: User;
+  user: User;                      // object of type User to be sent when registering new User
   registerStatus = 0;              // Becomes 1 for existing username , 2 for successful registration , 3 for no server response
   passwordVerification = '';       // variable  used for password verification
   attemptedRegistration = false;   // When 'register' button is clicked it becomes true
+  pendingHost: PendingHost;        // object of type Pending Host to be sent when the new user asks to be a host
+  private MainPageUrl: string;
+  private LoggedIn = false;
+
+  // Used for the image uploading/validating
   imageFile: File;
   private ImageFileType: string;
   InvalidFileType = false;
   ImageTooLarge = false;
-  pendingHost: PendingHost;
-  private MainPageUrl: string;
-  private LoggedIn = false;
-
 
 
   ngOnInit(): void {
@@ -46,6 +45,8 @@ export class RegisterComponent implements OnInit {
 
   register(): void{
     this.attemptedRegistration = true;
+
+    // If user has entered valid inputs then process to the register request
     if (!this.emptyFields() && this.passwordMatch() && !this.smallPassword()) {
       this.userService.register(this.user, this.user.isHost).
       subscribe(response => {
@@ -63,18 +64,23 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  // checks if registration is successful and if it is, it does does some actions like login/redirecting
   successfulRegistration(): boolean{
     if (this.registerStatus === 2  && this.passwordMatch() && !this.emptyFields() && this.attemptedRegistration === true) {
       if (this.LoggedIn === false) {
+        // logs in automatically
         localStorage.clear();
         this.userService.LoginRequest(this.user.userName, this.user.password).subscribe(
           response => {
             localStorage.setItem('token', response.headers.get('Authorization'));
             localStorage.setItem('username', this.user.userName);
+            // if user has asked to become a host,then a new Pending Host is posted
             if (this.user.isHost){
               this.userService.uploadPendingHost(this.user.userId);
             }
+            // calls function GetUser in app.component class to update the menu panels with the new user's roles
             this.parent.GetUser();
+            // if new user has uploaded a profile photo
             if (this.imageFile != null){
               this.userService.UploadImage(this.user.userName, this.imageFile).subscribe(
                 res => this.router.navigateByUrl('/searchForm')
@@ -94,6 +100,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  // checks registerStatus boolean to examine if the Username entered already exists
   usernameExists(): boolean{
     if (this.registerStatus === 1 && this.attemptedRegistration){
       return true;

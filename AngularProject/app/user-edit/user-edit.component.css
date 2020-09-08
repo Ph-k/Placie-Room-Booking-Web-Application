@@ -1,6 +1,6 @@
 .editForm{
   text-align:center;
-  background-color: #f2f2f2;
+  background-color: #00B5DE;
   width: 50%;
   margin-left: 25%;
   margin-right: 25%;
@@ -11,10 +11,18 @@ h2{
   text-align: center;
 }
 
-h3,h4{
+#pending{
+  color: black;
+}
+
+h3,h4,label{
+  color: white;
   text-align: center;
 }
 
+#pending{
+  color: black;
+}
 button{
   margin: 10px;
 }

@@ -1,11 +1,17 @@
+h3,p,label{
+  color: white;
+}
+
+
 .warning{
   color: red;
 }
 
 .newMessage{
   text-align: center;
-  background-color: #f2f2f2;
+  background-color: #00B5DE;
   width: 80%;
+  margin-top: 10px;
   margin-left: 10%;
   margin-right: 10%;
 }

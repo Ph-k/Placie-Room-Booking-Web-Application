@@ -10,7 +10,7 @@
   <div *ngIf="InvalidFileType" [className]="'warning'"><p> Please choose an image file such as .png .jpg .jpeg .gif</p></div>
   <div *ngIf="ImageTooLarge" [className]="'warning'"><p> The file you selected is too large (maximum file size is 10mb)</p></div>
 
-  <div *ngIf="isPendingHost"><h4>Your requeset to become a host is pending </h4></div>
+  <div *ngIf="isPendingHost" ><h4 id="pending">Your request to become a host is pending </h4></div>
 
   <div class="editForm">
     <form ngNativeValidate>
