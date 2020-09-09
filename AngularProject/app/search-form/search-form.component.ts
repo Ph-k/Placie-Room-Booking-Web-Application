@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {PlaceService} from '../service/place.service';
 
 @Component({
   selector: 'app-search-form',
@@ -18,7 +17,7 @@ export class SearchFormComponent implements OnInit {
 
   InvalidDate: boolean;
 
-  constructor(private router: Router, private placeService: PlaceService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.InvalidDate = false;
@@ -30,23 +29,28 @@ export class SearchFormComponent implements OnInit {
 
   ShowApartments(): void {
 
-
-    if (this.checkIn === undefined) { return; }
-    if (this.checkOut === undefined) { return; }
+    // if not valid dates/number of people are entered , then returns without proceeding to the available places
+    if (this.checkIn === undefined || this.checkOut === undefined || this.persons === null || !Number.isInteger(this.persons) ||
+      this.persons <= 0)
+    {
+      return;
+    }
     if (this.checkIn > this.checkOut){
       this.InvalidDate = true;
       return;
     }
 
-
     if (this.country === null) { this.country = 'null'; }
     if (this.district === null) { this.district = 'null'; }
     if (this.city === null) { this.city = 'null'; }
     if (this.persons === null) { this.persons = -1; }
+
+    // saves dates to the local storage so that user won't be asked to enter the dates/number of people again while reserving a place
     localStorage.setItem('startingDate', this.checkIn.toString());
     localStorage.setItem('endingDate', this.checkOut.toString());
     localStorage.setItem('numOfPersons', this.persons.toString());
 
+    // proceed to show places available in these dates
     this.router.navigateByUrl('/places/' + this.checkIn + '/' + this.checkOut + '/' + this.country + '/' + this.city + '/' + this.district + '/' + this.persons.toString() );
   }
 }
