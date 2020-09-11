@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Place} from '../../model/Place';
 import {Availability} from '../../model/Availability';
@@ -132,6 +132,14 @@ export class PlaceService {
 
   getPlacePhotos(): Observable<PlacePhoto[]> {
     return this.http.get<PlacePhoto[]>('https://localhost:8443/PlacePhotos', this.authorizationHeader());
+  }
+
+  getPlacePhotosXML(): Observable<string> {
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get('https://localhost:8443/PlacePhotos', { headers: httpHeader , responseType: 'text'});
   }
 
   getAverageStars(placeId: number): Observable<number>{

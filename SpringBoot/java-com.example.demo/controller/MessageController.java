@@ -6,6 +6,7 @@ import com.example.demo.exception.MessageNotFoundException;
 import com.example.demo.model.Message;
 import com.example.demo.repository.MessageRepository;
 import com.example.demo.repository.UserRepository;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ class MessageController {
 
     //returns all messages
     @CrossOrigin(origins = "*")
-    @GetMapping("/Messages")
+    @GetMapping(value="/Messages", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     @PreAuthorize("hasAnyRole('ADMIN')")  //only admin has access to all messages
     List<Message> all() {
         return repository.findAll();

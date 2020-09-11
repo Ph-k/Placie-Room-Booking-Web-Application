@@ -29,6 +29,7 @@ export class ExportDataComponent implements OnInit {
   reviews: Review[];
   messages: Message[];
   placePhotos: PlacePhoto[];
+  fileFormat = true; // true = JSON | false = XML
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe(users => this.users = users);
@@ -83,27 +84,58 @@ export class ExportDataComponent implements OnInit {
 
   exportReviews(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.reviews)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'Reviews.json';
-    a.click();
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.reviews)], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = 'Reviews.json';
+      a.click();
+    }else{
+      this.placeService.getReviewsXML().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'PlacePhotos.xml';
+          a.click();
+        }
+      );
+    }
   }
 
   exportMessages(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.messages)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'Messages.json';
-    a.click();
-
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.messages)], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = 'Messages.json';
+      a.click();
+    }else{
+      this.messageService.getMessagesXML().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'PlacePhotos.xml';
+          a.click();
+        }
+      );
+    }
   }
 
   exportPlacePhotos(): void{
-
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.placePhotos)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'PlacePhotos.json';
-    a.click();
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.placePhotos)], {type: 'text/plain'});
+      a.href = URL.createObjectURL(file);
+      a.download = 'PlacePhotos.json';
+      a.click();
+    }else{
+      this.placeService.getPlacePhotosXML().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'PlacePhotos.xml';
+          a.click();
+        }
+      );
+    }
   }
 }

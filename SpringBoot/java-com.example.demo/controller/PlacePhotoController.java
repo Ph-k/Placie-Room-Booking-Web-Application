@@ -36,6 +36,7 @@ public class PlacePhotoController {
     @GetMapping(value="/PlacePhotos",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     List<PlacePhoto> all() { return repository.findAll(); }
 
+
     //post place photo(not used,more advanced function below)
     @CrossOrigin(origins = "*")
     @PostMapping("/PlacePhotos")
