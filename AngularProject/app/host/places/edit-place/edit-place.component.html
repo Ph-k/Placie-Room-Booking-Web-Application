@@ -4,9 +4,9 @@
 
 <div class="editSection" *ngIf="!placeNotFound">
 
-  <h3>{{place.type}} In {{place.district}} </h3>
-  <h4>{{place.address}} / {{place.city}} / {{place.country}}</h4>
-  <h4>Place ID : {{place.placeId}}</h4>
+  <h2>{{place.type}} In {{place.district}} </h2>
+  <h2>{{place.address}} / {{place.city}} / {{place.country}}</h2>
+  <h2>Place ID : {{place.placeId}}</h2>
 
 
   <img [attr.src]="GetImageUrl()" class="MainPhoto" />
@@ -82,7 +82,7 @@
 
 
   <div class="frame">
-    <h2>New Availability</h2>
+    <h3>New Availability</h3>
     <form ngNativeValidate>
       <label>Starting Date</label><br>
       <input type="date" [(ngModel)]='availability.startingDate' name="startingDate" required><br>
@@ -96,7 +96,7 @@
   </div>
 
   <div class="frame">
-    <h2>Existing Availabilities</h2>
+    <h3>Existing Availabilities</h3>
     <div *ngFor="let availability of availabilities ">
       <p>Starting Date: {{availability.startingDate}} | Ending Date: {{availability.endingDate}}</p>
       <button (click)="deleteAvailability(availability.availabilityId)">Delete Availability</button>
@@ -105,7 +105,7 @@
   </div>
 
   <div class="frame">
-    <h2>Reservations</h2>
+    <h3>Reservations</h3>
     <div *ngFor="let reservation of reservations ">
       <p>Starting Date: {{reservation.startingDate}} | Ending Date: {{reservation.endingDate}}</p><br>
       <p>Number of People: {{reservation.numberOfPeople}}</p><br>

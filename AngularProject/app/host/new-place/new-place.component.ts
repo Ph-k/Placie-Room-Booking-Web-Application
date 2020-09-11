@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Place} from '../../../model/Place';
 import {PlaceService} from '../../service/place.service';
 
+// used for the open layers map
 declare var ol: any;
 
 @Component({
@@ -29,6 +30,7 @@ export class NewPlaceComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // initializes the map
     this.layer = new ol.layer.Vector({
       source: new ol.source.Vector({
         features: [
@@ -88,6 +90,7 @@ export class NewPlaceComponent implements OnInit {
 
   }
 
+  // when user clicks on the map , coordinates are adjusted
   getCoordinates(event: any): void{
     this.coordinate = this.map.getEventCoordinate(event);
     console.log(ol.proj.transform(this.coordinate , 'EPSG:3857', 'EPSG:4326'));
@@ -121,6 +124,7 @@ export class NewPlaceComponent implements OnInit {
 
   }
 
+  // used to upload the new place
   uploadPlace(): void{
     this.attemptedUpload = true;
     if (this.validInputs() && this.locationPicked()){

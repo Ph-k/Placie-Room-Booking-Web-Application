@@ -1,10 +1,6 @@
-h2,h3,h4{
-  text-align: center;
-}
-
 #newPlaceForm{
   text-align: center;
-  background-color: #f2f2f2;
+  background-color: #00B5DE;
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
@@ -17,9 +13,16 @@ h2,h3,h4{
   margin: 5px;
 }
 
+label{
+  color: white;
+}
 input{
   margin:5px;
   max-width: 80%;
+}
+
+button{
+  margin-bottom: 5px;
 }
 
 

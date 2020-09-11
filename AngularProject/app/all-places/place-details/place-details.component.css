@@ -40,10 +40,14 @@ h2,h3,h4{
 }
 .detailsSection{
   text-align: center;
-  background-color: #f2f2f2;
+  background-color: #00B5DE;
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
+}
+
+label,p{
+  color: white;
 }
 
 button{
@@ -73,4 +77,8 @@ button{
   width: 80%;
   margin-left: 10%;
   text-align: center;
+}
+
+.review{
+  background-color: #00B5DE;
 }
