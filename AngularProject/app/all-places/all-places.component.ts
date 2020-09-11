@@ -180,4 +180,24 @@ export class AllPlacesComponent implements OnInit {
     }
   }
 
+  getStarsString(stars: number): string{
+    let i: number;
+    let starsString = '';
+
+    if (Math.floor(stars) <= 0.5){
+      i = Math.floor(stars);
+    }
+
+    else{
+      i = Math.ceil(stars);
+    }
+
+    for (let j = 0 ; j < i; j++){
+      starsString += '⭐';
+    }
+
+    return starsString;
+  }
+
+
 }
