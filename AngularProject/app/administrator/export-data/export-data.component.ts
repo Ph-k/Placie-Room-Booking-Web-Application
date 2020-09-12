@@ -44,18 +44,40 @@ export class ExportDataComponent implements OnInit {
 
   exportUsers(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'Users.json';
-    a.click();
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = 'Users.json';
+      a.click();
+    }else{
+      this.userService.getUsersxml().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'Users.xml';
+          a.click();
+        }
+      );
+    }
   }
 
   exportPendingHosts(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.pendingHosts)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'PendingHosts.json';
-    a.click();
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.pendingHosts)], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = 'PendingHosts.json';
+      a.click();
+    }else{
+      this.userService.getPendingHostsXml().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'PendingHosts.xml';
+          a.click();
+        }
+      );
+    }
   }
 
   exportPlaces(): void{
@@ -90,14 +112,7 @@ export class ExportDataComponent implements OnInit {
       a.download = 'Reviews.json';
       a.click();
     }else{
-      this.placeService.getReviewsXML().subscribe(
-        XML => {
-          const file = new Blob( [XML], {type: 'application/xml'});
-          a.href = URL.createObjectURL(file);
-          a.download = 'PlacePhotos.xml';
-          a.click();
-        }
-      );
+
     }
   }
 
@@ -109,11 +124,11 @@ export class ExportDataComponent implements OnInit {
       a.download = 'Messages.json';
       a.click();
     }else{
-      this.messageService.getMessagesXML().subscribe(
+      this.messageService.getMessagesXml().subscribe(
         XML => {
           const file = new Blob( [XML], {type: 'application/xml'});
           a.href = URL.createObjectURL(file);
-          a.download = 'PlacePhotos.xml';
+          a.download = 'Messages.xml';
           a.click();
         }
       );

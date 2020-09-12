@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from '../../model/User';
 import {Observable} from 'rxjs';
 import {Message} from '../../model/Message';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,13 @@ export class MessageService {
     return this.http.get<Message[]>(this.SendMessageUrl, this.authorizationHeader);
   }
 
+  getMessagesXml(): Observable<string>{
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get(this.SendMessageUrl, { headers: httpHeader , responseType: 'text'});
+  }
 
   SendMessage(message: Message): Observable<Message> {
     return this.http.post<Message>(this.SendMessageUrl, message, this.authorizationHeader);

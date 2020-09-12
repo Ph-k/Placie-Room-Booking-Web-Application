@@ -4,6 +4,7 @@ import com.example.demo.exception.PendingHostNotFoundException;
 import com.example.demo.model.PendingHost;
 import com.example.demo.repository.PendingHostRepository;
 import com.example.demo.repository.UserRepository;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
@@ -21,7 +22,7 @@ public class PendingHostController {
 
     //only admin can see all pending hosts
     @CrossOrigin(origins = "*")
-    @GetMapping("/PendingHosts")
+    @GetMapping(value="/PendingHosts", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     @PreAuthorize("hasAnyRole('ADMIN')")
     List<PendingHost> all() {
         return repository.findAll();

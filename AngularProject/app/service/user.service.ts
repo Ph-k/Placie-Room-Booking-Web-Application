@@ -30,6 +30,14 @@ export class UserService {
     return this.http.get<User[]>(this.usersUrl, this.authorizationHeader());
   }
 
+  getUsersxml(): Observable<string>{
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get(this.usersUrl, { headers: httpHeader , responseType: 'text'});
+  }
+
   getUser(id: string): Observable<User>{
     // console.log('Here');
     // console.log(this.authorizationHeader);
@@ -60,6 +68,14 @@ export class UserService {
 
   getPendingHosts(): Observable<PendingHost[]>{
     return this.http.get<PendingHost[]>(this.pendingHostsUrl , this.authorizationHeader());
+  }
+
+  getPendingHostsXml(): Observable<string>{
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get(this.pendingHostsUrl, { headers: httpHeader , responseType: 'text'});
   }
 
   uploadPendingHost(pendingHost: number): void{
