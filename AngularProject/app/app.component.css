@@ -3,7 +3,6 @@ h1{
 }
 
 ul{
-
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -69,12 +68,25 @@ form{
   display: inline;
 }
 
-.logo{
-  text-align: center;
+/* Wide screen (ex. desktop) */
+@media screen and (min-width: 1300px) {
+  #icon{
+    cursor:pointer;
+    float: left;
+  }
+  #menu {
+    padding-top: 15px;
+  }
 }
 
-#icon{
-  cursor:pointer;
+/* Narrow screen (ex. mobile) */
+@media screen and (max-width: 1300px) {
+  #icon{
+    cursor:pointer;
+  }
+  .logo{
+    text-align: center;
+  }
 }
 
 #menu{
