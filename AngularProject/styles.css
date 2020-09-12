@@ -4,14 +4,12 @@
 
 h2,h3,h4,h5,h6{
   text-align: center;
+  color: #00B5DE;
 }
 
 
 body{
-  background-image: url("https://cdn.pixabay.com/photo/2015/07/02/10/10/cinque-terre-828614_1280.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-size: cover;
+
 }
 
 .panelButton{
