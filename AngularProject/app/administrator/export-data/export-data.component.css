@@ -27,6 +27,13 @@ button:hover label{
 label{
   color: #00B5DE;
   font-size: 15px;
+}
+
+input{
+
+}
+
+.clickable,input{
   cursor: pointer;
 }
 

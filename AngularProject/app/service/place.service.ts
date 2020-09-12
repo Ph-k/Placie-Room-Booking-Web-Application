@@ -117,6 +117,13 @@ export class PlaceService {
     return this.http.get<Review[]>('https://localhost:8443/Reviews', this.authorizationHeader());
   }
 
+  getReviewsXml(): Observable<string>{
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get('https://localhost:8443/Reviews', { headers: httpHeader , responseType: 'text'});
+  }
 
   postReview(newReview: Review): Observable<Review>{
     return this.http.post<Review>('https://localhost:8443/Reviews', newReview, this.authorizationHeader());
@@ -141,6 +148,8 @@ export class PlaceService {
     });
     return this.http.get('https://localhost:8443/PlacePhotos', { headers: httpHeader , responseType: 'text'});
   }
+
+
 
   getAverageStars(placeId: number): Observable<number>{
     return this.http.get<number>('https://localhost:8443/AverageStars/' + placeId);

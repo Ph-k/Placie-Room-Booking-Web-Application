@@ -2,19 +2,19 @@
 
 <div id="formatSelector">
   <label>Select file format:</label><br>
-  <label>JSON</label><input type="radio" (click)="fileFormat = true" [checked]="fileFormat"/>
-  <label> XML</label><input type="radio" (click)="fileFormat = false" [checked]="!fileFormat"/><br><br>
+  <label>JSON</label><input type="radio"  [(ngModel)]="fileFormat" value="true" name="true"/>
+  <label> XML</label><input type="radio"  [(ngModel)]="fileFormat" value="false" name="false"/><br><br>
   <label>{{fileFormat}}</label>
 </div>
 
 <div id="exportPanel">
 
-  <button (click)="exportUsers()"><label>Export Users</label></button><br>
-  <button (click)="exportPlaces()"><label>Export Places</label></button><br>
-  <button (click)="exportPendingHosts()"><label>Export Pending Hosts</label></button><br>
-  <button (click)="exportAvailabilities()"><label>Export Availabilities</label></button><br>
-  <button (click)="exportMessages()"><label>Export Messages</label></button><br>
-  <button (click)="exportReservations()"><label>Export Reservations</label></button><br>
-  <button (click)="exportReviews()"><label>Export Reviews</label></button><br>
-  <button (click)="exportPlacePhotos()"><label>Export Place Photos</label></button><br>
+  <button (click)="exportUsers()"><label class="clickable">Export Users</label></button><br>
+  <button (click)="exportPlaces()"><label class="clickable">Export Places</label></button><br>
+  <button (click)="exportPendingHosts()"><label class="clickable">Export Pending Hosts</label></button><br>
+  <button (click)="exportAvailabilities()"><label class="clickable">Export Availabilities</label></button><br>
+  <button (click)="exportMessages()"><label class="clickable">Export Messages</label></button><br>
+  <button (click)="exportReservations()"><label class="clickable">Export Reservations</label></button><br>
+  <button (click)="exportReviews()"><label class="clickable">Export Reviews</label></button><br>
+  <button (click)="exportPlacePhotos()"><label class="clickable">Export Place Photos</label></button><br>
 </div>

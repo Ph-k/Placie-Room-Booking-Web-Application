@@ -112,7 +112,14 @@ export class ExportDataComponent implements OnInit {
       a.download = 'Reviews.json';
       a.click();
     }else{
-
+      this.placeService.getReviewsXml().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'PlacePhotos.xml';
+          a.click();
+        }
+      );
     }
   }
 
