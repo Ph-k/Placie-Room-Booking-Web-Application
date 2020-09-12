@@ -1,8 +1,16 @@
 *{
   font-family: sans-serif;
 }
+
 h2,h3,h4,h5,h6{
   text-align: center;
+}
+
+
+body{
+  background-image: url("assets/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .panelButton{

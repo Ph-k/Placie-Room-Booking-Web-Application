@@ -36,6 +36,14 @@ export class PlaceService {
     return this.http.get<Place[]>(this.placesUrl);
   }
 
+  getPlacesXml(): Observable<string>{
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get(this.placesUrl, { headers: httpHeader , responseType: 'text'});
+  }
+
   searchPlaces(checkIn: string, checkOut: string, country: string, city: string, district: string, persons: string): Observable<Place[]>{
     return this.http.get<Place[]>(this.searchUrl
       + '/' + checkIn  + '/' + checkOut  + '/' + country  + '/' + city  + '/' + district + '/' + persons);
@@ -45,7 +53,6 @@ export class PlaceService {
     return this.http.get<Place>(this.placesUrl + '/' + placeId);
   }
 
-
   getPlacesBy(hostId: number): Observable<Place[]>{
     return this.http.get<Place[]>('https://localhost:8443/PlacesBy/' + hostId.toString(), this.authorizationHeader());
   }
@@ -53,6 +60,14 @@ export class PlaceService {
   getAvailabilities(): Observable<Availability[]>
   {
     return this.http.get<Availability[]>(this.availabilityUrl , this.authorizationHeader()) ;
+  }
+
+  getAvailabilitiesXml(): Observable<string>{
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get(this.availabilityUrl, { headers: httpHeader , responseType: 'text'});
   }
 
   getAvailabilitiesFor(placeId: string): Observable<Availability[]>
@@ -78,7 +93,6 @@ export class PlaceService {
     return this.placesUrl + '/MainImage/' + placeiId;
   }
 
-
   UploadImage(PlaceId: number, imageFile: File): Observable<any> {
     const formdata  = new FormData();
     formdata.append('file', imageFile, imageFile.name);
@@ -98,6 +112,14 @@ export class PlaceService {
 
   getReservations(): Observable<Reservation[]>{
     return this.http.get<Reservation[]>(this.reservationUrl, this.authorizationHeader());
+  }
+
+  getReservationsXml(): Observable<string>{
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      Accept: 'application/xml',
+      Authorization: localStorage.getItem('token')
+    });
+    return this.http.get(this.reservationUrl, { headers: httpHeader , responseType: 'text'});
   }
 
   makeReservation(reservation: Reservation): Observable<Boolean>{
@@ -128,7 +150,6 @@ export class PlaceService {
   postReview(newReview: Review): Observable<Review>{
     return this.http.post<Review>('https://localhost:8443/Reviews', newReview, this.authorizationHeader());
   }
-
   getReviewsForPlace(placeId: string): Observable<Review[]>{
     return this.http.get<Review[]>('https://localhost:8443/ReviewsFor/' + placeId.toString());
   }
@@ -141,7 +162,7 @@ export class PlaceService {
     return this.http.get<PlacePhoto[]>('https://localhost:8443/PlacePhotos', this.authorizationHeader());
   }
 
-  getPlacePhotosXML(): Observable<string> {
+  getPlacePhotosXml(): Observable<string>{
     const httpHeader: HttpHeaders = new HttpHeaders({
       Accept: 'application/xml',
       Authorization: localStorage.getItem('token')
@@ -149,10 +170,7 @@ export class PlaceService {
     return this.http.get('https://localhost:8443/PlacePhotos', { headers: httpHeader , responseType: 'text'});
   }
 
-
-
   getAverageStars(placeId: number): Observable<number>{
     return this.http.get<number>('https://localhost:8443/AverageStars/' + placeId);
   }
-
 }

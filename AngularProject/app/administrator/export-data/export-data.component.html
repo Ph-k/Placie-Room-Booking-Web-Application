@@ -2,8 +2,8 @@
 
 <div id="formatSelector">
   <label>Select file format:</label><br>
-  <label>JSON</label><input type="radio"  [(ngModel)]="fileFormat" value="true" name="true"/>
-  <label> XML</label><input type="radio"  [(ngModel)]="fileFormat" value="false" name="false"/><br><br>
+  <label>JSON</label><input type="radio"  [(ngModel)]="fileFormat" [value]="true" name="true"/>
+  <label> XML</label><input type="radio"  [(ngModel)]="fileFormat" [value]="false" name="false"/><br><br>
   <label>{{fileFormat}}</label>
 </div>
 

@@ -2,7 +2,7 @@
 
 <div class="editSection">
 
-  <h3>Username : {{user.userName}}</h3>
+  <h2>Username : {{user.userName}}</h2>
   <img [attr.src]="GetImageUrl()" />
 
   <input type="file" accept="image/x-png,image/gif,image/jpeg" #imageSelector style="display: none" (change)="updatePhoto($event)">

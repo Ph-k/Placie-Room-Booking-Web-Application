@@ -82,26 +82,59 @@ export class ExportDataComponent implements OnInit {
 
   exportPlaces(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.places)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'Places.json';
-    a.click();
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.places)], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = 'Places.json';
+      a.click();
+    }else{
+      this.placeService.getReservationsXml().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'Places.xml';
+          a.click();
+        }
+      );
+    }
   }
 
   exportReservations(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.reservations)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'Reservations.json';
-    a.click();
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.reservations)], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = 'Reservations.json';
+      a.click();
+    }else{
+      this.placeService.getReservationsXml().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'Reservations.xml';
+          a.click();
+        }
+      );
+    }
   }
 
   exportAvailabilities(): void{
     const a = document.createElement('a');
-    const file = new Blob([JSON.stringify(this.availabilities)], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = 'Availabilities.json';
-    a.click();
+    if (this.fileFormat === true) {
+      const file = new Blob([JSON.stringify(this.availabilities)], { type: 'text/plain' });
+      a.href = URL.createObjectURL(file);
+      a.download = 'Availabilities.json';
+      a.click();
+    }else{
+      this.placeService.getAvailabilitiesXml().subscribe(
+        XML => {
+          const file = new Blob( [XML], {type: 'application/xml'});
+          a.href = URL.createObjectURL(file);
+          a.download = 'Availabilities.xml';
+          a.click();
+        }
+      );
+    }
   }
 
   exportReviews(): void{
@@ -116,7 +149,7 @@ export class ExportDataComponent implements OnInit {
         XML => {
           const file = new Blob( [XML], {type: 'application/xml'});
           a.href = URL.createObjectURL(file);
-          a.download = 'PlacePhotos.xml';
+          a.download = 'Reviews.xml';
           a.click();
         }
       );
@@ -150,7 +183,7 @@ export class ExportDataComponent implements OnInit {
       a.download = 'PlacePhotos.json';
       a.click();
     }else{
-      this.placeService.getPlacePhotosXML().subscribe(
+      this.placeService.getPlacePhotosXml().subscribe(
         XML => {
           const file = new Blob( [XML], {type: 'application/xml'});
           a.href = URL.createObjectURL(file);

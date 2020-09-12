@@ -9,6 +9,7 @@ ul{
   padding: 0;
   overflow: hidden;
   background-color: #00B5DE;
+  border-radius: 10px;
 }
 
 li {
@@ -78,9 +79,8 @@ form{
 
 #menu{
   text-align: center;
-  margin-left: -0.6%;
-  margin-right: -0.6%;
   background-color:white;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 1100px){
