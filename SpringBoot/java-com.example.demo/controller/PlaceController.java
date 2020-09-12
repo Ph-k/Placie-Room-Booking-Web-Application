@@ -30,7 +30,7 @@ public class PlaceController {
 
     //returns all places
     @CrossOrigin(origins = "*")
-    @GetMapping("/Places")
+    @GetMapping(value="/Places", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     List<Place> all() {
         return repository.findAll();
     }

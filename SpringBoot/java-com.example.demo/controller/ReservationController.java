@@ -6,6 +6,7 @@ import com.example.demo.model.Reservation;
 import com.example.demo.repository.PlaceRepository;
 import com.example.demo.repository.ReservationRepository;
 import com.example.demo.repository.UserRepository;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
@@ -27,7 +28,7 @@ public class ReservationController {
 
     //only admin can see all reservations
     @CrossOrigin(origins = "*")
-    @GetMapping("/Reservations")
+    @GetMapping(value="/Reservations", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     @PreAuthorize("hasAnyRole('ADMIN')")
     List<Reservation> all() {
         return repository.findAll();
