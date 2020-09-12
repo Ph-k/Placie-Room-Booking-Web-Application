@@ -1,10 +1,14 @@
+.background{
+  background-image: url("https://cdn.pixabay.com/photo/2015/07/02/10/10/cinque-terre-828614_1280.jpg");
+  background-size: cover;
+}
+
 #searchForm{
   text-align: center;
-  width:80%;
-  margin-left: 10%;
-  background-color: #00B5DE;
-  background-width: 100%;
-  border-radius: 15%;
+  width:50%;
+  margin-left: 25%;
+  border-radius: 20px;
+  background-color: rgba(56, 56, 56, 0.6);
 }
 
 h3{
@@ -13,6 +17,10 @@ h3{
   font-weight: bold;
 }
 
+h2{
+  color: white;
+  text-stroke: 2px black;
+}
 
 label{
   color:white;

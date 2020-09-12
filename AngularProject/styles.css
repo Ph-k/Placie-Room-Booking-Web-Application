@@ -8,6 +8,8 @@ h2,h3,h4,h5,h6{
 
 
 body{
+  background-image: url("https://cdn.pixabay.com/photo/2015/07/02/10/10/cinque-terre-828614_1280.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
   background-size: cover;
 }

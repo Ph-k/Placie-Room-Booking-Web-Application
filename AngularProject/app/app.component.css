@@ -70,18 +70,18 @@ form{
 
 /* Wide screen (ex. desktop) */
 @media screen and (min-width: 1300px) {
-  #icon{
-    cursor:pointer;
-    float: left;
-  }
-  #menu {
-    padding-top: 15px;
+  #icon {
+    padding: 2px;
+    cursor: pointer;
+    /*float: left;*/
+    height: 10%;
   }
 }
 
 /* Narrow screen (ex. mobile) */
 @media screen and (max-width: 1300px) {
   #icon{
+    padding: 2px;
     cursor:pointer;
   }
   .logo{
@@ -89,9 +89,9 @@ form{
   }
 }
 
-#menu{
+#homePage{
   text-align: center;
-  background-color:white;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
 }
 
