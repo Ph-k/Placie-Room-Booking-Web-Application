@@ -14,6 +14,15 @@
 
   <button *ngIf="forReservation()" (click)="reserve()">Reserve Place</button>
   <button routerLink="/users/{{place.hostId}}">View Host's Profile</button>
+
+  <div *ngIf="!messageBox">
+    <button (click)="messageBox=true"> Send message to host</button>
+  </div>
+  <div *ngIf="messageBox">
+    <textarea id="messageBox" [(ngModel)]="messageToHost.text" name="MessageText" required></textarea>
+    <br><button (click)="sendMessageToHost()"> Send it!</button>
+  </div>
+
   <div *ngIf="invalidReservation" class="warning">Place Not Available for this Reservation</div>
   <h3>Gallery</h3>
   <div class="row">

@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Place} from '../../../model/Place';
-import {Availability} from '../../../model/Availability';
 import {PlaceService} from '../../service/place.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../service/user.service';
 import {User} from '../../../model/User';
 import {Reservation} from '../../../model/Reservation';
 import {Review} from '../../../model/Review';
+import { MessageService } from 'src/app/service/message.service';
+import {Message} from '../../../model/Message';
 
 declare var ol: any;
 @Component({
@@ -24,6 +25,8 @@ export class PlaceDetailsComponent implements OnInit {
   PlacePhotosIds: number[];
   placeNotFound = false;
   invalidReservation = false;
+  messageBox = false;
+  messageToHost: Message;
 
   map: any;
   feature: any;
@@ -31,9 +34,10 @@ export class PlaceDetailsComponent implements OnInit {
   style: any;
 
   constructor(private placeService: PlaceService, private userService: UserService,
-              private route: ActivatedRoute, private router: Router) { }
+              private route: ActivatedRoute, private router: Router, private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this.messageToHost = { messageId: null, senderId: null, receiverId: null, text: null, date: null};
     this.user = {userName: '', password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
       isHost: false, isTenant: false, isAdmin: false , userId: null};
     this.userService.findUserId(localStorage.getItem('username')).subscribe(response => {
@@ -134,4 +138,10 @@ export class PlaceDetailsComponent implements OnInit {
     window.open(this.placeService.GetPlacePhotoUrl(PlacePhotosId));
   }
 
+  async sendMessageToHost(): Promise<void> {
+    this.messageToHost.senderId = await this.userService.getUserId(localStorage.getItem('username'));
+    this.messageToHost.receiverId = this.place.hostId;
+    this.messageToHost.date = new Date();
+    this.messageService.SendMessage(this.messageToHost).subscribe( res => window.location.reload());
+  }
 }
