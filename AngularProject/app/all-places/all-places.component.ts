@@ -47,13 +47,19 @@ export class AllPlacesComponent implements OnInit {
       this.route.snapshot.paramMap.get('maxCapacity')
     ).subscribe(places => {
       this.places = places;
+      this.places = this.places.filter (place => place.minimumRentingDates
+        <= this.daysDiff(this.route.snapshot.paramMap.get('checkIn'), this.route.snapshot.paramMap.get('checkOut')));
       this.filteredPlaces = this.places.slice();
       this.numOfPlaces = this.places.length;
       this.getAverageStars();
       this.setNumOfPages();
       this.currentPage = 1;
-      console.log(this.numOfPages);
     });
+  }
+
+  daysDiff(checkin: string, checkout: string): number {
+    // @ts-ignore
+    return Math.round((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24) );
   }
 
   getFilteredPlaces(): void{

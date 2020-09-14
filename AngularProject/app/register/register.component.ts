@@ -19,7 +19,6 @@ export class RegisterComponent implements OnInit {
   passwordVerification = '';       // variable  used for password verification
   attemptedRegistration = false;   // When 'register' button is clicked it becomes true
   pendingHost: PendingHost;        // object of type Pending Host to be sent when the new user asks to be a host
-  private MainPageUrl: string;
   private LoggedIn = false;
 
   // Used for the image uploading/validating
@@ -30,11 +29,10 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.MainPageUrl = this.route.snapshot.queryParams.MainPageUrl || '/';
     this.user = {userName: '', password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
-      isHost: false, isTenant: false, isAdmin: false , userId: null};
+      isHost: false, isTenant: false, isAdmin: false , userId: null}; // Initializing new user
 
-    this.pendingHost = { userId: 0};
+    this.pendingHost = { userId: 0}; // Initializing pending host
 
     this.LoggedIn = false;
     this.attemptedRegistration = false;
@@ -51,20 +49,20 @@ export class RegisterComponent implements OnInit {
       this.userService.register(this.user, this.user.isHost).
       subscribe(response => {
           if (response == null) {
-            this.registerStatus = 1;
+            this.registerStatus = 1; // Unsuccessful registration because of existing username
           }
           else {
-            this.registerStatus = 2;
-            this.user.userId = response.userId;
+            this.registerStatus = 2; // Successful registration
+            this.user.userId = response.userId; // Capturing new user's username
           }
         },
-        error => {this.registerStatus = 3; }
+        error => {this.registerStatus = 3; } // General server error
       );
     }
 
   }
 
-  // checks if registration is successful and if it is, it does does some actions like login/redirecting
+  // Checks if registration is successful and if it is, it does does some actions like login/redirecting
   successfulRegistration(): boolean{
     if (this.registerStatus === 2  && this.passwordMatch() && !this.emptyFields() && this.attemptedRegistration === true) {
       if (this.LoggedIn === false) {
@@ -81,12 +79,13 @@ export class RegisterComponent implements OnInit {
             // calls function GetUser in app.component class to update the menu panels with the new user's roles
             this.parent.GetUser();
             // if new user has uploaded a profile photo
-            if (this.imageFile != null){
+            if (this.imageFile != null){// If the user has selected to upload an image
+              // A request to upload the image to the server is made
               this.userService.UploadImage(this.user.userName, this.imageFile).subscribe(
-                res => this.router.navigateByUrl('/searchForm')
+                res => this.router.navigateByUrl('/searchForm') // After that the registration has ended, redirection to the home page
               );
             }
-            if (this.imageFile == null){
+            if (this.imageFile == null){// If no image was selected, the user is immediately redirected to the home page
               this.router.navigateByUrl('/searchForm') ;
             }
           }
@@ -111,8 +110,8 @@ export class RegisterComponent implements OnInit {
   }
 
   passwordMatch(): boolean {
-    if (this.user.password == this.passwordVerification) {return true; }
-    else {return false; }
+    if (this.user.password == this.passwordVerification) { return true; }
+    else { return false; }
   }
 
   smallPassword(): boolean {
@@ -129,17 +128,19 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  // This function takes a file, extracts its type, and returns null if the type is not acceptable as a profile photo
   private CheckImageType(file: File): string{
     let FileType = '';
     let Index: number = file.name.length;
 
-    while (file.name.charAt(Index) !== '.' || Index < 0 ){
+    while (file.name.charAt(Index) !== '.' || Index < 0 ){// Iterating the filename from the end to the first '.',
+                                                          // where the file type is located
       FileType = file.name.charAt(Index) + FileType;
       Index--;
     }
-    FileType = file.name.charAt(Index) + FileType; // '.'
+    FileType = file.name.charAt(Index) + FileType; // Adding a '.' to the filename
 
-    switch (FileType) {
+    switch (FileType) {// Checking if the file type is acceptable
       case '.png':
         return '.png';
       case '.jpg':
@@ -149,21 +150,21 @@ export class RegisterComponent implements OnInit {
       case '.gif':
         return '.gif';
       default:
-        return null;
+        return null; // If it is not, null is returned
     }
   }
 
   uploadPhoto(event): void{
     this.ImageFileType = this.CheckImageType(event.target.files[0]);
 
-    if (event.target.files[0].size > 10000000){
+    if (event.target.files[0].size > 10000000){// Maximum size of a profile photo is 10mb (Backend also programed to reject photos > 10mb)
       this.imageFile = null;
       this.ImageTooLarge = true;
       return;
     }else { this.ImageTooLarge = false; }
 
     if ( this.ImageFileType !== null){
-      this.imageFile = event.target.files[0];
+      this.imageFile = event.target.files[0]; // If the file type can be accepted, the image is saved until it's uploaded to the server
       this.InvalidFileType = false;
     }else{
       this.imageFile = null;

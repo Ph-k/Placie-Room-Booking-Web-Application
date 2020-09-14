@@ -3,6 +3,7 @@ import {NavigationStart, Router} from '@angular/router';
 import { UserService } from './service/user.service';
 import {User} from '../model/User';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,16 +11,18 @@ import {User} from '../model/User';
 })
 
 export class AppComponent {
-  title = 'Angular';
-  user: User;
+  title = 'Placie';
 
-  registration = false;
+  user: User; // Logged In User's object
+  registration = false; // Boolean represents if the user is in the register page (Needed to hide menu bar)
 
 
   constructor(private router: Router, private UserSer: UserService) {
     this.user = {userName: '', password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
-      isHost: false, isTenant: false, isAdmin: false , userId: null};
+      isHost: false, isTenant: false, isAdmin: false , userId: null}; // Dummy user object initialization
+
     router.events.forEach((event) => {
+      // if user navigates to register page, then registration boolean becomes true
       if (event instanceof NavigationStart) {
         this.registration = event.url === '/register';
       }
@@ -28,12 +31,13 @@ export class AppComponent {
     this.GetUser();
   }
 
-
+  // Puts logged in user's information to User object
   GetUser(): void{
     this.UserSer.findUserId(localStorage.getItem('username')).subscribe(response => {
       this.UserSer.getUser(response.toString()).subscribe(user =>
       {
         this.user = user;
+        // saves user's roles to local storage
         localStorage.setItem('admin', JSON.stringify(user.isAdmin));
         localStorage.setItem('host', JSON.stringify(user.isHost));
         localStorage.setItem('tenant', JSON.stringify(user.isTenant));
@@ -66,7 +70,7 @@ export class AppComponent {
   Logout(event: any) {
     localStorage.clear();
     this.UserSer.Logout();
-    window.location.href = '/';
+    window.location.href = '/'; // Reload app to search form component
 
   }
 

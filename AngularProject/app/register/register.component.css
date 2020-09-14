@@ -4,6 +4,7 @@
 
 .registrationSection{
   background-color: #00B5DE;
+  border-radius: 20px;
   width: 50%;
   margin-left: 25%;
   margin-right: 25%;
@@ -20,7 +21,6 @@ input{
 h3,label,p{
   color: white;
 }
-
 
 .warning{
   color: red;

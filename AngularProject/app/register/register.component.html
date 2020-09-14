@@ -50,7 +50,7 @@
       <div *ngIf="user.isHost"><p>Approval from our admins is needed in order to become a Host</p></div>
     </div>
 
-    <div *ngIf="usernameExists()" [className]="'warning'"><p>Username Exists!</p></div>
+    <br><div *ngIf="usernameExists()" [className]="'warning'">Username Exists!</div>
     <div *ngIf="successfulRegistration()">
       <b>Successful Registration!!, You will be redirected and logged in automagically!</b>
     </div>

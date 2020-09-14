@@ -14,7 +14,6 @@ export class SearchFormComponent implements OnInit {
   district: string;
   city: string;
   persons: number;
-
   InvalidDate: boolean;
 
   constructor(private router: Router) { }
@@ -30,20 +29,18 @@ export class SearchFormComponent implements OnInit {
   ShowApartments(): void {
 
     // if not valid dates/number of people are entered , then returns without proceeding to the available places
-    if (this.checkIn === undefined || this.checkOut === undefined || this.persons === null || !Number.isInteger(this.persons) ||
-      this.persons <= 0)
-    {
-      return;
-    }
+    if (this.checkIn === undefined || this.checkOut === undefined || this.persons === null
+        || !Number.isInteger(this.persons) || this.persons <= 0)  { return; }
+
     if (this.checkIn > this.checkOut){
       this.InvalidDate = true;
       return;
     }
 
+    // If the user did not specify these fields they are passed as null strings
     if (this.country === null) { this.country = 'null'; }
     if (this.district === null) { this.district = 'null'; }
     if (this.city === null) { this.city = 'null'; }
-    if (this.persons === null) { this.persons = -1; }
 
     // saves dates to the local storage so that user won't be asked to enter the dates/number of people again while reserving a place
     localStorage.setItem('startingDate', this.checkIn.toString());
