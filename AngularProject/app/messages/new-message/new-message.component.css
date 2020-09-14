@@ -10,6 +10,7 @@ h3,p,label{
 .newMessage{
   text-align: center;
   background-color: #00B5DE;
+  border-radius: 25px;
   width: 80%;
   margin-top: 10px;
   margin-left: 10%;

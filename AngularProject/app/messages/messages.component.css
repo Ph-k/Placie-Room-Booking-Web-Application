@@ -3,14 +3,19 @@ label,td{
 }
 
 .message_text{
-  padding-left:1em;
+  padding-left:2em;
   /*color: #00B5DE;*/
   font-weight: bold;
 }
 
-.message_date{
-  padding-left:2em;
-  color: #00B5DE;
+.message_username{
+  padding-left:1em;
+}
+
+.message_date {
+  padding-left: 0.5em;
+  font-size: 70%;
+  font-style: italic;
 }
 
 .messageUsers{
@@ -22,11 +27,25 @@ label,td{
   margin-top: 10px;
   margin-left: 10%;
   margin-right:10%;
+  border-style: solid;
+  border-color: #3DB992;
+  border-radius: 25px;
+  background-image: url("https://pixabay.com/get/57e8d7414f57a514f6d1867dda293f7d1537d9e05a4c704f752f7ad59e4ec750_1920.jpg");
+  background-position-y: 65%;
+  background-position-x: 10%;
+  background-attachment: fixed;
+}
+
+.message{
   background-color: #00B5DE;
+  border-radius: 20px;
+  margin-right: 70%;
+  margin-top: 1%;
 }
 
 .newMessage{
-    background-color: #3DB992;
+  background-color: #3DB992;
+  border-radius: 0px 0px 20px 20px;
 }
 
 table{

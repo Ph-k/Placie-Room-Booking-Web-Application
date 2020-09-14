@@ -62,7 +62,7 @@ export class MessagesComponent implements OnInit {
     if (senderId === this.UsedId){
         return 'You ';
     } else {
-      return this.senderUsername;
+      return this.senderUsername.charAt(0).toUpperCase() + this.senderUsername.substring(1); // Capitalizing first latter
     }
   }
 

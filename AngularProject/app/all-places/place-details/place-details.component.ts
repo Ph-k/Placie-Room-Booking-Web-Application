@@ -142,6 +142,9 @@ export class PlaceDetailsComponent implements OnInit {
     this.messageToHost.senderId = await this.userService.getUserId(localStorage.getItem('username'));
     this.messageToHost.receiverId = this.place.hostId;
     this.messageToHost.date = new Date();
-    this.messageService.SendMessage(this.messageToHost).subscribe( res => window.location.reload());
+    this.messageService.SendMessage(this.messageToHost).subscribe( res =>{
+      window.location.reload();
+      alert('Message send successfully');
+    });
   }
 }
