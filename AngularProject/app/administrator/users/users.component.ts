@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit {
     this.userService.getPendingHosts().subscribe(pendingHosts => {this.pendingHosts = pendingHosts; });
   }
 
+  // checks if a user is pending host given their id
   isPendingHost(id: number): boolean{
     for (let i = 0; i < this.pendingHosts.length; i = i + 1) {
       if (this.pendingHosts[i].userId === id){

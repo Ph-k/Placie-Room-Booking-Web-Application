@@ -47,6 +47,7 @@ export class AllPlacesComponent implements OnInit {
       this.route.snapshot.paramMap.get('maxCapacity')
     ).subscribe(places => {
       this.places = places;
+      console.log(this.places);
       this.places = this.places.filter (place => place.minimumRentingDates
         <= this.daysDiff(this.route.snapshot.paramMap.get('checkIn'), this.route.snapshot.paramMap.get('checkOut')));
       this.filteredPlaces = this.places.slice();

@@ -41,6 +41,11 @@ export class AppComponent {
         localStorage.setItem('admin', JSON.stringify(user.isAdmin));
         localStorage.setItem('host', JSON.stringify(user.isHost));
         localStorage.setItem('tenant', JSON.stringify(user.isTenant));
+
+        // Redirection to admin page for admins
+        if (user.isAdmin === true){
+          this.router.navigateByUrl('/administrator');
+        }
       });
     });
   }
@@ -59,6 +64,7 @@ export class AppComponent {
           localStorage.setItem('token', response.headers.get('Authorization'));
           localStorage.setItem('username', event.target.username.value);
           this.GetUser();
+          // Redirection for admins happens in the above function
         }, error => {
           if (error.status === 403) {
             alert('Invalid username and/or password');

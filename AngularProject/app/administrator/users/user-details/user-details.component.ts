@@ -34,6 +34,7 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  // used to display verify host button only if the user seeing this page is the admin
   adminLoggedIn(): boolean{
     return (localStorage.getItem('admin') === 'true');
   }

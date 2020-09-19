@@ -21,34 +21,19 @@ export class ExportDataComponent implements OnInit {
   constructor(private userService: UserService, private placeService: PlaceService,
               private messageService: MessageService ) { }
 
-  users: User[];
-  pendingHosts: PendingHost[];
-  places: Place[];
-  reservations: Reservation[];
-  availabilities: Availability[];
-  reviews: Review[];
-  messages: Message[];
-  placePhotos: PlacePhoto[];
   fileFormat = true; // true = JSON | false = XML
 
-  ngOnInit(): void {
-    this.userService.getUsers().subscribe(users => this.users = users);
-    this.placeService.getPlaces().subscribe(places => this.places = places);
-    this.placeService.getReservations().subscribe(reservations => this.reservations = reservations);
-    this.messageService.getMessages().subscribe(messages => this.messages = messages);
-    this.userService.getPendingHosts().subscribe(pendingHosts => this.pendingHosts = pendingHosts);
-    this.placeService.getAvailabilities().subscribe(availabilities => this.availabilities = availabilities);
-    this.placeService.getReviews().subscribe( reviews => this.reviews = reviews);
-    this.placeService.getPlacePhotos().subscribe( photos => this.placePhotos = photos);
-  }
+  ngOnInit(): void {}
 
   exportUsers(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.users)], { type: 'text/plain' });
-      a.href = URL.createObjectURL(file);
-      a.download = 'Users.json';
-      a.click();
+      this.userService.getUsers().subscribe(users => {
+        const file = new Blob([JSON.stringify(users)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'Users.json';
+        a.click();
+      });
     }else{
       this.userService.getUsersxml().subscribe(
         XML => {
@@ -64,10 +49,12 @@ export class ExportDataComponent implements OnInit {
   exportPendingHosts(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.pendingHosts)], { type: 'text/plain' });
-      a.href = URL.createObjectURL(file);
-      a.download = 'PendingHosts.json';
-      a.click();
+      this.userService.getPendingHosts().subscribe(pendingHosts => {
+        const file = new Blob([JSON.stringify(pendingHosts)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'PendingHosts.json';
+        a.click();
+      });
     }else{
       this.userService.getPendingHostsXml().subscribe(
         XML => {
@@ -83,10 +70,12 @@ export class ExportDataComponent implements OnInit {
   exportPlaces(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.places)], { type: 'text/plain' });
-      a.href = URL.createObjectURL(file);
-      a.download = 'Places.json';
-      a.click();
+      this.placeService.getPlaces().subscribe(places => {
+        const file = new Blob([JSON.stringify(places)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'Places.json';
+        a.click();
+      });
     }else{
       this.placeService.getReservationsXml().subscribe(
         XML => {
@@ -102,10 +91,12 @@ export class ExportDataComponent implements OnInit {
   exportReservations(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.reservations)], { type: 'text/plain' });
-      a.href = URL.createObjectURL(file);
-      a.download = 'Reservations.json';
-      a.click();
+      this.placeService.getReservations().subscribe(reservations => {
+        const file = new Blob([JSON.stringify(reservations)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'Reservations.json';
+        a.click();
+      });
     }else{
       this.placeService.getReservationsXml().subscribe(
         XML => {
@@ -121,10 +112,12 @@ export class ExportDataComponent implements OnInit {
   exportAvailabilities(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.availabilities)], { type: 'text/plain' });
-      a.href = URL.createObjectURL(file);
-      a.download = 'Availabilities.json';
-      a.click();
+      this.placeService.getAvailabilities().subscribe(availabilities => {
+        const file = new Blob([JSON.stringify(availabilities)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'Availabilities.json';
+        a.click();
+      });
     }else{
       this.placeService.getAvailabilitiesXml().subscribe(
         XML => {
@@ -140,10 +133,12 @@ export class ExportDataComponent implements OnInit {
   exportReviews(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.reviews)], { type: 'text/plain' });
-      a.href = URL.createObjectURL(file);
-      a.download = 'Reviews.json';
-      a.click();
+      this.placeService.getReviews().subscribe( reviews => {
+        const file = new Blob([JSON.stringify(reviews)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'Reviews.json';
+        a.click();
+      });
     }else{
       this.placeService.getReviewsXml().subscribe(
         XML => {
@@ -159,10 +154,12 @@ export class ExportDataComponent implements OnInit {
   exportMessages(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.messages)], { type: 'text/plain' });
-      a.href = URL.createObjectURL(file);
-      a.download = 'Messages.json';
-      a.click();
+      this.messageService.getMessages().subscribe(messages => {
+        const file = new Blob([JSON.stringify(messages)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'Messages.json';
+        a.click();
+      });
     }else{
       this.messageService.getMessagesXml().subscribe(
         XML => {
@@ -178,10 +175,12 @@ export class ExportDataComponent implements OnInit {
   exportPlacePhotos(): void{
     const a = document.createElement('a');
     if (this.fileFormat === true) {
-      const file = new Blob([JSON.stringify(this.placePhotos)], {type: 'text/plain'});
-      a.href = URL.createObjectURL(file);
-      a.download = 'PlacePhotos.json';
-      a.click();
+      this.placeService.getPlacePhotos().subscribe( photos => {
+        const file = new Blob([JSON.stringify(photos)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        a.download = 'PlacePhotos.json';
+        a.click();
+      });
     }else{
       this.placeService.getPlacePhotosXml().subscribe(
         XML => {

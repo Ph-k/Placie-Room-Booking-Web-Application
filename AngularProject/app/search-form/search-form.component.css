@@ -1,10 +1,5 @@
-.background{
-  background-image: url("https://cdn.pixabay.com/photo/2015/07/02/10/10/cinque-terre-828614_1280.jpg");
-  background-size: cover;
-}
-
 #background{
-  background-image: url("https://cdn.pixabay.com/photo/2015/07/02/10/10/cinque-terre-828614_1280.jpg");
+  background-image: url("https://i.pinimg.com/originals/7a/97/6d/7a976d8749e34fad7f34d93a44c42d8a.gif"); /*"https://cdn.pixabay.com/photo/2015/07/02/10/10/cinque-terre-828614_1280.jpg"*/
   background-size: cover;
   background-repeat: no-repeat;
   width:100%;
