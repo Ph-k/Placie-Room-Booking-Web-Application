@@ -22,6 +22,7 @@ export class NewMessageComponent implements OnInit {
     this.invalidReceiverId = false;
   }
 
+  // This function gets the information the user has given, compiles a message accordingly and sends it
   async sendMessage() {
 
     this.message.receiverId = await this.userService.getUserId(this.ReceiverUsername);
@@ -33,11 +34,6 @@ export class NewMessageComponent implements OnInit {
 
     this.message.senderId = await this.userService.getUserId(localStorage.getItem('username'));
     this.message.date = new Date();
-
-    console.log('R_ID=' + this.message.receiverId);
-    console.log('S_ID=' + this.message.senderId);
-    console.log('Mess=' + this.message.text);
-    console.log('Date=' + this.message.date);
 
     console.log(await this.messageService.SendMessage(this.message).toPromise());
 

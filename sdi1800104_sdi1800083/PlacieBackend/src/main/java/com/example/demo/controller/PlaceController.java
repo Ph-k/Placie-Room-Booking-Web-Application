@@ -142,6 +142,9 @@ public class PlaceController {
             headers = "content-type=multipart/form-data",
             method = RequestMethod.POST)
     public int PostMainImage(@RequestParam("file") MultipartFile Image, @PathVariable Long placeId) throws IOException {
+        /*if (!UserHasRights(repository.findByUsername(username).getUserId(), principal)) {
+            throw new IOException();
+        }*/
 
         Place place = repository.findById(placeId).orElse(null);
 
