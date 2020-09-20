@@ -152,6 +152,13 @@ public class PlaceController {
         if (Image.isEmpty()) return -2;
 
         String PhotosDirectory = System.getProperty("user.dir") + "\\images\\Places\\";
+
+        try{
+            PlacePhotoController.CheckCreateDirectory(Paths.get(PhotosDirectory));
+        } catch (IOException e) {
+            throw e;
+        }
+
         String PhotoName = placeId.toString() + PlacePhotoController.GetImageType(Image);
 
         Files.deleteIfExists(Paths.get(PhotoName));

@@ -154,6 +154,7 @@ class UserController {
         if (Image.isEmpty()) return -2;
 
         String PhotosDirectory = System.getProperty("user.dir") + "\\images\\";
+
         String PhotoPath = username + PlacePhotoController.GetImageType(Image);
 
         Files.deleteIfExists(Paths.get(System.getProperty("user.dir") + user.getPhotoPath()));

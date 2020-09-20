@@ -83,7 +83,7 @@ public class PlacePhotoController {
     }
 
     //Function which creates a folder in the given directory, if such a folder does not exist
-    private boolean CheckCreateDirectory(Path path) throws IOException {
+    public static boolean CheckCreateDirectory(Path path) throws IOException {
         if (Files.exists(path)==false) {
             try {
                 Files.createDirectories(path);
