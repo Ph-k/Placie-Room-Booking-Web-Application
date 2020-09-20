@@ -58,11 +58,13 @@ export class AllPlacesComponent implements OnInit {
     });
   }
 
+  // checks difference in two dates ( used to avoid places with minimum renting dates bigger than reservation)
   daysDiff(checkin: string, checkout: string): number {
     // @ts-ignore
     return Math.round((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24) );
   }
 
+  // filters places according to filter inputs
   getFilteredPlaces(): void{
     this.filteredPlaces = [];
     const length = this.places.length;
@@ -147,6 +149,7 @@ export class AllPlacesComponent implements OnInit {
     this.setNumOfPages();
   }
 
+  // used for pagination
   setNumOfPages(): void{
     this.numOfPages = Math.ceil(this.filteredPlaces.length / 9 );
   }
@@ -187,6 +190,7 @@ export class AllPlacesComponent implements OnInit {
     }
   }
 
+  // returns string with rating stars given the rating
   getStarsString(stars: number): string{
     let i: number;
     let starsString = '';

@@ -48,6 +48,7 @@ export class PlaceDetailsComponent implements OnInit {
     this.placeService.getPlace(this.id).subscribe(place => {
       this.place = place;
 
+      // map initialization
       this.map = new ol.Map({
         target: 'map',
         layers: [
@@ -91,6 +92,7 @@ export class PlaceDetailsComponent implements OnInit {
     this.setPlacePhotosIds();
   }
 
+  // when user chooses to reserve
   reserve(): void {
     let checkIn: Date;
     checkIn = new Date(localStorage.getItem('startingDate'));

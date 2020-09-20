@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
   ImageTooLarge = false;
 
 
+
   ngOnInit(): void {
     this.user = {userName: '', password: '', telephone: '', firstName: '', ProfilePhoto: null, email: '', lastName: '',
       isHost: false, isTenant: false, isAdmin: false , userId: null}; // Initializing new user
