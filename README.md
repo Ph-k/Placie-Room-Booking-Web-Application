@@ -19,6 +19,9 @@ Dionysis Maniatakos
 
 Philippos Koumparos
 
+## Beta showcase
+https://ph-k.github.io/PlacieShowcase.github.io/
+
 ## Screenshots
 <img src="https://github.com/Ph-k/Placie-Room-booking-web-application/blob/master/Screenshots/All-Places.png" width="600">
 <img src="https://github.com/Ph-k/Placie-Room-booking-web-application/blob/master/Screenshots/Place-Details.png" width="580">
