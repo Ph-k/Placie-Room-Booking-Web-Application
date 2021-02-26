@@ -19,7 +19,7 @@ Placie is a Room Booking Web Application project for the Web Application Tecnolo
 
 - Philippos Koumparos
 
-## Beta showcase
+## Beta Showcase (Under Construction!)
 https://ph-k.github.io/PlacieShowcase.github.io/
 
 ## Screenshots
