@@ -12,7 +12,7 @@ Placie is a Room Booking Web Application project for the Web Application Tecnolo
 
 - Spring Security
 
-MySQL 
+- MySQL 
 
 ## Project Participants
 - Dionysis Maniatakos
