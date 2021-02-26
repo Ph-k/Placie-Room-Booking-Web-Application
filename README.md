@@ -5,19 +5,19 @@ Placie is a Room Booking Web Application project for the Web Application Tecnolo
 
 ## Technologies Used
 ### Front-End
-Angular (HTML , CSS , Typescript)
+- Angular (HTML , CSS , Typescript)
 
 ### Back-End
-Spring Boot (Java Framework)
+- Spring Boot (Java Framework)
 
-Spring Security
+- Spring Security
 
 MySQL 
 
 ## Project Participants
-Dionysis Maniatakos
+- Dionysis Maniatakos
 
-Philippos Koumparos
+- Philippos Koumparos
 
 ## Beta showcase
 https://ph-k.github.io/PlacieShowcase.github.io/
